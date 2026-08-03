@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Empieza con Citali — Cuéntanos de tu consultorio</title>
+<meta name="description" content="Cinco pasos para dejar lista la configuración de tu consultorio. Te escribimos por WhatsApp para conectar tu número.">
+<meta name="theme-color" content="#17111F">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://citali.mx/empezar.html">
+
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Instrument+Sans:wght@400..600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --void:#17111F; --void-2:#211829; --ink:#241B31; --ink-2:#4A3F58;
+  --muted:#6E6480; --paper:#FAF8F4; --surface:#FFFFFF; --wash:#F1ECF9;
+  --violet:#6D4AE0; --violet-deep:#5433C6; --violet-lift:#A98BFF;
+  --confirm:#3AA37A; --ghost:#D95F41; --line:#E7E1EF; --line-dark:#332942;
+  --display:"Fraunces",Charter,Georgia,serif;
+  --sans:"Instrument Sans",ui-sans-serif,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);background:var(--void);color:#fff;line-height:1.55;
+  -webkit-font-smoothing:antialiased;min-height:100vh;min-height:100dvh;
+  background-image:radial-gradient(70% 50% at 50% 0%,#2B1F4A 0%,transparent 70%);
+  background-repeat:no-repeat;
+}
+[hidden]{display:none !important}
+a{color:inherit}
+h1,h2{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.12;text-wrap:balance}
+:focus-visible{outline:2.5px solid var(--violet-lift);outline-offset:2px;border-radius:4px}
+
+/* ── barra superior ─────────────────────────────────────────────────── */
+.cab{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.1rem clamp(1.1rem,4vw,2.5rem);max-width:78rem;margin-inline:auto;
+}
+.cab a{text-decoration:none}
+.marca{display:flex;align-items:center;gap:.55rem;font-weight:600;letter-spacing:-.01em}
+.marca img{width:1.7rem;height:1.7rem;display:block}
+.ayuda{font-size:.88rem;color:#B6A9CB;display:flex;align-items:center;gap:.4rem}
+.ayuda:hover{color:#fff}
+
+/* ── rejilla principal ──────────────────────────────────────────────── */
+.lienzo{
+  max-width:78rem;margin-inline:auto;padding:0 clamp(1.1rem,4vw,2.5rem) 3rem;
+  display:grid;gap:clamp(1.2rem,3vw,2.2rem);grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);
+  align-items:start;
+}
+@media(max-width:60rem){.lienzo{grid-template-columns:1fr}}
+
+/* ── avance ─────────────────────────────────────────────────────────── */
+.avance{margin-bottom:1.1rem}
+.avance-fila{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  font-size:.8rem;color:#B6A9CB;margin-bottom:.5rem;
+}
+.avance-fila b{color:#fff;font-weight:600}
+.avance-fila .mins{font-family:var(--mono);font-size:.72rem;color:#8C7DA4}
+.riel{height:4px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.riel .lleno-riel{
+  display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--violet),var(--violet-lift));
+  transition:width .45s cubic-bezier(.22,.61,.36,1);
+}
+
+/* ── tarjeta del formulario ─────────────────────────────────────────── */
+.tarjeta{
+  background:var(--surface);color:var(--ink);border-radius:18px;
+  padding:clamp(1.4rem,3vw,2.2rem);box-shadow:0 30px 70px -30px rgba(0,0,0,.7);
+}
+.tarjeta h2{font-size:clamp(1.35rem,3vw,1.75rem);color:var(--ink)}
+.tarjeta .sub{color:var(--muted);font-size:.94rem;margin-top:.45rem}
+fieldset{border:0;margin-top:1.5rem}
+
+.sub+.campo,h2+.campo{margin-top:1.5rem}
+.campo{margin-bottom:1.35rem}
+.campo:last-child{margin-bottom:0}
+label,.etq{display:block;font-size:.9rem;font-weight:600;margin-bottom:.5rem;color:var(--ink)}
+.opt{font-weight:400;color:var(--muted);font-size:.8rem}
+.pista{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+
+input[type=text],input[type=tel]{
+  width:100%;font:inherit;font-size:1rem;padding:.72rem .85rem;color:var(--ink);
+  background:var(--paper);border:1.5px solid var(--line);border-radius:10px;
+  transition:border-color .18s ease,background .18s ease;
+}
+input[type=text]:focus,input[type=tel]:focus{background:#fff;border-color:var(--violet)}
+input::placeholder{color:#A99FBA}
+input[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
+
+.tel{display:flex;align-items:stretch;gap:.5rem}
+.lada{
+  display:flex;align-items:center;padding:0 .8rem;font-size:.92rem;color:var(--ink-2);
+  background:var(--wash);border:1.5px solid var(--line);border-radius:10px;white-space:nowrap;
+}
+.tel input{flex:1;min-width:0}
+
+.err{
+  font-size:.82rem;color:var(--ghost);margin-top:.4rem;
+  display:none;align-items:center;gap:.35rem;
+}
+.err.ver{display:flex}
+.err::before{content:"";width:.4rem;height:.4rem;border-radius:50%;background:currentColor;flex:0 0 auto}
+
+/* opciones en tarjeta */
+.ops{display:grid;gap:.5rem;grid-template-columns:1fr 1fr}
+.ops.c1{grid-template-columns:1fr}
+@media(max-width:26rem){.ops{grid-template-columns:1fr}}
+.op{
+  position:relative;display:block;cursor:pointer;
+  border:1.5px solid var(--line);border-radius:11px;padding:.7rem .85rem;
+  background:var(--paper);transition:border-color .16s ease,background .16s ease;
+}
+.op input{position:absolute;opacity:0;width:0;height:0}
+.op-c{display:block}
+.op-t{display:block;font-size:.94rem;font-weight:500;color:var(--ink)}
+.op-d{display:block;font-size:.78rem;color:var(--muted);margin-top:.1rem}
+.op:hover{border-color:#C9BCE6;background:#fff}
+.op:has(input:checked){border-color:var(--violet);background:var(--wash);box-shadow:inset 0 0 0 1px var(--violet)}
+.op:has(input:focus-visible){outline:2.5px solid var(--violet-lift);outline-offset:2px}
+
+/* chips para los giros */
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{position:relative;cursor:pointer}
+.chip input{position:absolute;opacity:0;width:0;height:0}
+.chip span{
+  display:block;font-size:.86rem;padding:.45rem .8rem;border-radius:99px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink-2);
+  transition:border-color .16s ease,background .16s ease,color .16s ease;
+}
+.chip:hover span{border-color:#C9BCE6;background:#fff}
+.chip:has(input:checked) span{border-color:var(--violet);background:var(--violet);color:#fff;font-weight:500}
+.chip:has(input:focus-visible) span{outline:2.5px solid var(--violet-lift);outline-offset:2px}
+
+/* ── botones ────────────────────────────────────────────────────────── */
+.pie-form{
+  display:flex;align-items:center;gap:.7rem;margin-top:1.6rem;
+  padding-top:1.3rem;border-top:1px solid var(--line);
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+  font:inherit;font-size:.95rem;font-weight:600;padding:.72rem 1.3rem;border:0;
+  border-radius:10px;cursor:pointer;text-decoration:none;
+  transition:background .18s ease,transform .18s ease,opacity .18s ease;
+}
+.btn-p{background:var(--violet);color:#fff;flex:1}
+.btn-p:hover{background:var(--violet-deep)}
+.btn-f{background:transparent;color:var(--ink-2);border:1.5px solid var(--line)}
+.btn-f:hover{border-color:#C9BCE6;color:var(--ink)}
+.btn[data-cargando=true]{opacity:.65;pointer-events:none}
+.btn[data-cargando=true] .btn-txt::after{content:"…"}
+
+.legal{font-size:.78rem;color:var(--muted);margin-top:1rem}
+.legal a{color:var(--violet-deep)}
+.aviso{
+  display:none;font-size:.88rem;background:#FDF3F0;color:#8C3A22;
+  border:1px solid #F0C9BE;border-radius:10px;padding:.7rem .85rem;margin-top:1rem;
+}
+.aviso.ver{display:block}
+.aviso a{color:#8C3A22;font-weight:600}
+
+.retoma{
+  display:none;align-items:center;justify-content:space-between;gap:.8rem;
+  font-size:.82rem;background:var(--wash);color:var(--ink-2);
+  border-radius:10px;padding:.6rem .8rem;margin-bottom:1.2rem;
+}
+.retoma.ver{display:flex}
+.retoma button{
+  font:inherit;font-size:.82rem;background:none;border:0;cursor:pointer;
+  color:var(--violet-deep);font-weight:600;text-decoration:underline;padding:0;
+}
+
+/* trampa para robots */
+.trampa{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* ── panel de configuración ─────────────────────────────────────────── */
+.vista{
+  position:sticky;top:1.5rem;border:1px solid var(--line-dark);border-radius:16px;
+  background:rgba(255,255,255,.035);padding:1.4rem;
+}
+@media(max-width:60rem){
+  .vista{position:static;order:2}
+  body:not([data-paso="5"]) .vista{display:none}
+}
+.vista h3{
+  font-family:var(--sans);font-size:.78rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--violet-lift);margin-bottom:1rem;
+}
+.vista dl{display:grid;gap:.1rem}
+.reng{
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.8rem;
+  padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.07);
+}
+.reng:last-of-type{border-bottom:0}
+.reng dt{font-size:.84rem;color:#9C8DB4}
+.reng dd{font-size:.88rem;text-align:right;color:#5C5170;font-style:italic}
+.reng.lleno dd{color:#fff;font-style:normal;font-weight:500}
+.vista .nota{font-size:.78rem;color:#8C7DA4;margin-top:1rem;line-height:1.45}
+
+/* ── pantalla final ─────────────────────────────────────────────────── */
+.listo{display:none;text-align:center;max-width:34rem;margin:2rem auto 0;grid-column:1/-1}
+.listo.ver{display:block}
+.paloma{
+  width:3rem;height:3rem;border-radius:50%;background:rgba(58,163,122,.16);
+  border:1px solid rgba(58,163,122,.4);display:grid;place-items:center;margin:0 auto 1.2rem;
+}
+.listo h1{font-size:clamp(1.6rem,4vw,2.3rem);margin-bottom:.7rem}
+.listo>p{color:#C4B8D8;margin-bottom:1.8rem}
+.pasos-sig{list-style:none;text-align:left;display:grid;gap:.6rem;margin-bottom:1.8rem}
+.pasos-sig li{
+  display:flex;gap:.75rem;align-items:flex-start;font-size:.92rem;color:#D3C9E2;
+  background:rgba(255,255,255,.04);border:1px solid var(--line-dark);
+  border-radius:11px;padding:.8rem .9rem;
+}
+.pasos-sig .k{
+  flex:0 0 auto;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--violet);
+  color:#fff;display:grid;place-items:center;font-size:.78rem;font-weight:600;
+}
+.listo .btn-f{color:#D3C9E2;border-color:var(--line-dark)}
+.listo .btn-f:hover{color:#fff;border-color:#4C3F66}
+
+/* ── aviso de privacidad ────────────────────────────────────────────── */
+dialog{
+  border:0;border-radius:16px;padding:0;max-width:34rem;width:calc(100% - 2rem);
+  color:var(--ink);background:var(--surface);box-shadow:0 40px 90px -30px rgba(0,0,0,.6);
+}
+dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
+.dlg-in{padding:1.7rem}
+.dlg-in h3{font-family:var(--display);font-size:1.4rem;margin-bottom:1rem}
+.dlg-in h4{font-size:.86rem;font-weight:600;margin-top:1.1rem;margin-bottom:.2rem}
+.dlg-in p{font-size:.9rem;color:var(--ink-2);line-height:1.5}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important;scroll-behavior:auto !important}
+}
+</style>
+</head>
+<body data-paso="1">
+
+<header class="cab">
+  <a class="marca" href="index.html">
+    <img src="assets/logo.svg" alt="" width="28" height="28">
+    <span>Citali</span>
+  </a>
+  <a class="ayuda" href="https://wa.me/526221254659?text=Hola%2C%20tengo%20una%20duda%20sobre%20Citali" target="_blank" rel="noopener">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16.4A8.4 8.4 0 1 1 8.2 19.6l-4.7.9Z"/></svg>
+    ¿Tienes una duda?
+  </a>
+</header>
+
+<main class="lienzo">
+
+  <div id="marco">
+    <div class="avance">
+      <div class="avance-fila">
+        <span><b id="cuenta">Paso 1 de 5</b> · <span id="rotulo">Quién eres</span></span>
+        <span class="mins">≈ 2 min</span>
+      </div>
+      <div class="riel"><i class="lleno-riel" id="barra" style="width:20%"></i></div>
+    </div>
+
+    <div class="tarjeta">
+      <div class="retoma" id="retoma">
+        <span>Retomamos donde te quedaste.</span>
+        <button type="button" id="limpia">Empezar de nuevo</button>
+      </div>
+
+      <form id="alta" novalidate>
+
+        <fieldset data-paso="1">
+          <h2>Empecemos por ti</h2>
+          <p class="sub">Te escribimos por WhatsApp para conectar tu número. No mandamos correos.</p>
+
+          <div class="campo">
+            <label for="nombre">¿Cómo te llamas?</label>
+            <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Marcela Ríos" enterkeyhint="next">
+            <p class="err" id="err-nombre" role="alert">Escribe tu nombre.</p>
+          </div>
+
+          <div class="campo">
+            <label for="whatsapp">Tu WhatsApp</label>
+            <div class="tel">
+              <span class="lada">🇲🇽 +52</span>
+              <input type="tel" id="whatsapp" name="whatsapp" inputmode="numeric"
+                     autocomplete="tel-national" placeholder="55 1234 5678" enterkeyhint="next">
+            </div>
+            <p class="err" id="err-whatsapp" role="alert">Necesitamos los 10 dígitos, con lada.</p>
+          </div>
+
+          <div class="campo">
+            <label for="ciudad">¿En qué ciudad atiendes?</label>
+            <input type="text" id="ciudad" name="ciudad" autocomplete="address-level2"
+                   placeholder="Guadalajara" enterkeyhint="next">
+            <p class="err" id="err-ciudad" role="alert">Dinos tu ciudad.</p>
+          </div>
+        </fieldset>
+
+        <fieldset data-paso="2" hidden>
+          <h2>¿A qué se dedica tu consultorio?</h2>
+          <p class="sub">Define los servicios que Citali va a ofrecer cuando alguien escriba.</p>
+
+          <div class="campo">
+            <span class="etq" id="lbl-giro">Elige el que más se acerque</span>
+            <div class="chips" role="radiogroup" aria-labelledby="lbl-giro"><label class="chip"><input type="radio" name="giro" value="Fisioterapia"><span>Fisioterapia</span></label><label class="chip"><input type="radio" name="giro" value="Rehabilitación física"><span>Rehabilitación física</span></label><label class="chip"><input type="radio" name="giro" value="Quiropráctica"><span>Quiropráctica</span></label><label class="chip"><input type="radio" name="giro" value="Masaje terapéutico"><span>Masaje terapéutico</span></label><label class="chip"><input type="radio" name="giro" value="Acupuntura"><span>Acupuntura</span></label><label class="chip"><input type="radio" name="giro" value="Medicina alternativa"><span>Medicina alternativa</span></label><label class="chip"><input type="radio" name="giro" value="Psicología"><span>Psicología</span></label><label class="chip"><input type="radio" name="giro" value="Terapia de lenguaje"><span>Terapia de lenguaje</span></label><label class="chip"><input type="radio" name="giro" value="Terapia ocupacional"><span>Terapia ocupacional</span></label><label class="chip"><input type="radio" name="giro" value="Nutrición"><span>Nutrición</span></label><label class="chip"><input type="radio" name="giro" value="Odontología"><span>Odontología</span></label><label class="chip"><input type="radio" name="giro" value="Medicina general"><span>Medicina general</span></label><label class="chip"><input type="radio" name="giro" value="Dermatología"><span>Dermatología</span></label><label class="chip"><input type="radio" name="giro" value="Medicina estética"><span>Medicina estética</span></label><label class="chip"><input type="radio" name="giro" value="Podología"><span>Podología</span></label><label class="chip"><input type="radio" name="giro" value="Optometría"><span>Optometría</span></label><label class="chip"><input type="radio" name="giro" value="Veterinaria"><span>Veterinaria</span></label><label class="chip"><input type="radio" name="giro" value="Clínica con varias especialidades"><span>Clínica con varias especialidades</span></label></div>
+            <p class="err" id="err-giro" role="alert">Elige a qué se dedica tu consultorio.</p>
+          </div>
+
+          <div class="campo">
+            <label for="negocio">¿Cómo se llama? <span class="opt">opcional</span></label>
+            <input type="text" id="negocio" name="negocio" placeholder="Fisio Balance" enterkeyhint="next">
+            <p class="pista">Es el nombre con el que Citali se va a presentar.</p>
+          </div>
+        </fieldset>
+
+        <fieldset data-paso="3" hidden>
+          <h2>Tu equipo y tu ritmo</h2>
+          <p class="sub">Con esto armamos las columnas de tu agenda y calculamos tus horarios libres.</p>
+
+          <div class="campo">
+            <span class="etq" id="lbl-tamano">¿Cuántas personas atienden pacientes?</span>
+            <div class="ops c2" role="radiogroup" aria-labelledby="lbl-tamano"><label class="op"><input type="radio" name="tamano" value="Solo yo"><span class="op-c"><span class="op-t">Solo yo</span><span class="op-d">Una sola agenda</span></span></label><label class="op"><input type="radio" name="tamano" value="2 a 3"><span class="op-c"><span class="op-t">2 a 3</span><span class="op-d">Una columna por persona</span></span></label><label class="op"><input type="radio" name="tamano" value="4 a 10"><span class="op-c"><span class="op-t">4 a 10</span><span class="op-d">Agenda por consultorio</span></span></label><label class="op"><input type="radio" name="tamano" value="Más de 10"><span class="op-c"><span class="op-t">Más de 10</span><span class="op-d">Varias sedes o turnos</span></span></label></div>
+            <p class="err" id="err-tamano" role="alert">Elige una opción.</p>
+          </div>
+
+          <div class="campo">
+            <span class="etq" id="lbl-volumen">¿Cuántas citas atiendes por semana?</span>
+            <div class="ops c2" role="radiogroup" aria-labelledby="lbl-volumen"><label class="op"><input type="radio" name="volumen" value="Menos de 10"><span class="op-c"><span class="op-t">Menos de 10</span></span></label><label class="op"><input type="radio" name="volumen" value="10 a 25"><span class="op-c"><span class="op-t">10 a 25</span></span></label><label class="op"><input type="radio" name="volumen" value="25 a 50"><span class="op-c"><span class="op-t">25 a 50</span></span></label><label class="op"><input type="radio" name="volumen" value="Más de 50"><span class="op-c"><span class="op-t">Más de 50</span></span></label></div>
+            <p class="err" id="err-volumen" role="alert">Elige un rango, aunque sea aproximado.</p>
+          </div>
+        </fieldset>
+
+        <fieldset data-paso="4" hidden>
+          <h2>Cómo trabajas hoy</h2>
+          <p class="sub">Nos dice de dónde tenemos que traer tus citas el día que conectes.</p>
+
+          <div class="campo">
+            <span class="etq" id="lbl-herramienta">¿Con qué llevas tus citas ahora?</span>
+            <div class="ops c1" role="radiogroup" aria-labelledby="lbl-herramienta"><label class="op"><input type="radio" name="herramienta" value="Libreta o agenda de papel"><span class="op-c"><span class="op-t">Libreta o agenda de papel</span></span></label><label class="op"><input type="radio" name="herramienta" value="WhatsApp, a mano"><span class="op-c"><span class="op-t">WhatsApp, a mano</span></span></label><label class="op"><input type="radio" name="herramienta" value="Google Calendar"><span class="op-c"><span class="op-t">Google Calendar</span></span></label><label class="op"><input type="radio" name="herramienta" value="Excel o Google Sheets"><span class="op-c"><span class="op-t">Excel o Google Sheets</span></span></label><label class="op"><input type="radio" name="herramienta" value="Un software de agenda"><span class="op-c"><span class="op-t">Un software de agenda</span></span></label><label class="op"><input type="radio" name="herramienta" value="Una recepcionista"><span class="op-c"><span class="op-t">Una recepcionista</span></span></label></div>
+            <p class="err" id="err-herramienta" role="alert">Elige una opción.</p>
+          </div>
+
+          <div class="campo">
+            <span class="etq" id="lbl-precio">¿Cuánto cobras por sesión?</span>
+            <div class="ops c2" role="radiogroup" aria-labelledby="lbl-precio"><label class="op"><input type="radio" name="precio" value="Menos de $300"><span class="op-c"><span class="op-t">Menos de $300</span></span></label><label class="op"><input type="radio" name="precio" value="$300 a $500"><span class="op-c"><span class="op-t">$300 a $500</span></span></label><label class="op"><input type="radio" name="precio" value="$500 a $800"><span class="op-c"><span class="op-t">$500 a $800</span></span></label><label class="op"><input type="radio" name="precio" value="Más de $800"><span class="op-c"><span class="op-t">Más de $800</span></span></label></div>
+            <p class="err" id="err-precio" role="alert">Elige un rango.</p>
+          </div>
+        </fieldset>
+
+        <fieldset data-paso="5" hidden>
+          <h2>Las citas que no llegan</h2>
+          <p class="sub">La última, y es la que más nos importa.</p>
+
+          <div class="campo">
+            <span class="etq" id="lbl-fantasma">El mes pasado, ¿cuántos pacientes no llegaron?</span>
+            <div class="ops c2" role="radiogroup" aria-labelledby="lbl-fantasma"><label class="op"><input type="radio" name="fantasma" value="Ninguno"><span class="op-c"><span class="op-t">Ninguno</span></span></label><label class="op"><input type="radio" name="fantasma" value="1 a 3"><span class="op-c"><span class="op-t">1 a 3</span></span></label><label class="op"><input type="radio" name="fantasma" value="4 a 10"><span class="op-c"><span class="op-t">4 a 10</span></span></label><label class="op"><input type="radio" name="fantasma" value="Más de 10"><span class="op-c"><span class="op-t">Más de 10</span></span></label><label class="op"><input type="radio" name="fantasma" value="No lo sé"><span class="op-c"><span class="op-t">No lo sé</span></span></label></div>
+            <p class="err" id="err-fantasma" role="alert">Elige una opción, aunque sea un aproximado.</p>
+          </div>
+
+          <div class="campo">
+            <span class="etq" id="lbl-anticipo">¿Cobras anticipo hoy?</span>
+            <div class="ops c1" role="radiogroup" aria-labelledby="lbl-anticipo"><label class="op"><input type="radio" name="anticipo" value="Sí, siempre"><span class="op-c"><span class="op-t">Sí, siempre</span></span></label><label class="op"><input type="radio" name="anticipo" value="A veces"><span class="op-c"><span class="op-t">A veces</span></span></label><label class="op"><input type="radio" name="anticipo" value="Nunca"><span class="op-c"><span class="op-t">Nunca</span></span></label></div>
+            <p class="err" id="err-anticipo" role="alert">Elige una opción.</p>
+          </div>
+        </fieldset>
+
+        <div class="trampa" aria-hidden="true">
+          <label for="sitio">No llenes este campo</label>
+          <input type="text" id="sitio" name="sitio" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="pie-form">
+          <button type="button" class="btn btn-f" id="atras" hidden>Atrás</button>
+          <button type="button" class="btn btn-p" id="sigue">
+            <span class="btn-txt">Continuar</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="submit" class="btn btn-p" id="manda" hidden>
+            <span class="btn-txt">Crear mi cuenta</span>
+          </button>
+        </div>
+
+        <div class="aviso" id="aviso"></div>
+
+        <p class="legal">
+          Gratis y sin compromiso. Usamos tus datos solo para contactarte sobre Citali.
+          <a href="#" id="verAviso">Aviso de privacidad</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <aside class="vista" id="vista">
+    <h3>Lo que vamos preparando</h3>
+    <dl>
+      <div class="reng" data-k="negocio"><dt>Consultorio</dt><dd>—</dd></div>
+      <div class="reng" data-k="ciudad"><dt>Ciudad</dt><dd>—</dd></div>
+      <div class="reng" data-k="giro"><dt>Servicios de</dt><dd>—</dd></div>
+      <div class="reng" data-k="tamano"><dt>Agendas</dt><dd>—</dd></div>
+      <div class="reng" data-k="precio"><dt>Precio por sesión</dt><dd>—</dd></div>
+      <div class="reng" data-k="anticipo"><dt>Anticipo</dt><dd>—</dd></div>
+    </dl>
+    <p class="nota">Con esto dejamos tu agenda, tus servicios y tus precios cargados antes de que conectes tu número.</p>
+  </aside>
+
+  <div class="listo" id="listo">
+    <div class="paloma">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h1 id="listoTit">Quedaste en la lista.</h1>
+    <p>Guardamos la configuración de tu consultorio. Te escribimos por WhatsApp para conectar tu número y dejarla andando.</p>
+
+    <ol class="pasos-sig">
+      <li><span class="k">1</span><span>Preparamos tu agenda, tus servicios y tus precios con lo que nos contaste.</span></li>
+      <li><span class="k">2</span><span>Te escribimos por WhatsApp desde el número de Citali para conectar el tuyo.</span></li>
+      <li><span class="k">3</span><span>Si eres de los primeros 30 consultorios, tus 3 meses corren por nuestra cuenta.</span></li>
+    </ol>
+
+    <p style="font-size:.9rem;color:#9C8DB4;margin-bottom:.9rem">¿Conoces a otro terapeuta al que le sirva?</p>
+    <a class="btn btn-f" id="comparte" href="#" target="_blank" rel="noopener">Pasar la voz por WhatsApp</a>
+  </div>
+
+</main>
+
+<dialog id="dlgAviso" aria-labelledby="dlgTit">
+  <div class="dlg-in">
+    <h3 id="dlgTit">Aviso de privacidad</h3>
+    <h4>Quién es responsable</h4>
+    <p>Citali (proyecto en formación, México) es responsable de los datos que nos compartes en este formulario.</p>
+    <h4>Qué recabamos y para qué</h4>
+    <p>Tu nombre, número de WhatsApp, ciudad y las respuestas sobre tu consultorio. Los usamos únicamente para contactarte, activar tu cuenta y preparar tu configuración.</p>
+    <h4>Qué no hacemos</h4>
+    <p>No vendemos, rentamos ni compartimos tus datos con terceros para fines publicitarios.</p>
+    <h4>Tus derechos</h4>
+    <p>Puedes pedirnos acceder, rectificar, cancelar u oponerte al uso de tus datos (derechos ARCO) cuando quieras: responde «BAJA» a cualquier mensaje o escríbenos a hola@citali.mx.</p>
+    <p style="margin-top:1.4rem"><button class="btn btn-p" id="cierraDlg" type="button">Entendido</button></p>
+  </div>
+</dialog>
+
+<script>
+const CONFIG = {
+  SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfycbzV_c_CxlgcGxKRfIQY2PJfdLcVmn_rizf2WepBRLExYqN37bLrPJAMcFDMZdAfSCMx/exec",
+  WHATSAPP: "526221254659",
+  META_PIXEL_ID: "",
+  GA4_ID: "",
+  SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del consultorio, agenda y cobra el anticipo sola. Estamos activando cuentas por grupos: https://citali.mx"
+};
+
+/* ── medición (sólo si hay identificadores configurados) ─────────────── */
+(function(){
+  if (CONFIG.META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.META_PIXEL_ID); fbq('track', 'PageView');
+  }
+  if (CONFIG.GA4_ID) {
+    const s = document.createElement('script'); s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.GA4_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', CONFIG.GA4_ID);
+  }
+})();
+
+function track(evento, datos){
+  try { if (window.fbq) fbq('track', evento, datos || {}); } catch(e){}
+  try { if (window.gtag) gtag('event', evento, datos || {}); } catch(e){}
+}
+
+(function(){
+  const TITULOS = ['Quién eres', 'Tu consultorio', 'Tu equipo', 'Cómo trabajas', 'Las faltas'];
+  const LLAVE   = 'citali_borrador_v1';
+
+  const form   = document.getElementById('alta');
+  const pasos  = Array.prototype.slice.call(form.querySelectorAll('fieldset'));
+  const barra  = document.getElementById('barra');
+  const cuenta = document.getElementById('cuenta');
+  const rotulo = document.getElementById('rotulo');
+  const atras  = document.getElementById('atras');
+  const sigue  = document.getElementById('sigue');
+  const manda  = document.getElementById('manda');
+  const aviso  = document.getElementById('aviso');
+  const retoma = document.getElementById('retoma');
+  const marco  = document.getElementById('marco');
+  const listo  = document.getElementById('listo');
+  const tel    = document.getElementById('whatsapp');
+  const abierto = Date.now();
+
+  let actual = 0;
+
+  /* ── lectura del formulario ───────────────────────────────────────── */
+  const val = function(id){ const e = document.getElementById(id); return e ? e.value.trim() : ''; };
+  const sel = function(n){
+    const r = form.querySelector('input[name="' + n + '"]:checked');
+    return r ? r.value : '';
+  };
+  // Comparar el valor en JS evita tener que escaparlo dentro de un selector
+  const marcaOpcion = function(n, v){
+    const rs = form.querySelectorAll('input[name="' + n + '"]');
+    for (let i = 0; i < rs.length; i++) {
+      if (rs[i].value === v) { rs[i].checked = true; return true; }
+    }
+    return false;
+  };
+
+  /* ── panel de configuración: refleja lo que la persona ya escribió ── */
+  const RENGLONES = [
+    ['negocio',  function(){
+        if (val('negocio')) return val('negocio');
+        const pila = val('nombre').split(' ')[0];
+        return pila ? 'Consultorio de ' + pila : '';
+      }],
+    ['ciudad',   function(){ return val('ciudad'); }],
+    ['giro',     function(){ return sel('giro'); }],
+    ['tamano',   function(){
+        const t = sel('tamano');
+        return t === 'Solo yo' ? 'Una agenda' : t ? t + ' agendas' : ''; }],
+    ['precio',   function(){ return sel('precio'); }],
+    ['anticipo', function(){
+        const a = sel('anticipo');
+        return a === 'Nunca' ? 'Lo activamos contigo' : a ? 'Sí, en cada cita' : ''; }]
+  ];
+
+  const pintaVista = function(){
+    RENGLONES.forEach(function(par){
+      const fila = document.querySelector('.reng[data-k="' + par[0] + '"]');
+      if (!fila) return;
+      const v = par[1]();
+      fila.classList.toggle('lleno', !!v);
+      fila.querySelector('dd').textContent = v || '—';
+    });
+  };
+
+  /* ── teléfono: 55 1234 5678 ───────────────────────────────────────── */
+  tel.addEventListener('input', function(){
+    const d = tel.value.replace(/\D/g, '').slice(0, 10);
+    tel.value = d.length > 6 ? d.slice(0,2) + ' ' + d.slice(2,6) + ' ' + d.slice(6)
+              : d.length > 2 ? d.slice(0,2) + ' ' + d.slice(2)
+              : d;
+  });
+
+  /* ── validación ───────────────────────────────────────────────────── */
+  const falla = function(id, mal){
+    const campo = document.getElementById(id);
+    const e = document.getElementById('err-' + id);
+    if (campo) campo.setAttribute('aria-invalid', mal ? 'true' : 'false');
+    if (e) e.classList.toggle('ver', mal);
+    return !mal;
+  };
+  const fallaGrupo = function(n, mal){
+    const e = document.getElementById('err-' + n);
+    if (e) e.classList.toggle('ver', mal);
+    return !mal;
+  };
+
+  const REGLAS = [
+    function(){
+      let ok = true, foco = null;
+      if (!falla('nombre',   val('nombre').length < 2))                     { ok = false; foco = foco || document.getElementById('nombre'); }
+      if (!falla('whatsapp', tel.value.replace(/\D/g,'').length !== 10))    { ok = false; foco = foco || tel; }
+      if (!falla('ciudad',   val('ciudad').length < 2))                     { ok = false; foco = foco || document.getElementById('ciudad'); }
+      if (foco) foco.focus();
+      return ok;
+    },
+    function(){ return fallaGrupo('giro', !sel('giro')); },
+    function(){
+      const a = fallaGrupo('tamano',  !sel('tamano'));
+      const b = fallaGrupo('volumen', !sel('volumen'));
+      return a && b;
+    },
+    function(){
+      const a = fallaGrupo('herramienta', !sel('herramienta'));
+      const b = fallaGrupo('precio',      !sel('precio'));
+      return a && b;
+    },
+    function(){
+      const a = fallaGrupo('fantasma', !sel('fantasma'));
+      const b = fallaGrupo('anticipo', !sel('anticipo'));
+      return a && b;
+    }
+  ];
+
+  /* ── navegación ───────────────────────────────────────────────────── */
+  const pinta = function(mueveFoco){
+    pasos.forEach(function(f, i){ f.hidden = (i !== actual); });
+    barra.style.width = Math.round(((actual + 1) / pasos.length) * 100) + '%';
+    cuenta.textContent = 'Paso ' + (actual + 1) + ' de ' + pasos.length;
+    rotulo.textContent = TITULOS[actual];
+    atras.hidden = actual === 0;
+    sigue.hidden = actual === pasos.length - 1;
+    manda.hidden = actual !== pasos.length - 1;
+    document.body.dataset.paso = String(actual + 1);
+
+    if (mueveFoco) {
+      const primero = pasos[actual].querySelector('input:not([type=radio]):not([type=hidden]), input[type=radio]');
+      if (primero) primero.focus({ preventScroll: true });
+    }
+    if (actual > 0) marco.scrollIntoView({ block: 'start', behavior: 'auto' });
+  };
+
+  const avanza = function(){
+    if (!REGLAS[actual]()) return;
+    track('OnboardStep', { step: actual + 1 });
+    actual++;
+    guarda();
+    history.pushState({ paso: actual }, '', '#paso-' + (actual + 1));
+    pinta(true);
+  };
+
+  sigue.addEventListener('click', avanza);
+  atras.addEventListener('click', function(){ history.back(); });
+
+  window.addEventListener('popstate', function(e){
+    const p = (e.state && typeof e.state.paso === 'number') ? e.state.paso : 0;
+    actual = Math.min(Math.max(p, 0), pasos.length - 1);
+    pinta(false);
+  });
+
+  // Enter avanza en vez de enviar el formulario a medias
+  form.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && actual < pasos.length - 1) { e.preventDefault(); avanza(); }
+  });
+
+  /* ── revalida en vivo y guarda ────────────────────────────────────── */
+  form.addEventListener('change', function(e){
+    const n = e.target.name;
+    if (n && document.getElementById('err-' + n)) fallaGrupo(n, !sel(n));
+    pintaVista(); guarda();
+  });
+  form.addEventListener('input', function(e){
+    if (e.target.getAttribute('aria-invalid') === 'true') REGLAS[actual]();
+    pintaVista(); guarda();
+  });
+  form.addEventListener('blur', function(e){
+    const id = e.target.id;
+    if (id === 'nombre')   falla('nombre',   val('nombre').length > 0 && val('nombre').length < 2);
+    if (id === 'ciudad')   falla('ciudad',   val('ciudad').length > 0 && val('ciudad').length < 2);
+    if (id === 'whatsapp') {
+      const d = tel.value.replace(/\D/g,'');
+      falla('whatsapp', d.length > 0 && d.length !== 10);
+    }
+  }, true);
+
+  /* ── borrador en el navegador ─────────────────────────────────────── */
+  const CAMPOS_TXT = ['nombre','whatsapp','ciudad','negocio'];
+  const CAMPOS_OPC = ['giro','tamano','volumen','herramienta','precio','fantasma','anticipo'];
+
+  const guarda = function(){
+    try {
+      const d = { paso: actual };
+      CAMPOS_TXT.forEach(function(c){ d[c] = val(c); });
+      CAMPOS_OPC.forEach(function(c){ d[c] = sel(c); });
+      localStorage.setItem(LLAVE, JSON.stringify(d));
+    } catch(e){}
+  };
+
+  const restaura = function(){
+    let d = null;
+    try { d = JSON.parse(localStorage.getItem(LLAVE) || 'null'); } catch(e){}
+    if (!d) return false;
+    CAMPOS_TXT.forEach(function(c){
+      const e = document.getElementById(c); if (e && d[c]) e.value = d[c];
+    });
+    CAMPOS_OPC.forEach(function(c){
+      if (!d[c]) return;
+      marcaOpcion(c, d[c]);
+    });
+    const hayAlgo = CAMPOS_TXT.concat(CAMPOS_OPC).some(function(c){ return d[c]; });
+    if (hayAlgo && typeof d.paso === 'number') actual = Math.min(d.paso, pasos.length - 1);
+    return hayAlgo;
+  };
+
+  document.getElementById('limpia').addEventListener('click', function(){
+    try { localStorage.removeItem(LLAVE); } catch(e){}
+    location.href = location.pathname;
+  });
+
+  /* ── envío ────────────────────────────────────────────────────────── */
+  const par = new URLSearchParams(location.search);
+  const utm = function(k){ return par.get(k) || ''; };
+
+  const envia = async function(datos){
+    const url = CONFIG.SHEETS_ENDPOINT;
+    if (!url) throw new Error('Falta configurar SHEETS_ENDPOINT');
+    const cuerpo = JSON.stringify(datos);
+    try {
+      // Petición simple, sin encabezados extra, para no disparar el preflight de CORS
+      const r = await fetch(url, { method: 'POST', body: cuerpo, redirect: 'follow' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return true;
+    } catch (err) {
+      // Plan B: envío opaco. No leemos la respuesta, pero el registro sí llega.
+      await fetch(url, { method: 'POST', mode: 'no-cors', body: cuerpo });
+      return true;
+    }
+  };
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    aviso.classList.remove('ver');
+
+    // Anti-spam: trampa llena, o enviado en menos de 3 segundos
+    if (document.getElementById('sitio').value || (Date.now() - abierto) < 3000) return;
+    if (!REGLAS[actual]()) return;
+
+    manda.dataset.cargando = 'true';
+
+    const datos = {
+      nombre:      val('nombre'),
+      whatsapp:    '+52' + tel.value.replace(/\D/g, ''),
+      ciudad:      val('ciudad'),
+      giro:        sel('giro'),
+      negocio:     val('negocio'),
+      tamano:      sel('tamano'),
+      herramienta: sel('herramienta'),
+      volumen:     sel('volumen'),
+      precio:      sel('precio'),
+      fantasma:    sel('fantasma'),
+      anticipo:    sel('anticipo'),
+      utm_source:   utm('utm_source'),
+      utm_medium:   utm('utm_medium'),
+      utm_campaign: utm('utm_campaign'),
+      utm_content:  utm('utm_content'),
+      utm_term:     utm('utm_term'),
+      referencia:   document.referrer || '',
+      pagina:       location.href,
+      dispositivo:  navigator.userAgent
+    };
+
+    try {
+      await envia(datos);
+      track('Lead', { content_name: 'Alta Citali', content_category: datos.giro });
+      try { localStorage.removeItem(LLAVE); localStorage.setItem('citali_registrado', '1'); } catch(err){}
+
+      marco.hidden = true;
+      document.getElementById('vista').hidden = true;
+      listo.classList.add('ver');
+      document.getElementById('listoTit').textContent =
+        'Quedaste en la lista, ' + datos.nombre.split(' ')[0] + '.';
+      document.getElementById('comparte').href =
+        'https://wa.me/?text=' + encodeURIComponent(CONFIG.SHARE_TEXT);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+
+    } catch (err) {
+      console.error('[Citali] No se pudo guardar el registro:', err);
+      aviso.innerHTML = 'No pudimos guardar tu registro. Inténtalo otra vez o escríbenos por ' +
+        '<a href="https://wa.me/' + CONFIG.WHATSAPP + '?text=' +
+        encodeURIComponent('Hola, quiero empezar con Citali') +
+        '" target="_blank" rel="noopener">WhatsApp</a>.';
+      aviso.classList.add('ver');
+    } finally {
+      manda.dataset.cargando = 'false';
+    }
+  });
+
+  /* ── arranque ─────────────────────────────────────────────────────── */
+  // El giro puede venir preseleccionado desde las tarjetas del landing
+  const giroUrl = par.get('giro');
+  if (giroUrl) marcaOpcion('giro', giroUrl);
+
+  const dlg = document.getElementById('dlgAviso');
+  document.getElementById('verAviso').addEventListener('click', function(ev){
+    ev.preventDefault(); if (dlg.showModal) dlg.showModal();
+  });
+  document.getElementById('cierraDlg').addEventListener('click', function(){ dlg.close(); });
+
+  if (restaura()) retoma.classList.add('ver');
+
+  const hash = (location.hash.match(/^#paso-(\d)$/) || [])[1];
+  if (hash) actual = Math.min(Math.max(parseInt(hash, 10) - 1, 0), pasos.length - 1);
+
+  // Reconstruimos el historial hasta el paso actual para que Atras (history.back)
+  // tenga a donde regresar aunque se haya entrado directo a #paso-3.
+  for (let i = 0; i <= actual; i++) {
+    const url = location.pathname + location.search + '#paso-' + (i + 1);
+    if (i === 0) history.replaceState({ paso: 0 }, '', url);
+    else         history.pushState({ paso: i }, '', url);
+  }
+  pinta(false);
+  pintaVista();
+})();
+</script>
+</body>
+</html>

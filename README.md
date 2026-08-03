@@ -1,16 +1,21 @@
 # Citali — Landing de pre-registro
 
-Página de una sola pantalla para captar pre-registros de la beta y medir el alcance
-de la publicidad en redes. Todo el sitio es **un solo archivo** (`index.html`): no
-necesita servidor, base de datos ni proceso de construcción.
+Sitio de dos páginas para captar registros y medir el alcance de la publicidad
+en redes. No necesita servidor, base de datos ni proceso de construcción: son
+archivos HTML sueltos.
 
 ```
 citali-landing/
-├─ index.html              ← la página (lo único que se publica, junto con og.png)
+├─ index.html              ← el landing (secciones, carrusel, giros, precios, FAQ)
+├─ empezar.html            ← el alta en 5 pasos (aquí vive el formulario)
+├─ assets/                 ← logo y las fotos de los giros
 ├─ apps-script.gs          ← código para pegar en Google Sheets (recibe los registros)
-├─ og-image.html           ← plantilla para generar la imagen de redes (og.png)
-└─ README-despliegue.md    ← esto
+├─ og-image.html           ← plantilla para generar la imagen de redes (og.jpg)
+└─ README.md               ← esto
 ```
+
+Todos los botones del landing llevan a `empezar.html`. Las tarjetas de giros
+además preseleccionan el giro: `empezar.html?giro=Fisioterapia`.
 
 ---
 
@@ -32,7 +37,8 @@ citali-landing/
 8. Pruébala: pégala en el navegador. Debe responder
    `{"ok":true,"mensaje":"Citali: receptor de pre-registros activo"}`.
 
-Ahora abre `index.html`, busca el bloque `const CONFIG` (casi al final) y pega la URL:
+Ahora abre **`empezar.html`** (ahí vive el formulario), busca el bloque
+`const CONFIG` y pega la URL:
 
 ```js
 SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfy..../exec",
@@ -40,13 +46,17 @@ SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfy..../exec",
 
 Aprovecha y llena también:
 
-| Campo | Para qué sirve |
-|---|---|
-| `WHATSAPP` | Plan B si falla el envío del formulario. Formato `521` + 10 dígitos, sin `+` ni espacios. |
-| `EMAIL` | Aparece en el aviso de privacidad y en el pie. |
-| `META_PIXEL_ID` | Píxel de Meta (paso 4). Déjalo vacío mientras no lo tengas. |
-| `GA4_ID` | Google Analytics, opcional. |
-| `SHARE_TEXT` | Texto que se comparte por WhatsApp desde la pantalla de "gracias". |
+| Campo | Dónde | Para qué sirve |
+|---|---|---|
+| `SHEETS_ENDPOINT` | `empezar.html` | La URL del Apps Script. Solo se configura aquí. |
+| `WHATSAPP` | ambos | Plan B si falla el envío. Formato `52` + 10 dígitos, sin `+` ni espacios. |
+| `EMAIL` | `index.html` | Aparece en el aviso de privacidad y en el pie. |
+| `META_PIXEL_ID` | ambos | Píxel de Meta (paso 4). Déjalo vacío mientras no lo tengas. |
+| `GA4_ID` | ambos | Google Analytics, opcional. |
+| `SHARE_TEXT` | `empezar.html` | Texto que se comparte por WhatsApp desde la pantalla final. |
+
+> Los identificadores de medición van en las dos páginas para que el píxel
+> cuente la visita al landing **y** la del alta.
 
 > **Cada vez que edites el código del Apps Script**, tienes que hacer
 > *Implementar → Administrar implementaciones → ✏️ → Versión: Nueva → Implementar*.
