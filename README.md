@@ -49,6 +49,7 @@ Aprovecha y llena también:
 | Campo | Dónde | Para qué sirve |
 |---|---|---|
 | `SHEETS_ENDPOINT` | `empezar.html` | La URL del Apps Script. Solo se configura aquí. |
+| `VERIFICAR_WHATSAPP` | `empezar.html` | `true` pide un código antes de dar de alta (paso 2). `false` quita el paso 6. |
 | `WHATSAPP` | ambos | Plan B si falla el envío. Formato `52` + 10 dígitos, sin `+` ni espacios. |
 | `EMAIL` | `index.html` | Aparece en el aviso de privacidad y en el pie. |
 | `META_PIXEL_ID` | ambos | Píxel de Meta (paso 4). Déjalo vacío mientras no lo tengas. |
@@ -61,6 +62,69 @@ Aprovecha y llena también:
 > **Cada vez que edites el código del Apps Script**, tienes que hacer
 > *Implementar → Administrar implementaciones → ✏️ → Versión: Nueva → Implementar*.
 > Si solo guardas, sigue corriendo la versión vieja.
+
+---
+
+## Paso 1.5 · Verificación del número por WhatsApp
+
+El último paso del alta manda un código de 6 dígitos y solo escribe la fila en
+la hoja cuando el código coincide. Para que funcione necesitas WhatsApp Business
+API (Meta Cloud API).
+
+> Si todavía no la tienes: pon `VERIFICAR_WHATSAPP: false` en `empezar.html` y
+> `VERIFICAR = false` en `apps-script.gs`. El paso 6 desaparece y el alta guarda
+> directo. **No hay modo intermedio a propósito**: una verificación que deja
+> pasar a todos sin comprobar nada no es una verificación.
+
+### a) La plantilla
+
+En **Meta Business Suite → WhatsApp Manager → Plantillas de mensaje**, crea una:
+
+| Campo | Valor |
+|---|---|
+| Nombre | `citali_codigo` |
+| Categoría | **Autenticación** |
+| Idioma | Español (México) — `es_MX` |
+| Botón | **Copiar código** |
+
+Meta genera el texto solo; no lo escribes tú. La aprobación de las plantillas de
+autenticación suele tardar minutos.
+
+### b) Las credenciales
+
+1. En **developers.facebook.com → tu app → WhatsApp → Configuración de la API**,
+   copia el **Phone Number ID** del número emisor.
+2. Genera un **token permanente**: Business Settings → Usuarios del sistema →
+   crea uno con rol de administrador sobre la app, y dale permisos
+   `whatsapp_business_messaging` y `whatsapp_business_management`.
+   El token de prueba de 24 horas **no sirve** para producción.
+
+### c) Ponlas en el Apps Script
+
+En `apps-script.gs`, llena `WABA.PHONE_ID` y, si tu plantilla no trae botón de
+copiar, pon `WABA.BOTON_COPIAR` en `false`.
+
+**El token no va en el código.** En el editor de Apps Script abre la función
+`guardaToken()`, pega el token, ejecútala una vez y luego borra el valor. Queda
+en Propiedades del script, fuera del repositorio.
+
+Para comprobar que quedó: abre la URL `/exec` en el navegador. Debe decir
+`"verificacion":"lista"`. Si dice `"sin credenciales"`, falta el token o el
+Phone Number ID.
+
+### d) Topes que ya vienen puestos
+
+Se ajustan en el bloque `OTP` de `apps-script.gs`:
+
+| Tope | Valor | Para qué |
+|---|---|---|
+| Vigencia | 10 min | El código deja de servir |
+| Intentos | 5 por código | Después hay que pedir otro |
+| Reenvío | 45 s | Espera entre un envío y el siguiente |
+| Códigos por hora | 4 por número | Evita que quemen tu saldo de plantillas |
+
+> Cada código enviado es una conversación de autenticación y **se cobra**.
+> Revisa el precio vigente en México antes de abrir campañas grandes.
 
 ---
 

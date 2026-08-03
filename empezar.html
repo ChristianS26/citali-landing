@@ -229,6 +229,30 @@ input[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
 .listo .btn-f{color:#D3C9E2;border-color:var(--line-dark)}
 .listo .btn-f:hover{color:#fff;border-color:#4C3F66}
 
+/* ── código de verificación ─────────────────────────────────────────── */
+.enlace{
+  font:inherit;font-size:inherit;background:none;border:0;padding:0;cursor:pointer;
+  color:var(--violet-deep);font-weight:600;text-decoration:underline;
+}
+.enlace:hover{color:var(--violet)}
+.enlace[disabled]{color:var(--muted);text-decoration:none;cursor:default}
+
+.cajas{display:flex;gap:.5rem;max-width:22rem}
+@media(max-width:26rem){.cajas{gap:.35rem}}
+.caja{
+  flex:1 1 0;min-width:0;width:100%;text-align:center;
+  font-family:var(--mono);font-size:1.35rem;font-weight:600;color:var(--ink);
+  padding:.7rem .1rem;background:var(--paper);
+  border:1.5px solid var(--line);border-radius:10px;
+  transition:border-color .16s ease,background .16s ease;
+}
+.caja:focus{background:#fff;border-color:var(--violet);outline:none;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--violet) 22%,transparent)}
+.caja[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
+.caja::-webkit-outer-spin-button,.caja::-webkit-inner-spin-button{appearance:none;margin:0}
+
+.reenvio{display:flex;align-items:center;gap:.5rem;font-size:.84rem;color:var(--muted);margin-top:.9rem}
+
 /* ── aviso de privacidad ────────────────────────────────────────────── */
 dialog{
   border:0;border-radius:16px;padding:0;max-width:34rem;width:calc(100% - 2rem);
@@ -373,6 +397,25 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
           </div>
         </fieldset>
 
+        <fieldset data-paso="6" hidden>
+          <h2>Confirma tu número</h2>
+          <p class="sub">
+            Te mandamos un código de 6 dígitos por WhatsApp a
+            <b id="telEco">tu número</b>.
+            <button type="button" class="enlace" id="cambiaTel">Cambiar</button>
+          </p>
+
+          <div class="campo">
+            <span class="etq" id="lbl-codigo">Escribe el código</span>
+            <div class="cajas" id="cajas" role="group" aria-labelledby="lbl-codigo"><input class="caja" id="c0" inputmode="numeric" maxlength="1" aria-label="Dígito 1 de 6" autocomplete="one-time-code"><input class="caja" id="c1" inputmode="numeric" maxlength="1" aria-label="Dígito 2 de 6"><input class="caja" id="c2" inputmode="numeric" maxlength="1" aria-label="Dígito 3 de 6"><input class="caja" id="c3" inputmode="numeric" maxlength="1" aria-label="Dígito 4 de 6"><input class="caja" id="c4" inputmode="numeric" maxlength="1" aria-label="Dígito 5 de 6"><input class="caja" id="c5" inputmode="numeric" maxlength="1" aria-label="Dígito 6 de 6"></div>
+            <p class="err" id="err-codigo" role="alert">Escribe los 6 dígitos.</p>
+            <p class="reenvio">
+              <span id="cuenta-reenvio">Puedes pedir otro en 0:45</span>
+              <button type="button" class="enlace" id="reenvia" hidden>Reenviar código</button>
+            </p>
+          </div>
+        </fieldset>
+
         <div class="trampa" aria-hidden="true">
           <label for="sitio">No llenes este campo</label>
           <input type="text" id="sitio" name="sitio" tabindex="-1" autocomplete="off">
@@ -385,7 +428,7 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <button type="submit" class="btn btn-p" id="manda" hidden>
-            <span class="btn-txt">Crear mi cuenta</span>
+            <span class="btn-txt" id="txtManda">Crear mi cuenta</span>
           </button>
         </div>
 
@@ -452,6 +495,9 @@ const CONFIG = {
   WHATSAPP: "526221254659",
   META_PIXEL_ID: "",
   GA4_ID: "",
+  // Pide un código por WhatsApp antes de dar de alta. Ponlo en false y el
+  // paso 6 desaparece (no se finge la verificación: o se hace, o no está).
+  VERIFICAR_WHATSAPP: true,
   SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del consultorio, agenda y cobra el anticipo sola. Estamos activando cuentas por grupos: https://citali.mx"
 };
 
@@ -481,10 +527,18 @@ function track(evento, datos){
 }
 
 (function(){
-  const TITULOS = ['Quién eres', 'Tu consultorio', 'Tu equipo', 'Cómo trabajas', 'Las faltas'];
+  const TITULOS = ['Quién eres', 'Tu consultorio', 'Tu equipo', 'Cómo trabajas', 'Las faltas', 'Confirma tu número'];
   const LLAVE   = 'citali_borrador_v1';
 
   const form   = document.getElementById('alta');
+
+  // Se quita antes de contar los pasos, para que el avance diga "de 5"
+  if (!CONFIG.VERIFICAR_WHATSAPP) {
+    const p6 = form.querySelector('fieldset[data-paso="6"]');
+    if (p6) p6.remove();
+  }
+  const VERIFICA = !!form.querySelector('fieldset[data-paso="6"]');
+
   const pasos  = Array.prototype.slice.call(form.querySelectorAll('fieldset'));
   const barra  = document.getElementById('barra');
   const cuenta = document.getElementById('cuenta');
@@ -592,6 +646,74 @@ function track(evento, datos){
       return a && b;
     }
   ];
+  if (VERIFICA) document.getElementById('txtManda').textContent = 'Confirmar y crear mi cuenta';
+
+  if (VERIFICA) REGLAS.push(function(){
+    const mal = leeCodigo().length !== 6;
+    document.getElementById('err-codigo').textContent = 'Escribe los 6 dígitos.';
+    if (mal) cajas[0].focus();
+    return fallaGrupo('codigo', mal);   // fallaGrupo ya devuelve 'está bien'
+  });
+
+  /* ── las seis cajas del código ────────────────────────────────────── */
+  const cajas = Array.prototype.slice.call(document.querySelectorAll('.caja'));
+  const leeCodigo = function(){
+    return cajas.map(function(c){ return c.value.replace(/\D/g,''); }).join('');
+  };
+  const limpiaCodigo = function(){
+    cajas.forEach(function(c){ c.value = ''; c.setAttribute('aria-invalid','false'); });
+    fallaGrupo('codigo', false);
+  };
+
+  cajas.forEach(function(caja, i){
+    caja.addEventListener('input', function(){
+      caja.value = caja.value.replace(/\D/g, '').slice(-1);
+      if (caja.value && i < cajas.length - 1) cajas[i + 1].focus();
+      cajas.forEach(function(c){ c.setAttribute('aria-invalid','false'); });
+      fallaGrupo('codigo', false);
+      // Con los seis dígitos puestos, ya no hay nada más que escribir
+      if (leeCodigo().length === 6) manda.focus();
+    });
+    caja.addEventListener('keydown', function(ev){
+      if (ev.key === 'Backspace' && !caja.value && i > 0) {
+        ev.preventDefault(); cajas[i - 1].value = ''; cajas[i - 1].focus();
+      }
+      if (ev.key === 'ArrowLeft'  && i > 0)                { ev.preventDefault(); cajas[i-1].focus(); }
+      if (ev.key === 'ArrowRight' && i < cajas.length - 1) { ev.preventDefault(); cajas[i+1].focus(); }
+    });
+    caja.addEventListener('paste', function(ev){
+      const pegado = (ev.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+      if (!pegado) return;
+      ev.preventDefault();
+      cajas.forEach(function(c, k){ c.value = pegado.charAt(k) || ''; });
+      fallaGrupo('codigo', false);
+      (leeCodigo().length === 6 ? manda : cajas[Math.min(pegado.length, 5)]).focus();
+    });
+    caja.addEventListener('focus', function(){ caja.select(); });
+  });
+
+  /* ── reenvío: la cuenta es solo para la vista, el tope lo pone el servidor ── */
+  const cuentaEl = document.getElementById('cuenta-reenvio');
+  const reenvia  = document.getElementById('reenvia');
+  let relojId = null;
+
+  const correReloj = function(seg){
+    if (!cuentaEl) return;
+    clearInterval(relojId);
+    let quedan = seg;
+    reenvia.hidden = true;
+    cuentaEl.hidden = false;
+    const dibuja = function(){
+      const m = Math.floor(quedan / 60), t = String(quedan % 60);
+      cuentaEl.textContent = 'Puedes pedir otro en ' + m + ':' + (t.length < 2 ? '0' + t : t);
+    };
+    dibuja();
+    relojId = setInterval(function(){
+      quedan--;
+      if (quedan <= 0) { clearInterval(relojId); cuentaEl.hidden = true; reenvia.hidden = false; }
+      else dibuja();
+    }, 1000);
+  };
 
   /* ── navegación ───────────────────────────────────────────────────── */
   const pinta = function(mueveFoco){
@@ -609,10 +731,24 @@ function track(evento, datos){
       if (primero) primero.focus({ preventScroll: true });
     }
     if (actual > 0) marco.scrollIntoView({ block: 'start', behavior: 'auto' });
+
+    if (VERIFICA && actual === pasos.length - 1) {
+      document.getElementById('telEco').textContent = telBonito();
+      if (mueveFoco) cajas[0].focus({ preventScroll: true });
+    }
   };
 
-  const avanza = function(){
+  const avanza = async function(){
     if (!REGLAS[actual]()) return;
+
+    // Antes de entrar al paso del código hay que mandarlo. Si ya hay uno vivo
+    // para este mismo número, se reusa: pedir otro lo rechazaría el servidor
+    // por el enfriamiento y dejaría a la persona atorada en el paso 5.
+    if (VERIFICA && actual === pasos.length - 2 && !codigoVivo()) {
+      const salio = await pideCodigo(false);
+      if (!salio) return;
+    }
+
     track('OnboardStep', { step: actual + 1 });
     actual++;
     guarda();
@@ -620,7 +756,7 @@ function track(evento, datos){
     pinta(true);
   };
 
-  sigue.addEventListener('click', avanza);
+  sigue.addEventListener('click', function(){ avanza(); });
   atras.addEventListener('click', function(){ history.back(); });
 
   window.addEventListener('popstate', function(e){
@@ -679,7 +815,9 @@ function track(evento, datos){
       marcaOpcion(c, d[c]);
     });
     const hayAlgo = CAMPOS_TXT.concat(CAMPOS_OPC).some(function(c){ return d[c]; });
-    if (hayAlgo && typeof d.paso === 'number') actual = Math.min(d.paso, pasos.length - 1);
+    // El código no se guarda ni se retoma: siempre se pide uno nuevo
+    const tope = VERIFICA ? pasos.length - 2 : pasos.length - 1;
+    if (hayAlgo && typeof d.paso === 'number') actual = Math.min(d.paso, tope);
     return hayAlgo;
   };
 
@@ -692,21 +830,99 @@ function track(evento, datos){
   const par = new URLSearchParams(location.search);
   const utm = function(k){ return par.get(k) || ''; };
 
-  const envia = async function(datos){
+  /**
+   * Petición simple (sin encabezados extra) para no disparar el preflight de
+   * CORS. A diferencia del formulario viejo aquí NO hay plan B con no-cors:
+   * verificar un código exige poder leer la respuesta, y un envío opaco que
+   * diera por buena la verificación sería fingirla.
+   */
+  const llama = async function(datos){
     const url = CONFIG.SHEETS_ENDPOINT;
     if (!url) throw new Error('Falta configurar SHEETS_ENDPOINT');
-    const cuerpo = JSON.stringify(datos);
+    const r = await fetch(url, { method: 'POST', body: JSON.stringify(datos), redirect: 'follow' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  };
+
+  const MOTIVOS = {
+    telefono_invalido: 'Ese número no parece un celular mexicano de 10 dígitos.',
+    muy_seguido:       'Espera unos segundos antes de pedir otro código.',
+    limite:            'Ya pediste varios códigos. Espera un rato o escríbenos por WhatsApp.',
+    no_enviado:        'No pudimos mandarte el código a ese número.',
+    sin_config:        'La verificación por WhatsApp todavía no está activa.',
+    vencido:           'El código venció.',
+    intentos:          'Demasiados intentos con ese código.',
+    incompleto:        'Escribe los 6 dígitos.',
+    datos_incompletos: 'Faltan datos. Revisa los pasos anteriores.',
+    ocupado:           'El sistema está ocupado. Inténtalo otra vez en un momento.'
+  };
+
+  const conWhatsApp = function(texto){
+    return texto + ' Si sigue pasando, escríbenos por <a href="https://wa.me/' +
+      CONFIG.WHATSAPP + '?text=' + encodeURIComponent('Hola, no puedo completar mi registro') +
+      '" target="_blank" rel="noopener">WhatsApp</a> y te damos de alta.';
+  };
+
+  const muestraAviso = function(html){
+    aviso.innerHTML = html;
+    aviso.classList.add('ver');
+  };
+
+  /* ── pide el código y prepara el paso 6 ───────────────────────────── */
+  let telEnviado = '';
+  let enviadoEn  = 0;
+  const VIGENCIA_MS = 9 * 60 * 1000;   // un pelo menos que los 10 min del servidor
+
+  const codigoVivo = function(){
+    return telEnviado === telE164() && (Date.now() - enviadoEn) < VIGENCIA_MS;
+  };
+
+  const pideCodigo = async function(reenviando){
+    const boton = reenviando ? reenvia : sigue;
+    aviso.classList.remove('ver');
+    boton.dataset.cargando = 'true';
+    if (reenviando) reenvia.disabled = true;
+
     try {
-      // Petición simple, sin encabezados extra, para no disparar el preflight de CORS
-      const r = await fetch(url, { method: 'POST', body: cuerpo, redirect: 'follow' });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const r = await llama({ accion: 'enviarCodigo', whatsapp: telE164() });
+
+      if (!r || !r.ok) {
+        muestraAviso(conWhatsApp(MOTIVOS[r && r.motivo] || 'No pudimos mandarte el código.'));
+        return false;
+      }
+
+      telEnviado = telE164();
+      enviadoEn  = Date.now();
+      document.getElementById('telEco').textContent = telBonito();
+      if (reenviando) limpiaCodigo();
+      correReloj(r.espera || 45);
+      track('OnboardCodigoEnviado', {});
       return true;
+
     } catch (err) {
-      // Plan B: envío opaco. No leemos la respuesta, pero el registro sí llega.
-      await fetch(url, { method: 'POST', mode: 'no-cors', body: cuerpo });
-      return true;
+      console.error('[Citali] No se pudo pedir el código:', err);
+      muestraAviso(conWhatsApp('No pudimos mandarte el código.'));
+      return false;
+    } finally {
+      boton.dataset.cargando = 'false';
+      if (reenviando) reenvia.disabled = false;
     }
   };
+
+  const telE164   = function(){ return '+52' + tel.value.replace(/\D/g, ''); };
+  const telBonito = function(){ return '+52 ' + tel.value; };
+
+  if (reenvia) reenvia.addEventListener('click', function(){ pideCodigo(true); });
+
+  // Cambiar de número: se regresa al paso 1 y el código viejo deja de servir
+  const cambiaTel = document.getElementById('cambiaTel');
+  if (cambiaTel) cambiaTel.addEventListener('click', function(){
+    limpiaCodigo();
+    telEnviado = ''; enviadoEn = 0;
+    aviso.classList.remove('ver');
+    if (actual > 0) history.go(-actual);
+    setTimeout(function(){ tel.focus(); tel.select(); }, 60);
+  });
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
@@ -741,7 +957,33 @@ function track(evento, datos){
     };
 
     try {
-      await envia(datos);
+      datos.accion = VERIFICA ? 'validarCodigo' : 'registro';
+      if (VERIFICA) datos.codigo = leeCodigo();
+
+      const r = await llama(datos);
+
+      if (!r || !r.ok) {
+        const motivo = r && r.motivo;
+        if (motivo === 'no_coincide') {
+          const n = (r.restantes === 1) ? 'Te queda 1 intento.'
+                  : 'Te quedan ' + r.restantes + ' intentos.';
+          document.getElementById('err-codigo').textContent = 'Ese código no coincide. ' + n;
+          fallaGrupo('codigo', true);
+          cajas.forEach(function(c){ c.setAttribute('aria-invalid','true'); });
+          cajas[0].focus(); cajas[0].select();
+        } else if (motivo === 'vencido' || motivo === 'intentos') {
+          limpiaCodigo();
+          telEnviado = ''; enviadoEn = 0;
+          muestraAviso(MOTIVOS[motivo] + ' Pide otro con «Reenviar código».');
+          clearInterval(relojId);
+          if (cuentaEl) cuentaEl.hidden = true;
+          if (reenvia)  reenvia.hidden  = false;
+        } else {
+          muestraAviso(conWhatsApp(MOTIVOS[motivo] || 'No pudimos completar tu registro.'));
+        }
+        return;
+      }
+
       track('Lead', { content_name: 'Alta Citali', content_category: datos.giro });
       try { localStorage.removeItem(LLAVE); localStorage.setItem('citali_registrado', '1'); } catch(err){}
 
@@ -756,11 +998,7 @@ function track(evento, datos){
 
     } catch (err) {
       console.error('[Citali] No se pudo guardar el registro:', err);
-      aviso.innerHTML = 'No pudimos guardar tu registro. Inténtalo otra vez o escríbenos por ' +
-        '<a href="https://wa.me/' + CONFIG.WHATSAPP + '?text=' +
-        encodeURIComponent('Hola, quiero empezar con Citali') +
-        '" target="_blank" rel="noopener">WhatsApp</a>.';
-      aviso.classList.add('ver');
+      muestraAviso(conWhatsApp('No pudimos guardar tu registro.'));
     } finally {
       manda.dataset.cargando = 'false';
     }
@@ -780,7 +1018,8 @@ function track(evento, datos){
   if (restaura()) retoma.classList.add('ver');
 
   const hash = (location.hash.match(/^#paso-(\d)$/) || [])[1];
-  if (hash) actual = Math.min(Math.max(parseInt(hash, 10) - 1, 0), pasos.length - 1);
+  if (hash) actual = Math.min(Math.max(parseInt(hash, 10) - 1, 0),
+                              VERIFICA ? pasos.length - 2 : pasos.length - 1);
 
   // Reconstruimos el historial hasta el paso actual para que Atras (history.back)
   // tenga a donde regresar aunque se haya entrado directo a #paso-3.
