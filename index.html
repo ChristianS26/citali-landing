@@ -820,9 +820,140 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .rb,.rb-ico,.rb-fle{width:1.25rem;height:1.25rem;flex:0 0 auto;transition:transform .3s ease}
+  .rb,.rb-ico,.rb-fle{transition:none}
   .rb:hover{transform:none}
+  .rb:hover .rb-ico,.rb:hover .rb-fle,.rb:hover .rb-foto{transform:none}
 }
+
+/* ══ BENTO DE CAPACIDADES ═════════════════════════════════════════════ */
+.bento{background:var(--paper);padding-block:clamp(3rem,7vw,5rem)}
+.bt-cab{text-align:center;margin-bottom:clamp(2rem,4vw,3rem)}
+.bt-cab h2{margin-inline:auto;max-width:18ch}
+.btn-oscuro{background:var(--void);color:#fff;margin-top:1.5rem}
+.btn-oscuro:hover{background:#241838;color:#fff}
+
+.bt-grid{
+  display:grid;gap:clamp(.8rem,1.6vw,1.2rem);
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto;
+}
+.bt-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:1.5rem 1.5rem 0;display:flex;flex-direction:column;overflow:hidden;
+}
+/* Colocación explícita: dos tarjetas altas a los lados, dos apiladas en medio. */
+.bt-card:nth-child(1){grid-column:1;grid-row:1/span 2}
+.bt-card:nth-child(2){grid-column:2;grid-row:1}
+.bt-card:nth-child(3){grid-column:2;grid-row:2}
+.bt-card:nth-child(4){grid-column:3;grid-row:1/span 2}
+.bt-card h3{font-family:var(--sans);font-size:1rem;font-weight:700;margin-bottom:.85rem}
+.bt-lista{list-style:none;margin:0;padding:0;display:grid;gap:.42rem}
+.bt-lista li{
+  position:relative;padding-left:1rem;font-size:.9rem;color:var(--ink-2);line-height:1.45;
+}
+.bt-lista li::before{
+  content:"";position:absolute;left:0;top:.55em;width:.32rem;height:.32rem;
+  border-radius:50%;background:var(--violet);
+}
+.bt-visual{
+  flex:1 1 auto;min-height:0;padding-top:1.4rem;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+
+@media(max-width:64rem){
+  .bt-grid{grid-template-columns:1fr 1fr}
+  .bt-card:nth-child(n){grid-column:auto;grid-row:auto}
+}
+@media(max-width:40rem){.bt-grid{grid-template-columns:1fr}}
+
+/* trío de iconos */
+.bt-trio{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;
+  background:var(--wash);border-radius:14px 14px 0 0;padding:1.5rem 1.2rem;
+  margin:1.5rem -1.5rem 0;
+}
+.bt-cubo{
+  aspect-ratio:1;background:#fff;border:1px solid #E2D8F5;border-radius:11px;
+  display:grid;place-items:center;color:var(--ink);
+}
+.bt-cubo svg{width:44%;max-width:2.1rem}
+
+/* notificación */
+.bt-noti{
+  flex:0 0 auto;display:flex;gap:.55rem;align-items:flex-start;background:var(--wash);
+  border-radius:12px;padding:.7rem .8rem;margin-bottom:.8rem;
+}
+.bt-noti-ic{
+  width:1.6rem;height:1.6rem;border-radius:50%;background:#25D366;flex:0 0 auto;
+  display:grid;place-items:center;
+}
+.bt-noti-ic svg{width:.9rem;height:.9rem}
+.bt-noti b{display:block;font-size:.78rem;color:var(--ink)}
+.bt-noti em{font-style:normal;font-size:.72rem;color:var(--ink-2);line-height:1.35;display:block}
+.bt-noti-h{font-size:.64rem;color:var(--muted);flex:0 0 auto}
+
+/* mini agenda */
+.bt-cal{
+  background:#241B31;border-radius:12px 12px 0 0;padding:.8rem .8rem 0;color:#fff;
+  margin-inline:-.4rem;flex:1 1 auto;min-height:0;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.bt-cal-top span{font-size:.66rem;color:#A99FBA}
+.bt-cal-top b{display:block;font-family:var(--display);font-size:1.05rem;letter-spacing:-.01em}
+.bt-cal-cols{
+  display:grid;grid-template-columns:2.6rem 1fr 1fr;gap:.3rem;
+  font-size:.64rem;color:#A99FBA;margin:.7rem 0 .35rem;text-align:center;
+}
+.bt-cal-rej{display:grid;grid-template-columns:2.6rem 1fr 1fr;gap:.3rem;flex:1 1 auto;min-height:0}
+.bt-horas{display:grid;grid-template-rows:repeat(8,1.4rem);gap:.15rem}
+.bt-horas span{grid-row:span 2;font-family:var(--mono);font-size:.56rem;color:#7D7290;text-align:right;padding-right:.2rem}
+.bt-col{
+  display:grid;grid-template-rows:repeat(8,1.4rem);gap:.15rem;align-content:start;
+  background:rgba(255,255,255,.05);border-radius:5px 5px 0 0;
+}
+.bt-cita,.bt-libre{
+  grid-row:calc(var(--i) + 1)/span var(--n);border-radius:5px;padding:.24rem .35rem;
+  font-size:.58rem;line-height:1.2;overflow:hidden;
+}
+.bt-cita b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bt-cita em{font-style:normal;opacity:.75;font-size:.54rem}
+.c-a{background:#D8E6FB;color:#1B4D8F}
+.c-b{background:#D9F2E4;color:#14603F}
+.c-c{background:#FBEBD5;color:#7A4A0C}
+.bt-libre{border:1.3px dashed rgba(255,255,255,.22);color:#8C81A0;display:grid;place-items:center;font-size:.56rem}
+
+/* teléfono con el sitio */
+.bt-fono{
+  background:#fff;border:6px solid #241B31;border-bottom:0;
+  border-radius:20px 20px 0 0;padding:.75rem .7rem 0;margin-inline:auto;
+  width:100%;max-width:17rem;flex:1 1 auto;min-height:0;overflow:hidden;
+}
+.bt-sitio-top{display:flex;align-items:center;gap:.5rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+.bt-sitio-logo{
+  width:2rem;height:2rem;border-radius:8px;background:linear-gradient(135deg,#00C6F9,#A354FD);
+  display:grid;place-items:center;color:#fff;font-weight:700;font-size:.7rem;flex:0 0 auto;
+}
+.bt-sitio-top b{display:block;font-size:.8rem}
+.bt-sitio-top em{font-style:normal;font-size:.63rem;color:#C98A22}
+.bt-pro{display:flex;align-items:center;justify-content:space-between;padding:.55rem 0;font-size:.72rem;color:var(--ink-2)}
+.bt-caras{display:flex;align-items:center}
+.bt-caras i{width:1.15rem;height:1.15rem;border-radius:50%;border:1.5px solid #fff;margin-left:-.3rem;display:block}
+.bt-caras i:first-child{margin-left:0}
+.bt-caras .s1{background:#E7C9A9}.bt-caras .s2{background:#C89B72}.bt-caras .s3{background:#9E7050}
+.bt-caras b{font-size:.6rem;color:var(--muted);margin-left:.3rem}
+.bt-sec{font-size:.72rem;font-weight:600;margin:.3rem 0 .45rem;color:var(--ink)}
+.bt-serv{
+  border:1px solid var(--line);border-radius:9px;padding:.55rem .6rem;margin-bottom:.45rem;
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:.2rem .5rem;
+}
+.bt-serv b{font-size:.75rem;grid-column:1}
+.bt-serv em{font-style:normal;font-size:.63rem;color:var(--muted);grid-column:1}
+.bt-precio{grid-column:2;grid-row:1;font-family:var(--mono);font-size:.72rem}
+.bt-agr{
+  grid-column:2;grid-row:2;background:var(--violet);color:#fff;border-radius:5px;
+  padding:.16rem .45rem;font-size:.6rem;font-weight:600;text-align:center;
+}
+.bt-serv.tenue{opacity:.55}
 
 @media (prefers-reduced-motion:reduce){
   .pista{transition:none}
@@ -1285,6 +1416,103 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 
     <p class="rb-cred">Fotografías de <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a> — Basil Otshudi, Brett Jordan, Deane Bayas, Ivan Babydov, José Antonio Otegui Auzmendi, Juan Manuel Montejano Lopez, Karl Solano, Nicholas Derio Palacios, Polina ⠀, RDNE Stock project, Ron Lach, Tara Winstead, Tetrakis  Sphericon, Tima Miroshnichenko y Kaboompics.</p>
     <p class="rb-nota">¿Tu consultorio no está en la lista? Escríbenos: si agendas citas por WhatsApp, seguramente encajamos.</p>
+  </div>
+</section>
+
+<section class="bento" id="capacidades">
+  <div class="shell">
+    <div class="bt-cab">
+      <p class="eyebrow">Qué incluye</p>
+      <h2>Todo lo que tu consultorio necesita, en un solo lugar.</h2>
+      <a href="#empezar" class="btn btn-oscuro">Crea tu cuenta gratis
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="bt-grid">
+      <article class="bt-card alta">
+        <h3>Agenda y citas</h3>
+        <ul class="bt-lista"><li>Agenda en línea, una columna por terapeuta</li><li>Citali contesta y agenda por WhatsApp a cualquier hora</li><li>Recordatorios automáticos el día antes</li><li>Reagenda y cancela sin que tú intervengas</li><li>Bloqueo de horarios, comidas y descansos</li></ul>
+
+      <div class="bt-visual">
+        <div class="bt-noti">
+          <span class="bt-noti-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"
+            stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5 5 16.4A8.4 8.4 0 1 1 8.2 19.6l-4.7.9Z"/></svg></span>
+          <span><b>Fisio Balance</b><em>Hola Bárbara, te recordamos tu cita del miércoles a las 12:30 pm</em></span>
+          <span class="bt-noti-h">ahora</span>
+        </div>
+        <div class="bt-cal">
+          <div class="bt-cal-top"><span>Agosto 2026</span><b>Miércoles 12</b></div>
+          <div class="bt-cal-cols"><span></span><span>Marcela</span><span>Julián</span></div>
+          <div class="bt-cal-rej">
+            <div class="bt-horas"><span>09:00</span><span>10:30</span><span>12:00</span><span>13:30</span></div>
+            <div class="bt-col">
+              <div class="bt-cita c-a" style="--i:0;--n:2"><b>Iván Lara</b><em>Sesión 2 de 6</em></div>
+              <div class="bt-cita c-b" style="--i:3;--n:3"><b>Bárbara Tovar</b><em>Anticipo pagado</em></div>
+            </div>
+            <div class="bt-col">
+              <div class="bt-cita c-c" style="--i:1;--n:2"><b>Elsa Prieto</b><em>Terapia manual</em></div>
+              <div class="bt-libre" style="--i:4;--n:2">Libre</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </article>
+      <article class="bt-card media">
+        <h3>Pacientes y expediente</h3>
+        <ul class="bt-lista"><li>Ficha de cada paciente con su historial</li><li>Sesiones y tratamientos, con fechas</li><li>Control de paquetes: «sesión 3 de 8»</li><li>Notas privadas por consulta</li></ul>
+<div class="bt-trio"><span class="bt-cubo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="2.5"/><path d="M9 3.5h6v2.5H9z"/><path d="M8.5 11h7M8.5 15h4.5"/></svg></span><span class="bt-cubo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.2V12l3.2 1.9"/></svg></span><span class="bt-cubo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.2 12 3.8l8.5 4.4v7.6L12 20.2l-8.5-4.4Z"/><path d="M3.5 8.2 12 12.6l8.5-4.4M12 12.6v7.6"/></svg></span></div>
+      </article>
+      <article class="bt-card media">
+        <h3>Cobros y anticipos</h3>
+        <ul class="bt-lista"><li>Link de pago dentro de la conversación</li><li>La cita se confirma sola cuando entra el pago</li><li>Registro de lo cobrado por día y por semana</li><li>Aviso del saldo que queda por cobrar</li></ul>
+<div class="bt-trio"><span class="bt-cubo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13.8a4.2 4.2 0 0 0 6.3.5l2.5-2.5a4.2 4.2 0 0 0-6-6l-1.4 1.4"/><path d="M14 10.2a4.2 4.2 0 0 0-6.3-.5l-2.5 2.5a4.2 4.2 0 0 0 6 6l1.4-1.4"/></svg></span><span class="bt-cubo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3h13v18l-2.2-1.6-2.1 1.6-2.2-1.6-2.2 1.6-2.1-1.6L5.5 21Z"/><path d="M9 8h6M9 12h6"/></svg></span><span class="bt-cubo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V4M4 20h16"/><rect x="7.5" y="12" width="3" height="5" rx="1"/><rect x="12.5" y="8.5" width="3" height="8.5" rx="1"/></svg></span></div>
+      </article>
+      <article class="bt-card alta">
+        <h3>Tu sitio de reservas</h3>
+        <ul class="bt-lista"><li>Página propia con tus servicios y precios</li><li>Reservan en línea a cualquier hora</li><li>Muestra solo tus horarios libres de verdad</li><li>Se comparte por WhatsApp o Instagram</li><li>Cobra el anticipo desde ahí mismo</li></ul>
+
+      <div class="bt-visual">
+        <div class="bt-fono">
+          <div class="bt-sitio-top">
+            <span class="bt-sitio-logo">FB</span>
+            <span><b>Fisio Balance</b><em>★★★★★ 4.9 · 212 reseñas</em></span>
+          </div>
+          <div class="bt-pro"><span>Terapeutas</span>
+            <span class="bt-caras"><i class="s1"></i><i class="s2"></i><i class="s3"></i><b>+2</b></span>
+          </div>
+          <p class="bt-sec">Terapias manuales</p>
+          <div class="bt-serv">
+            <b>Rehabilitación deportiva</b><em>50 min</em>
+            <span class="bt-precio">$500</span>
+            <span class="bt-agr">Agendar</span>
+          </div>
+          <div class="bt-serv">
+            <b>Valoración inicial</b><em>60 min</em>
+            <span class="bt-precio">$600</span>
+            <span class="bt-agr">Agendar</span>
+          </div>
+          <p class="bt-sec">Rehabilitación</p>
+          <div class="bt-serv">
+            <b>Post operatorio</b><em>50 min</em>
+            <span class="bt-precio">$550</span>
+            <span class="bt-agr">Agendar</span>
+          </div>
+          <div class="bt-serv">
+            <b>Lesión deportiva</b><em>45 min</em>
+            <span class="bt-precio">$500</span>
+            <span class="bt-agr">Agendar</span>
+          </div>
+          <p class="bt-sec">Prevención</p>
+          <div class="bt-serv">
+            <b>Valoración postural</b><em>40 min</em>
+            <span class="bt-precio">$450</span>
+            <span class="bt-agr">Agendar</span>
+          </div>
+        </div>
+      </div>
+      </article>
+    </div>
   </div>
 </section>
 
