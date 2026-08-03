@@ -75,7 +75,7 @@ textarea:focus-visible,summary:focus-visible{
 .prose{max-width:62ch}
 
 h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-0.018em;margin:0;text-wrap:balance}
-h1{font-size:clamp(2.3rem,6vw,3.9rem);line-height:1.03}
+h1{font-size:clamp(2.5rem,6.6vw,4.4rem);line-height:1.02}
 h2{font-size:clamp(1.75rem,4vw,2.6rem);line-height:1.1}
 h3{font-size:1.12rem;letter-spacing:-0.008em}
 p{margin:0 0 1rem}
@@ -108,8 +108,13 @@ p{margin:0 0 1rem}
 }
 
 /* ── hero ──────────────────────────────────────────────────────── */
-.hero{background:var(--void);color:#fff;padding-block:clamp(3rem,7vw,5rem) clamp(2rem,4vw,3rem);overflow:hidden;position:relative}
+.hero{background:linear-gradient(180deg,#17111F 0%,#241A40 52%,#312255 100%);color:#fff;padding-block:clamp(3rem,7vw,5rem) clamp(2rem,4vw,3rem);overflow:hidden;position:relative}
+.hero::after{
+  content:"";position:absolute;inset:auto 0 -30% 0;height:70%;pointer-events:none;
+  background:radial-gradient(52% 100% at 50% 100%,rgba(160,115,255,.5),transparent 72%);
+}
 .hero-grid{
+  position:relative;z-index:1;
   max-width:var(--shell);margin-inline:auto;padding-inline:var(--pad);
   display:grid;gap:clamp(2.5rem,5vw,4rem);
   grid-template-columns:minmax(0,1fr);align-items:center;
@@ -123,7 +128,7 @@ p{margin:0 0 1rem}
 .hero .eyebrow{color:var(--violet-lift)}
 .hero h1{color:#fff;max-width:14ch}
 .hero h1 em{font-style:italic;color:var(--violet-lift)}
-.lede{font-size:clamp(1.03rem,2vw,1.16rem);color:#CFC5DC;max-width:46ch;margin:1.15rem 0 1.6rem;line-height:1.55}
+.lede{font-size:clamp(1.08rem,2.1vw,1.28rem);color:#CFC5DC;max-width:46ch;margin:1.15rem 0 1.6rem;line-height:1.55}
 
 .claims{list-style:none;margin:0 0 2rem;padding:0;display:grid;gap:.6rem;max-width:36ch}
 .claims li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem;color:#E4DCEE}
@@ -413,7 +418,7 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 .nojs-note{background:var(--ghost);color:#fff;padding:1rem;text-align:center;font-size:.9rem}
 
 /* ══ SHOWCASE: pestañas + pantallas de producto ══════════════════════ */
-.showcase{background:var(--void);padding-block:0 clamp(3rem,7vw,5rem);position:relative}
+.showcase{background:linear-gradient(180deg,#312255 0%,#241A40 40%,#17111F 100%);padding-block:0 clamp(2.5rem,5vw,4rem);position:relative;overflow:hidden}
 .showcase::before{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(60% 55% at 50% 0%,rgba(109,74,224,.30),transparent 70%);
@@ -584,6 +589,162 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 }
 .hor-pie{font-size:.68rem;color:#9A90AC;margin:0;text-align:center}
 
+/* ══ ESCENA: composición de producto con profundidad ═══════════════════ */
+.escena{
+  position:relative;margin-top:.5rem;
+  display:grid;grid-template-columns:1fr;place-items:center;
+  min-height:clamp(20rem,42vw,34rem);padding-block:clamp(1.5rem,4vw,3rem) clamp(1rem,3vw,2rem);
+}
+/* resplandor detrás del producto */
+.escena::before{
+  content:"";position:absolute;left:50%;top:-14%;translate:-50% 0;
+  width:min(86rem,150%);aspect-ratio:1.35;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(closest-side,rgba(168,120,255,.95),rgba(120,80,235,.5) 44%,rgba(84,51,198,.18) 68%,transparent 84%);
+  filter:blur(30px);
+}
+
+/* ── paneles laterales: dan profundidad, no se leen ── */
+.lateral{
+  position:absolute;top:20%;width:21rem;opacity:.5;pointer-events:none;
+  filter:blur(1px);z-index:1;
+}
+.lateral.izq{left:-11%;transform:perspective(1400px) rotateY(14deg) scale(.9)}
+.lateral.der{right:-11%;transform:perspective(1400px) rotateY(-14deg) scale(.9)}
+@media(max-width:70rem){.lateral{display:none}}
+
+/* ── marco central ── */
+.centro{
+  position:relative;z-index:2;width:min(100%,58rem);
+  border-radius:16px;overflow:hidden;background:#fff;
+  box-shadow:0 40px 90px -24px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.10),
+             0 0 70px -10px rgba(140,96,255,.35);
+}
+
+/* ── teléfono encimado ── */
+.movil{
+  position:absolute;z-index:3;left:-1%;bottom:-9%;width:13rem;
+  border-radius:22px;overflow:hidden;background:#fff;border:5px solid #1B1424;
+  box-shadow:0 30px 60px -18px rgba(0,0,0,.7);
+}
+@media(max-width:60rem){.movil{display:none}}
+
+/* ── chrome de la app ── */
+.app-nav{
+  display:flex;align-items:center;gap:.9rem;padding:.55rem .8rem;
+  background:#FBFAFD;border-bottom:1px solid #E7E1EF;
+}
+.app-marca{display:flex;align-items:center;gap:.35rem;font-weight:700;font-size:.76rem;color:#241B31}
+.app-marca svg{width:.95rem;height:.95rem;flex:0 0 auto}
+.app-menu{display:flex;gap:.85rem;font-size:.66rem;color:#6E6480}
+.app-menu span.act{color:var(--violet-deep);font-weight:600}
+@media(max-width:44rem){.app-menu span:nth-child(n+4){display:none}}
+.app-perfil{
+  margin-left:auto;width:1.25rem;height:1.25rem;border-radius:50%;
+  background:linear-gradient(135deg,#00C6F9,#A354FD);flex:0 0 auto;
+}
+
+/* fila de terapeutas */
+.equipo{
+  display:grid;grid-template-columns:3rem repeat(5,1fr);gap:.25rem;
+  padding:.55rem .7rem .4rem;background:#fff;
+}
+.equipo > span:first-child{}
+.quien{display:flex;flex-direction:column;align-items:center;gap:.2rem}
+.quien i{
+  width:1.5rem;height:1.5rem;border-radius:50%;display:grid;place-items:center;
+  font-style:normal;font-size:.55rem;font-weight:700;color:#fff;
+}
+.quien b{font-size:.6rem;font-weight:600;color:#4A3F58;white-space:nowrap}
+.a1{background:#4A7BF7}.a2{background:#2E9E6B}.a3{background:#C98A22}.a4{background:#8B5CF6}.a5{background:#E0654A}
+
+/* rejilla de la agenda */
+.rej{display:grid;grid-template-columns:3rem repeat(5,1fr);gap:.25rem;padding:0 .7rem .7rem}
+.rej-horas{display:grid;grid-template-rows:repeat(14,1.15rem);gap:.14rem}
+.rej-horas span{
+  font-family:var(--mono);font-size:.55rem;color:#A99FBA;text-align:right;padding-right:.25rem;
+  font-variant-numeric:tabular-nums;
+}
+.rej-col{
+  display:grid;grid-template-rows:repeat(14,1.15rem);gap:.14rem;
+  background:repeating-linear-gradient(#FAF8FC 0 1.15rem,transparent 1.15rem 1.29rem);
+  border-radius:4px;
+}
+.ap{
+  grid-row:calc(var(--i) + 1)/span var(--n);border-radius:4px;padding:.16rem .3rem;
+  font-size:.55rem;line-height:1.15;overflow:hidden;border-left:2.5px solid;
+}
+.ap b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap em{font-style:normal;opacity:.7;font-size:.52rem}
+.k1{background:#E8F0FE;color:#1B4D8F;border-color:#4A7BF7}
+.k2{background:#E6F6EC;color:#1B6640;border-color:#2E9E6B}
+.k3{background:#FDF3E2;color:#8A5510;border-color:#C98A22}
+.k4{background:#F1EAFE;color:#5A2E92;border-color:#8B5CF6}
+.k5{background:#FDECE7;color:#8E3A22;border-color:#E0654A}
+.ap.pagada{box-shadow:inset 0 0 0 1.5px #2E9E6B}
+.hueco{
+  grid-row:calc(var(--i) + 1)/span var(--n);border:1.5px dashed #DCD5E6;border-radius:4px;
+  display:grid;place-items:center;font-size:.52rem;color:#A99FBA;
+}
+
+/* tarjeta flotante de detalle */
+.detalle{
+  position:absolute;z-index:4;right:-5%;top:44%;width:14.5rem;
+  background:#fff;border-radius:10px;padding:.7rem .8rem;
+  box-shadow:0 24px 50px -14px rgba(0,0,0,.45),0 0 0 1px #E7E1EF;
+}
+@media(max-width:52rem){.detalle{display:none}}
+.detalle h5{margin:0 0 .1rem;font-family:var(--sans);font-size:.78rem;font-weight:700;color:#241B31}
+.detalle .serv-min{font-size:.64rem;color:#6E6480;margin:0 0 .5rem}
+.detalle dl{margin:0;display:grid;gap:.28rem;font-size:.63rem}
+.detalle dl div{display:flex;gap:.4rem;align-items:center;color:#4A3F58}
+.detalle dl svg{flex:0 0 auto;opacity:.55}
+.detalle .estado{
+  margin-top:.55rem;display:flex;align-items:center;justify-content:space-between;
+  background:#E4F3ED;color:#1B6640;border-radius:6px;padding:.32rem .45rem;
+  font-size:.62rem;font-weight:600;
+}
+.detalle .acc{display:flex;gap:.35rem;margin-top:.5rem}
+.detalle .acc span{
+  flex:1;text-align:center;font-size:.6rem;padding:.3rem;border-radius:5px;
+  border:1px solid #E7E1EF;color:#4A3F58;
+}
+.detalle .acc span.pri{background:var(--violet);border-color:var(--violet);color:#fff;font-weight:600}
+
+/* ── contenido del teléfono ── */
+.mov-top{
+  background:linear-gradient(135deg,#5433C6,#8B5CF6);color:#fff;padding:.7rem .65rem .55rem;
+}
+.mov-top b{display:block;font-size:.72rem;font-weight:700}
+.mov-top em{font-style:normal;font-size:.58rem;opacity:.8}
+.mov-dias{display:flex;gap:.2rem;margin-top:.5rem}
+.mov-dias span{
+  flex:1;text-align:center;font-size:.55rem;padding:.22rem 0;border-radius:4px;
+  background:rgba(255,255,255,.16);
+}
+.mov-dias span.hoy{background:#fff;color:#5433C6;font-weight:700}
+.mov-lista{padding:.5rem;display:grid;gap:.3rem}
+.mov-cita{
+  border-radius:5px;padding:.3rem .4rem;font-size:.56rem;line-height:1.2;border-left:2.5px solid;
+}
+.mov-cita b{display:block;font-weight:600}
+.mov-cita em{font-style:normal;opacity:.7;font-size:.52rem}
+.mov-pie{
+  display:flex;justify-content:space-around;padding:.4rem;border-top:1px solid #E7E1EF;
+}
+.mov-pie i{width:.85rem;height:.85rem;border-radius:3px;background:#E7E1EF;display:block}
+.mov-pie i.act{background:var(--violet)}
+
+/* ── paneles laterales: contenido mínimo, sólo siluetas ── */
+.lat-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 20px 50px -20px rgba(0,0,0,.6)}
+.lat-head{padding:.5rem .7rem;background:#FBFAFD;border-bottom:1px solid #E7E1EF;font-size:.62rem;color:#6E6480}
+.lat-body{padding:.7rem;display:grid;gap:.45rem}
+.lat-kpi{display:flex;justify-content:space-between;align-items:baseline}
+.lat-kpi b{font-family:var(--display);font-size:1.35rem;color:#241B31}
+.lat-kpi span{font-size:.58rem;color:#9A90AC}
+.lat-barra{height:.42rem;border-radius:3px;background:#EFE9FC}
+.lat-barra i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#6D4AE0,#A354FD);width:var(--w)}
+.lat-fila{display:flex;justify-content:space-between;font-size:.58rem;color:#6E6480}
+
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 }
@@ -647,50 +808,147 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 
     <!-- ── Agenda ───────────────────────────────────────────── -->
     <div class="sc-panel on" role="tabpanel" id="p-agenda" aria-labelledby="t-agenda">
-      <div class="ui">
-        <div class="ui-bar"><i></i><i></i><i></i><span>Agenda · semana del 10 de agosto</span></div>
-        <div class="ui-body">
-          <div class="cal">
-            <div class="cal-head">
-              <span></span>
-              <span>Lun 10</span><span>Mar 11</span><span class="hoy">Mié 12</span><span>Jue 13</span><span>Vie 14</span>
-            </div>
-            <div class="cal-grid">
-              <div class="horas">
-                <span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span>
-                <span>13:00</span><span>16:00</span><span>17:00</span><span>18:00</span>
-              </div>
-              <div class="dia">
-                <div class="cita c1" style="--i:0;--n:2"><b>Ana Robles</b><em>Rehabilitación</em></div>
-                <div class="cita c2" style="--i:3;--n:2"><b>Luis Paredes</b><em>Valoración</em></div>
-                <div class="cita c3" style="--i:6;--n:2"><b>Sofía Nava</b><em>Terapia manual</em></div>
-              </div>
-              <div class="dia">
-                <div class="cita c2" style="--i:1;--n:2"><b>Marco Díaz</b><em>Sesión 3 de 8</em></div>
-                <div class="cita c4" style="--i:5;--n:3"><b>Rita Campos</b><em>Rehabilitación</em></div>
-              </div>
-              <div class="dia">
-                <div class="cita c1" style="--i:0;--n:2"><b>Iván Lara</b><em>Sesión 2 de 6</em></div>
-                <div class="cita nueva" style="--i:3;--n:2"><b>Bárbara Tovar</b><em>Anticipo pagado ✓</em></div>
-                <div class="cita c3" style="--i:6;--n:2"><b>Elsa Prieto</b><em>Terapia manual</em></div>
-              </div>
-              <div class="dia">
-                <div class="cita c4" style="--i:2;--n:2"><b>Hugo Ferrer</b><em>Valoración</em></div>
-                <div class="libre" style="--i:5;--n:2">Libre</div>
-                <div class="cita c1" style="--i:7;--n:2"><b>Nadia Cruz</b><em>Sesión 5 de 8</em></div>
-              </div>
-              <div class="dia">
-                <div class="cita c3" style="--i:1;--n:3"><b>Óscar Vela</b><em>Rehabilitación</em></div>
-                <div class="cita c2" style="--i:6;--n:2"><b>Pilar Ochoa</b><em>Sesión 1 de 4</em></div>
-              </div>
+      <div class="escena">
+
+        <!-- panel lateral izquierdo: sólo aporta profundidad -->
+        <div class="lateral izq" aria-hidden="true">
+          <div class="lat-card">
+            <div class="lat-head">Resumen del mes</div>
+            <div class="lat-body">
+              <div class="lat-kpi"><b>184</b><span>citas agendadas</span></div>
+              <div class="lat-barra"><i style="--w:78%"></i></div>
+              <div class="lat-fila"><span>Agendadas por Citali</span><span>71%</span></div>
+              <div class="lat-barra"><i style="--w:71%"></i></div>
+              <div class="lat-fila"><span>Con anticipo pagado</span><span>88%</span></div>
+              <div class="lat-barra"><i style="--w:88%"></i></div>
+              <div class="lat-fila"><span>No llegaron</span><span>4%</span></div>
+              <div class="lat-barra"><i style="--w:8%"></i></div>
+              <div class="lat-kpi"><b>$26,400</b><span>cobrado</span></div>
             </div>
           </div>
         </div>
+
+        <!-- panel lateral derecho -->
+        <div class="lateral der" aria-hidden="true">
+          <div class="lat-card">
+            <div class="lat-head">fisiobalance.citali.mx</div>
+            <div class="lat-body">
+              <div class="lat-fila"><span>Valoración inicial · 60 min</span><span>$600</span></div>
+              <div class="lat-barra"></div>
+              <div class="lat-fila"><span>Terapia manual · 50 min</span><span>$500</span></div>
+              <div class="lat-barra"></div>
+              <div class="lat-fila"><span>Rehabilitación · 50 min</span><span>$500</span></div>
+              <div class="lat-barra"></div>
+              <div class="lat-fila"><span>Punción seca · 40 min</span><span>$450</span></div>
+              <div class="lat-barra"></div>
+              <div class="lat-kpi"><b>12</b><span>reservas esta semana</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── marco central: la agenda ── -->
+        <div class="centro">
+          <div class="app-nav">
+            <span class="app-marca">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#6D4AE0" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>
+              Citali
+            </span>
+            <span class="app-menu">
+              <span class="act">Agenda</span><span>Pacientes</span><span>Cobros</span>
+              <span>Recordatorios</span><span>Reportes</span><span>Ajustes</span>
+            </span>
+            <span class="app-perfil"></span>
+          </div>
+
+          <div class="equipo">
+            <span></span>
+            <span class="quien"><i class="a1">MR</i><b>Marcela</b></span>
+            <span class="quien"><i class="a2">JT</i><b>Julián</b></span>
+            <span class="quien"><i class="a3">PS</i><b>Paola</b></span>
+            <span class="quien"><i class="a4">DF</i><b>Diego</b></span>
+            <span class="quien"><i class="a5">LC</i><b>Lucía</b></span>
+          </div>
+
+          <div class="rej">
+            <div class="rej-horas">
+              <span>08:00</span><span>09:00</span><span>10:00</span><span>11:00</span>
+              <span>12:00</span><span>13:00</span><span>16:00</span>
+            </div>
+            <div class="rej-col">
+              <div class="ap k1" style="--i:0;--n:2"><b>Ana Robles</b><em>Rehabilitación</em></div>
+              <div class="ap k2" style="--i:3;--n:2"><b>Luis Paredes</b><em>Valoración</em></div>
+              <div class="ap k1" style="--i:6;--n:3"><b>Sofía Nava</b><em>Terapia manual</em></div>
+              <div class="ap k3" style="--i:10;--n:2"><b>Raúl Méndez</b><em>Sesión 4 de 8</em></div>
+              <div class="ap k1" style="--i:12;--n:2"><b>Tere Olvera</b><em>Punción seca</em></div>
+            </div>
+            <div class="rej-col">
+              <div class="ap k2" style="--i:1;--n:2"><b>Marco Díaz</b><em>Sesión 3 de 8</em></div>
+              <div class="ap k4" style="--i:4;--n:3"><b>Rita Campos</b><em>Rehabilitación</em></div>
+              <div class="hueco" style="--i:8;--n:2">Libre</div>
+              <div class="ap k2" style="--i:10;--n:2"><b>Iker Solís</b><em>Valoración</em></div>
+              <div class="ap k5" style="--i:12;--n:2"><b>Wendy Ruiz</b><em>Terapia manual</em></div>
+            </div>
+            <div class="rej-col">
+              <div class="ap k1" style="--i:0;--n:2"><b>Iván Lara</b><em>Sesión 2 de 6</em></div>
+              <div class="ap k2 pagada" style="--i:3;--n:2"><b>Bárbara Tovar</b><em>Anticipo ✓ $150</em></div>
+              <div class="ap k3" style="--i:6;--n:2"><b>Elsa Prieto</b><em>Terapia manual</em></div>
+              <div class="ap k4" style="--i:9;--n:3"><b>Gael Ponce</b><em>Rehabilitación</em></div>
+              <div class="ap k1" style="--i:12;--n:2"><b>Alma Vidal</b><em>Sesión 6 de 8</em></div>
+            </div>
+            <div class="rej-col">
+              <div class="ap k4" style="--i:1;--n:2"><b>Hugo Ferrer</b><em>Valoración</em></div>
+              <div class="ap k5" style="--i:4;--n:2"><b>Nora Beltrán</b><em>Punción seca</em></div>
+              <div class="hueco" style="--i:7;--n:2">Libre</div>
+              <div class="ap k1" style="--i:9;--n:2"><b>Nadia Cruz</b><em>Sesión 5 de 8</em></div>
+              <div class="ap k3" style="--i:11;--n:3"><b>Beto Cano</b><em>Rehabilitación</em></div>
+            </div>
+            <div class="rej-col">
+              <div class="ap k3" style="--i:0;--n:3"><b>Óscar Vela</b><em>Rehabilitación</em></div>
+              <div class="ap k1" style="--i:4;--n:2"><b>Pilar Ochoa</b><em>Sesión 1 de 4</em></div>
+              <div class="ap k2" style="--i:7;--n:2"><b>Saúl Ibarra</b><em>Terapia manual</em></div>
+              <div class="ap k5" style="--i:10;--n:2"><b>Karen Ríos</b><em>Valoración</em></div>
+              <div class="ap k4" style="--i:12;--n:2"><b>Emilio Paz</b><em>Sesión 2 de 6</em></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- tarjeta de detalle, flotando sobre la agenda -->
+        <div class="detalle" aria-hidden="true">
+          <h5>Bárbara Tovar</h5>
+          <p class="serv-min">Terapia manual · 50 min</p>
+          <dl>
+            <div><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M2 6.5h12M5.5 1.8v2.4M10.5 1.8v2.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Miércoles 12, 12:30 pm</div>
+            <div><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.8" stroke="currentColor" stroke-width="1.6"/><path d="M2.5 14c.6-2.8 2.8-4.2 5.5-4.2s4.9 1.4 5.5 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Marcela Ruvalcaba</div>
+            <div><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3.4 6.8c1.2 2.6 3.2 4.6 5.8 5.8l1.9-1.9c.3-.3.7-.4 1-.2 1 .4 2 .6 3.1.6.5 0 .8.4.8.8v3c0 .5-.3.8-.8.8C7.6 15.7 1.3 9.4 1.3 1.6c0-.5.4-.8.8-.8h3c.5 0 .8.4.8.8 0 1.1.2 2.1.6 3.1.1.3 0 .7-.2 1L3.4 6.8Z" stroke="currentColor" stroke-width="1.4"/></svg> Llegó por WhatsApp</div>
+          </dl>
+          <div class="estado"><span>✓ Anticipo pagado</span><span>$150</span></div>
+          <div class="acc"><span>Ficha</span><span class="pri">Escribirle</span></div>
+        </div>
+
+        <!-- teléfono encimado -->
+        <div class="movil" aria-hidden="true">
+          <div class="mov-top">
+            <b>Miércoles 12</b><em>8 citas · 2 huecos libres</em>
+            <div class="mov-dias">
+              <span>L 10</span><span>M 11</span><span class="hoy">M 12</span><span>J 13</span><span>V 14</span>
+            </div>
+          </div>
+          <div class="mov-lista">
+            <div class="mov-cita k1"><b>09:00 · Iván Lara</b><em>Sesión 2 de 6</em></div>
+            <div class="mov-cita k2 pagada"><b>12:30 · Bárbara Tovar</b><em>Anticipo ✓ $150</em></div>
+            <div class="mov-cita k3"><b>13:30 · Elsa Prieto</b><em>Terapia manual</em></div>
+            <div class="mov-cita k4"><b>16:00 · Gael Ponce</b><em>Rehabilitación</em></div>
+            <div class="mov-cita k1"><b>17:30 · Alma Vidal</b><em>Sesión 6 de 8</em></div>
+          </div>
+          <div class="mov-pie"><i class="act"></i><i></i><i></i><i></i></div>
+        </div>
+
       </div>
-      <p class="panel-note">Cada cita entra sola desde WhatsApp. Tú solo abres la agenda para ver a quién sigues.</p>
+
+      <p class="panel-note">Cada cita entra sola desde WhatsApp. Tú solo abres la agenda
+        para ver a quién sigues.</p>
     </div>
 
-    <!-- ── WhatsApp con IA ──────────────────────────────────── -->
     <div class="sc-panel" role="tabpanel" id="p-wa" aria-labelledby="t-wa" hidden>
       <div class="ui ui-chat">
         <div class="ui-bar"><i></i><i></i><i></i><span>WhatsApp · tu número de siempre</span></div>
