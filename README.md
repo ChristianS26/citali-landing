@@ -169,3 +169,26 @@ Números que de verdad importan durante la prueba:
 - **Correo de contacto**: hoy dice `hola@citali.mx`; hay que crearlo o cambiarlo.
 - Revisar el aviso de privacidad con quien lleve lo legal antes de meterle dinero
   a los anuncios, y decidir si registras la marca ante el IMPI (la propuesta lo tenía pendiente).
+
+---
+
+## El logo
+
+Vive en `assets/`. El SVG es la fuente de verdad: escala a cualquier tamaño,
+pesa 1.4 KB y no necesita versiones @2x.
+
+| Archivo | Cuándo usarlo |
+|---|---|
+| `logo.svg` | Uso general. Gradiente cian → morado, fondo transparente. Es también el favicon. |
+| `logo-mono.svg` | Cuando el gradiente no cabe: hereda el color del texto con `currentColor`, así que se pinta con CSS (`color: #fff`). Útil sobre fondos de color, en impresión o en un solo tono. |
+| `apple-touch-icon.png` | Icono al guardar el sitio en la pantalla de inicio de iOS. 180×180 sobre el morado oscuro de marca. |
+| `logo-original.png` | El PNG original tal cual llegó, 1254×1254. No se usa en el sitio; queda como respaldo. |
+
+En `index.html` el logo va **incrustado** en la barra superior, no como `<img>`:
+así se pinta al instante y se puede animar o recolorear desde CSS.
+
+Si cambias el SVG, acuérdate de regenerar `apple-touch-icon.png`.
+
+> El gradiente del logo (cian → morado) y el violeta de la interfaz
+> (`--violet: #6D4AE0`) conviven pero no son el mismo color. Si en algún
+> momento quieren unificar la identidad, ese es el punto a decidir.
