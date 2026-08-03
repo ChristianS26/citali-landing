@@ -591,17 +591,8 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 .hor-pie{font-size:.68rem;color:#9A90AC;margin:0;text-align:center}
 
 /* ══ ESCENA: escritorio dominante + teléfono encimado ═════════════════ */
-.escena{
-  position:relative;left:50%;translate:-50% 0;width:100vw;max-width:100vw;
-  padding-block:clamp(1.5rem,4vw,3rem) clamp(1rem,3vw,2rem);
-  display:grid;place-items:center;
-}
-.escena::before{
-  content:"";position:absolute;left:50%;top:-18%;translate:-50% 0;
-  width:min(92rem,150%);aspect-ratio:1.3;border-radius:50%;pointer-events:none;z-index:0;
-  background:radial-gradient(closest-side,rgba(168,120,255,.9),rgba(120,80,235,.45) 44%,rgba(84,51,198,.16) 68%,transparent 84%);
-  filter:blur(30px);
-}
+.escena{position:relative;display:grid;place-items:center;padding-block:clamp(1rem,2.5vw,2rem) clamp(.5rem,1.5vw,1.2rem)}
+.escena::before{content:"";position:absolute;left:50%;top:-10%;translate:-50% 0;width:130%;aspect-ratio:1.5;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(closest-side,rgba(168,120,255,.75),rgba(120,80,235,.35) 46%,transparent 76%);filter:blur(26px)}
 .marco{position:relative;z-index:1}
 
 /* ── el escritorio ── */
@@ -632,7 +623,7 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 @media(max-width:58rem){.tel{display:none}}
 
 /* ── pantalla de bloqueo con notificación ── */
-.lock{position:relative;height:16rem;color:#fff}
+.lock{position:relative;height:19rem;color:#fff}
 .lock .fondo{position:absolute;inset:0}
 .lock .hora{position:relative;padding-top:2.4rem;text-align:center}
 .lock .hora .d{font-size:.5rem;opacity:.9}
@@ -650,8 +641,8 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 
 /* ── inbox + conversación (WhatsApp con IA) ── */
 .wa-cols{display:grid;grid-template-columns:12rem 1fr}
-@media(max-width:60rem){.wa-cols{grid-template-columns:1fr}.wa-lista{display:none}}
-.wa-lista{border-right:1px solid #EDE8F5;background:#FBFAFD}
+@media(max-width:60rem){.wa-cols{grid-template-columns:1fr}.wa-lista{border-right:1px solid #EDE8F5;background:#FBFAFD;min-height:22rem}}
+.wa-lista{border-right:1px solid #EDE8F5;background:#FBFAFD;min-height:22rem}
 .wa-busca{margin:.45rem;background:#fff;border:1px solid #E7E1EF;border-radius:6px;padding:.26rem .4rem;font-size:.5rem;color:#A99FBA;display:flex;gap:.28rem;align-items:center}
 .wa-busca svg{width:.55rem;height:.55rem}
 .wa-tabs{display:flex;gap:.25rem;padding:0 .45rem .35rem}
@@ -667,9 +658,9 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 .wa-aviso svg{width:.6rem;height:.6rem;flex:0 0 auto}
 .wa-switch{margin-left:auto;width:1.3rem;height:.7rem;border-radius:99px;background:#5433C6;position:relative;flex:0 0 auto}
 .wa-switch::after{content:"";position:absolute;right:.09rem;top:.09rem;width:.52rem;height:.52rem;border-radius:50%;background:#fff}
-.wa-hilo{padding:.3rem .55rem .55rem;display:grid;gap:.3rem;background:#fff}
+.wa-hilo{padding:.5rem .6rem .8rem;display:grid;gap:.45rem;background:#fff;min-height:19rem;align-content:start}
 .wa-dia{justify-self:center;background:#F1ECF9;color:#8A809C;font-size:.42rem;border-radius:99px;padding:.1rem .4rem}
-.wa-msg{max-width:74%;padding:.34rem .45rem;border-radius:9px;font-size:.48rem;line-height:1.4;position:relative}
+.wa-msg{max-width:74%;padding:.42rem .55rem;border-radius:10px;font-size:.55rem;line-height:1.42;position:relative}
 .wa-msg.de{background:#F3F0F7;color:#241B31;justify-self:start;border-bottom-left-radius:2px}
 .wa-msg.para{background:#5433C6;color:#fff;justify-self:end;border-bottom-right-radius:2px}
 .wa-msg .t{display:block;font-size:.38rem;opacity:.6;text-align:right;margin-top:.1rem}
@@ -689,34 +680,34 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 .rp-ia p{margin:.14rem 0 0;font-size:.46rem;color:#4A3F58;line-height:1.4}
 .rp-grid{display:grid;grid-template-columns:1fr 1.55fr;gap:.5rem;padding:0 .55rem .55rem}
 @media(max-width:52rem){.rp-grid{grid-template-columns:1fr}}
-.rp-card{border:1px solid #E7E1EF;border-radius:8px;padding:.5rem}
+.rp-card{border:1px solid #E7E1EF;border-radius:8px;padding:.7rem}
 .rp-card h6{margin:0 0 .4rem;font-family:var(--sans);font-size:.52rem;font-weight:700;color:#241B31}
-.rp-kpi{padding:.28rem 0;border-bottom:1px solid #F2EEF8}
+.rp-kpi{padding:.5rem 0;border-bottom:1px solid #F2EEF8}
 .rp-kpi:last-child{border-bottom:0}
 .rp-kpi em{display:block;font-style:normal;font-size:.44rem;color:#8A809C}
 .rp-kpi .v{display:flex;align-items:baseline;gap:.35rem}
 .rp-kpi b{font-family:var(--display);font-size:1.05rem;color:#241B31;letter-spacing:-.02em}
 .rp-delta{font-size:.44rem;font-weight:700;color:#1B6640;background:#E6F6EC;border-radius:99px;padding:.06rem .26rem}
-.rp-chart{width:100%;height:5.2rem;display:block}
-.rp-barras{display:grid;gap:.3rem;margin-top:.35rem}
-.rp-b{display:grid;grid-template-columns:5.2rem 1fr 1.7rem;gap:.4rem;align-items:center}
+.rp-chart{width:100%;height:9rem;display:block}
+.rp-barras{display:grid;gap:.45rem;margin-top:.5rem}
+.rp-b{display:grid;grid-template-columns:5.6rem 1fr 1.9rem;gap:.45rem;align-items:center;padding:.18rem 0}
 .rp-b em{font-style:normal;font-size:.44rem;color:#4A3F58;line-height:1.15}
 .rp-b em span{display:block;font-size:.38rem;color:#A99FBA}
-.rp-b i{height:.5rem;border-radius:3px;width:var(--w)}
+.rp-b i{height:.72rem;border-radius:4px;width:var(--w)}
 .rp-b b{font-size:.44rem;color:#241B31;text-align:right}
 .bA{background:#4A7BF7}.bB{background:#8B5CF6}.bC{background:#F08A5D}.bD{background:#E0654A}.bE{background:#F2B8A8}
 
 /* tarjetas grandes de métrica */
 .rp-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;padding:.55rem}
-.rp-tile{border:1px solid #E7E1EF;border-radius:8px;padding:.5rem;text-align:center}
-.rp-tile b{display:block;font-family:var(--display);font-size:1.15rem;color:#241B31;letter-spacing:-.02em}
+.rp-tile{border:1px solid #E7E1EF;border-radius:8px;padding:1rem .5rem;text-align:center}
+.rp-tile b{display:block;font-family:var(--display);font-size:1.6rem;color:#241B31;letter-spacing:-.02em}
 .rp-tile em{font-style:normal;font-size:.4rem;color:#8A809C;text-transform:uppercase;letter-spacing:.05em}
 .rp-tile.osc{background:#171223;border-color:#171223}
 .rp-tile.osc b{color:#fff}
 .rp-tile.osc em{color:#9C8DB4}
 
 /* ── terminal de cobro (teléfono) ── */
-.term{background:#0E0A16;color:#fff;min-height:14rem;display:grid;grid-template-rows:auto 1fr}
+.term{background:#0E0A16;color:#fff;min-height:17rem;display:grid;grid-template-rows:auto 1fr}
 .term-top{padding:1.1rem 0 .9rem;display:grid;place-items:center}
 .term-top svg{width:2.1rem;height:2.1rem;color:#fff;opacity:.85}
 .term-cuerpo{background:#fff;color:#241B31;border-radius:14px 14px 0 0;padding:.6rem .5rem;text-align:center}
@@ -747,6 +738,38 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 .pop .dots i{width:.5rem;height:.5rem;border-radius:50%;display:block}
 .pop .pie{display:flex;justify-content:space-between;border-top:1px solid #F2EEF8;padding-top:.3rem;margin-top:.2rem}
 .pop .pie span{font-size:.44rem;color:var(--violet-deep);font-weight:600}
+
+/* ── carrusel: la activa al centro, las vecinas asomándose ── */
+.carrusel{
+  position:relative;left:50%;translate:-50% 0;width:100vw;max-width:100vw;
+  overflow:hidden;padding-block:.5rem;
+}
+.pista{
+  display:flex;align-items:center;gap:clamp(1rem,3vw,3.5rem);
+  will-change:transform;transition:transform .85s cubic-bezier(.22,.61,.36,1);
+}
+.sc-panel{
+  flex:0 0 clamp(19rem,54vw,50rem);
+  opacity:.3;scale:.85;filter:blur(1.5px);
+  transition:opacity .85s ease,scale .85s cubic-bezier(.22,.61,.36,1),filter .85s ease;
+}
+.sc-panel.act{opacity:1;scale:1;filter:none}
+.sc-panel:not(.act){pointer-events:none}
+.sc-panel:not(.act) .panel-note{opacity:0}
+.panel-note{transition:opacity .5s ease}
+
+/* puntos de posición */
+.puntos{display:flex;justify-content:center;gap:.4rem;margin-top:1.4rem}
+.puntos button{
+  width:.45rem;height:.45rem;border-radius:99px;border:0;padding:0;cursor:pointer;
+  background:#4A3B63;transition:width .4s ease,background .4s ease;
+}
+.puntos button[aria-current="true"]{width:1.5rem;background:var(--violet-lift)}
+
+@media (prefers-reduced-motion:reduce){
+  .pista{transition:none}
+  .sc-panel{transition:none}
+}
 
 /* fila de tres dispositivos (sólo la usa el sitio de reservas) */
 .fila{
@@ -811,12 +834,12 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 .t-equipo .q b{font-size:.48rem;color:#4A3F58;font-weight:600}
 .a1{background:#4A7BF7}.a2{background:#2E9E6B}.a3{background:#C98A22}.a4{background:#8B5CF6}.a5{background:#E0654A}
 .t-rej{display:grid;grid-template-columns:2.2rem repeat(5,1fr);gap:.2rem;padding:0 .5rem .5rem}
-.t-horas{display:grid;grid-template-rows:repeat(12,.92rem);gap:.11rem}
-.t-horas span{font-family:var(--mono);font-size:.44rem;color:#B3AAC2;text-align:right;padding-right:.18rem}
-.t-col{display:grid;grid-template-rows:repeat(12,.92rem);gap:.11rem;background:repeating-linear-gradient(#FAF8FC 0 .92rem,transparent .92rem 1.03rem);border-radius:3px}
-.t-ap{grid-row:calc(var(--i) + 1)/span var(--n);border-radius:3px;padding:.1rem .22rem;font-size:.44rem;line-height:1.1;overflow:hidden;border-left:2px solid}
+.t-horas{display:grid;grid-template-rows:repeat(14,1.75rem);gap:.16rem}
+.t-horas span{grid-row:span 2;font-family:var(--mono);font-size:.5rem;color:#B3AAC2;text-align:right;padding-right:.22rem;padding-top:.05rem}
+.t-col{display:grid;grid-template-rows:repeat(14,1.75rem);gap:.16rem;background:repeating-linear-gradient(#FAF8FC 0 1.75rem,transparent 1.75rem 1.91rem);border-radius:3px}
+.t-ap{grid-row:calc(var(--i) + 1)/span var(--n);border-radius:4px;padding:.22rem .32rem;font-size:.52rem;line-height:1.22;overflow:hidden;border-left:2.5px solid}
 .t-ap b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.t-hueco{grid-row:calc(var(--i) + 1)/span var(--n);border:1.2px dashed #DCD5E6;border-radius:3px;display:grid;place-items:center;font-size:.42rem;color:#B3AAC2}
+.t-hueco{grid-row:calc(var(--i) + 1)/span var(--n);border:1.4px dashed #DCD5E6;border-radius:4px;display:grid;place-items:center;font-size:.5rem;color:#B3AAC2}
 
 /* recibo / confirmación en teléfono */
 .p-ok{padding:.75rem .6rem;text-align:center}
@@ -1071,27 +1094,31 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
     </div>
 
     <!-- ── Agenda ───────────────────────────────────────────── -->
-    <div class="sc-panel on" role="tabpanel" id="p-agenda" aria-labelledby="t-agenda">
-      <div class="escena"><div class="marco"><div class="pc"><div class="pc-nav"><span class="pc-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#A98BFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</span><span class="pc-menu"><span class="on">Agenda</span><span class="">Conversaciones</span><span class="">Cobros</span><span class="">Recordatorios</span><span class="">Pacientes</span><span class="">Reportes</span></span><span class="pc-icos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="pc-yo"></span></span></div><div class="t-equipo"><span></span><span class="q"><span class="av s1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Marcela</b></span><span class="q"><span class="av s3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Julián</b></span><span class="q"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Paola</b></span><span class="q"><span class="av s5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Diego</b></span><span class="q"><span class="av s4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Lucía</b></span></div><div class="t-rej"><div class="t-horas"><span>08:00</span><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>16:00</span></div><div class="t-col"><div class="t-ap k1" style="--i:0;--n:2"><b>Ana Robles</b><em>Rehabilitación</em></div><div class="t-ap k2" style="--i:3;--n:2"><b>Luis Paredes</b><em>Valoración</em></div><div class="t-ap k1" style="--i:6;--n:3"><b>Sofía Nava</b><em>Terapia manual</em></div><div class="t-ap k3" style="--i:10;--n:2"><b>Raúl Méndez</b><em>Sesión 4 de 8</em></div></div><div class="t-col"><div class="t-ap k2" style="--i:1;--n:2"><b>Marco Díaz</b><em>Sesión 3 de 8</em></div><div class="t-ap k4" style="--i:4;--n:3"><b>Rita Campos</b><em>Rehabilitación</em></div><div class="t-hueco" style="--i:8;--n:2">Libre</div><div class="t-ap k2" style="--i:10;--n:2"><b>Iker Solís</b><em>Valoración</em></div></div><div class="t-col"><div class="t-ap k1" style="--i:0;--n:2"><b>Iván Lara</b><em>Sesión 2 de 6</em></div><div class="t-ap k2" style="--i:3;--n:2"><b>Bárbara Tovar</b><em>Terapia manual</em></div><div class="t-ap k3" style="--i:6;--n:2"><b>Elsa Prieto</b><em>Terapia manual</em></div><div class="t-ap k4" style="--i:9;--n:3"><b>Gael Ponce</b><em>Rehabilitación</em></div></div><div class="t-col"><div class="t-ap k4" style="--i:1;--n:2"><b>Hugo Ferrer</b><em>Valoración</em></div><div class="t-ap k5" style="--i:4;--n:2"><b>Nora Beltrán</b><em>Punción seca</em></div><div class="t-hueco" style="--i:7;--n:2">Libre</div><div class="t-ap k1" style="--i:9;--n:2"><b>Nadia Cruz</b><em>Sesión 5 de 8</em></div></div><div class="t-col"><div class="t-ap k3" style="--i:0;--n:3"><b>Óscar Vela</b><em>Rehabilitación</em></div><div class="t-ap k1" style="--i:4;--n:2"><b>Pilar Ochoa</b><em>Sesión 1 de 4</em></div><div class="t-ap k2" style="--i:7;--n:2"><b>Saúl Ibarra</b><em>Terapia manual</em></div><div class="t-ap k5" style="--i:10;--n:2"><b>Karen Ríos</b><em>Valoración</em></div></div></div></div><div class="tel"><div class="p-top"><b>Miércoles 12</b><em>8 citas · 2 huecos · $600 cobrado</em></div><div class="p-lista"><div class="i-fila" style="padding:.26rem .1rem"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>09:00 · Iván Lara</b><span>Sesión 2 de 6</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>12:30 · Bárbara Tovar</b><span>Terapia manual</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>13:30 · Elsa Prieto</b><span>Terapia manual</span></div><div class="i-meta"><span class="i-eti esp">Pendiente</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>16:00 · Gael Ponce</b><span>Rehabilitación</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>17:30 · Alma Vidal</b><span>Sesión 6 de 8</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div></div><div class="p-pie"><i class="on"></i><i></i><i></i><i></i></div></div><div class="pop" aria-hidden="true"><h6>Bárbara Tovar</h6><p class="sub">Terapia manual · Miércoles 12 de agosto</p><div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg><span>Se atiende con Marcela Ruvalcaba</span></div><div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.5h3.2l1.6 4-2 1.4a12 12 0 0 0 5.8 5.8l1.4-2 4 1.6V19a1.6 1.6 0 0 1-1.8 1.6C9.5 19.8 4.2 14.5 3.4 5.3A1.6 1.6 0 0 1 5 3.5Z"/></svg><span>+52 33 1234 5678</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16.4A8.4 8.4 0 1 1 8.2 19.6l-4.7.9Z"/></svg><span class="wa">Hablar por WhatsApp</span></div><div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.6 6.5 8.4 6 8.4-6"/></svg><span>barbara.tovar@correo.com</span></div><div class="dots"><i style="background:#2E9E6B"></i><i style="background:#E8A33D"></i><i style="background:#8B5CF6"></i><i style="background:#4A7BF7"></i><i style="background:#E0654A"></i><span style="font-size:.44rem;color:#1B6640;margin-left:.2rem">✓ Anticipo pagado</span></div><div class="pie"><span>$ Ver pago</span><span>Ficha del paciente</span></div></div></div></div>
+    </div>
+
+    <div class="carrusel">
+      <div class="pista" id="pista">
+    <div class="sc-panel act" role="tabpanel" id="p-agenda" aria-labelledby="t-agenda">
+      <div class="escena"><div class="marco"><div class="pc"><div class="pc-nav"><span class="pc-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#A98BFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</span><span class="pc-menu"><span class="on">Agenda</span><span class="">Conversaciones</span><span class="">Cobros</span><span class="">Recordatorios</span><span class="">Pacientes</span><span class="">Reportes</span></span><span class="pc-icos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="pc-yo"></span></span></div><div class="t-equipo"><span></span><span class="q"><span class="av s1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Marcela</b></span><span class="q"><span class="av s3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Julián</b></span><span class="q"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Paola</b></span><span class="q"><span class="av s5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Diego</b></span><span class="q"><span class="av s4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Lucía</b></span></div><div class="t-rej"><div class="t-horas"><span>08:00</span><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span><span>16:00</span></div><div class="t-col"><div class="t-ap k1" style="--i:0;--n:2"><b>Ana Robles</b><em>Rehabilitación</em></div><div class="t-ap k2" style="--i:3;--n:2"><b>Luis Paredes</b><em>Valoración</em></div><div class="t-ap k1" style="--i:6;--n:3"><b>Sofía Nava</b><em>Terapia manual</em></div><div class="t-ap k3" style="--i:10;--n:2"><b>Raúl Méndez</b><em>Sesión 4 de 8</em></div></div><div class="t-col"><div class="t-ap k2" style="--i:1;--n:2"><b>Marco Díaz</b><em>Sesión 3 de 8</em></div><div class="t-ap k4" style="--i:4;--n:3"><b>Rita Campos</b><em>Rehabilitación</em></div><div class="t-hueco" style="--i:8;--n:2">Libre</div><div class="t-ap k2" style="--i:10;--n:2"><b>Iker Solís</b><em>Valoración</em></div></div><div class="t-col"><div class="t-ap k1" style="--i:0;--n:2"><b>Iván Lara</b><em>Sesión 2 de 6</em></div><div class="t-ap k2" style="--i:3;--n:2"><b>Bárbara Tovar</b><em>Terapia manual</em></div><div class="t-ap k3" style="--i:6;--n:2"><b>Elsa Prieto</b><em>Terapia manual</em></div><div class="t-ap k4" style="--i:9;--n:3"><b>Gael Ponce</b><em>Rehabilitación</em></div></div><div class="t-col"><div class="t-ap k4" style="--i:1;--n:2"><b>Hugo Ferrer</b><em>Valoración</em></div><div class="t-ap k5" style="--i:4;--n:2"><b>Nora Beltrán</b><em>Punción seca</em></div><div class="t-hueco" style="--i:7;--n:2">Libre</div><div class="t-ap k1" style="--i:9;--n:2"><b>Nadia Cruz</b><em>Sesión 5 de 8</em></div></div><div class="t-col"><div class="t-ap k3" style="--i:0;--n:3"><b>Óscar Vela</b><em>Rehabilitación</em></div><div class="t-ap k1" style="--i:4;--n:2"><b>Pilar Ochoa</b><em>Sesión 1 de 4</em></div><div class="t-ap k2" style="--i:7;--n:2"><b>Saúl Ibarra</b><em>Terapia manual</em></div><div class="t-ap k5" style="--i:10;--n:2"><b>Karen Ríos</b><em>Valoración</em></div></div></div></div><div class="tel"><div class="p-top"><b>Miércoles 12</b><em>8 citas · 2 huecos · $600 cobrado</em></div><div class="p-lista"><div class="i-fila" style="padding:.26rem .1rem"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>09:00 · Iván Lara</b><span>Sesión 2 de 6</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>12:30 · Bárbara Tovar</b><span>Terapia manual</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>13:30 · Elsa Prieto</b><span>Terapia manual</span></div><div class="i-meta"><span class="i-eti esp">Pendiente</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>16:00 · Gael Ponce</b><span>Rehabilitación</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div><div class="i-fila" style="padding:.26rem .1rem"><span class="av s5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>17:30 · Alma Vidal</b><span>Sesión 6 de 8</span></div><div class="i-meta"><span class="i-eti ok">Pagó</span></div></div></div><div class="p-pie"><i class="on"></i><i></i><i></i><i></i></div></div><div class="pop" aria-hidden="true"><h6>Bárbara Tovar</h6><p class="sub">Terapia manual · Miércoles 12 de agosto</p><div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.8-4 3.9-6 7.5-6s6.7 2 7.5 6"/></svg><span>Se atiende con Marcela Ruvalcaba</span></div><div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3.5h3.2l1.6 4-2 1.4a12 12 0 0 0 5.8 5.8l1.4-2 4 1.6V19a1.6 1.6 0 0 1-1.8 1.6C9.5 19.8 4.2 14.5 3.4 5.3A1.6 1.6 0 0 1 5 3.5Z"/></svg><span>+52 33 1234 5678</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16.4A8.4 8.4 0 1 1 8.2 19.6l-4.7.9Z"/></svg><span class="wa">Hablar por WhatsApp</span></div><div class="ln"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.6 6.5 8.4 6 8.4-6"/></svg><span>barbara.tovar@correo.com</span></div><div class="dots"><i style="background:#2E9E6B"></i><i style="background:#E8A33D"></i><i style="background:#8B5CF6"></i><i style="background:#4A7BF7"></i><i style="background:#E0654A"></i><span style="font-size:.44rem;color:#1B6640;margin-left:.2rem">✓ Anticipo pagado</span></div><div class="pie"><span>$ Ver pago</span><span>Ficha del paciente</span></div></div></div></div>
       <p class="panel-note">Cada cita entra sola desde WhatsApp. Tú solo abres la agenda para ver a quién sigues.</p>
     </div>
 
-    <div class="sc-panel" role="tabpanel" id="p-wa" aria-labelledby="t-wa" hidden>
+    <div class="sc-panel" role="tabpanel" id="p-wa" aria-labelledby="t-wa">
       <div class="escena"><div class="marco"><div class="pc"><div class="pc-nav"><span class="pc-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#A98BFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</span><span class="pc-menu"><span class="">Agenda</span><span class="on">Conversaciones</span><span class="">Cobros</span><span class="">Recordatorios</span><span class="">Pacientes</span><span class="">Reportes</span></span><span class="pc-icos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="pc-yo"></span></span></div><div class="wa-cols"><div class="wa-lista"><div class="wa-busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg>Buscar…</div><div class="wa-tabs"><span class="on">Abiertas (6)</span><span>Cerradas</span></div><div class="i-fila"><span class="av s1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Bárbara Tovar</b><span>Listo, quedó confirmada</span></div><div class="i-meta"><em>11:44</em></div></div><div class="i-fila"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Marco Díaz</b><span>¿Puedo mover la del jueves?</span></div><div class="i-meta"><em>11:02</em></div></div><div class="i-fila"><span class="av s4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Nora Beltrán</b><span>Perfecto, ahí nos vemos 👍</span></div><div class="i-meta"><em>10:38</em></div></div><div class="i-fila"><span class="av s3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Hugo Ferrer</b><span>¿Cuánto cuesta la valoración?</span></div><div class="i-meta"><em>10:15</em></div></div><div class="i-fila"><span class="av s5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Rita Campos</b><span>Necesito factura de la sesión</span></div><div class="i-meta"><em>09:47</em></div></div><div class="i-fila"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Iker Solís</b><span>Gracias por el recordatorio</span></div><div class="i-meta"><em>09:12</em></div></div></div><div><div class="wa-chat-head"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><b>Marco Díaz</b><span style="margin-left:auto"><svg viewBox="0 0 24 24" fill="none" stroke="#9A90AC" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.1"/></svg></span></div><div class="wa-aviso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.1"/></svg><span>Citali está atendiendo esta conversación. Desactívala para responder tú.</span><span class="wa-switch"></span></div><div class="wa-hilo"><span class="wa-dia">Hoy</span><div class="wa-msg de">Hola, tengo cita el jueves a las 4. ¿Puedo moverla?<span class="t">11:02</span></div><div class="wa-msg para">¡Claro que sí, Marco! 😊 Con Julián tengo libre el jueves a las 10:00 o el viernes a las 11:30. ¿Cuál te acomoda?<span class="t">11:02</span></div><div class="wa-msg de">El viernes a las 11:30 está perfecto<span class="t">11:05</span></div><div class="wa-msg para">Listo, la moví a <b>viernes 14, 11:30 am</b>. Tu anticipo se mantiene, no hay que pagar de nuevo 👍<span class="t">11:05</span></div></div></div></div></div><div class="tel"><div class="lock"><div class="fondo foto sala"></div><div class="hora"><div class="d">Miércoles, 12 de agosto</div><div class="h">09:45</div></div><div class="noti"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16.4A8.4 8.4 0 1 1 8.2 19.6l-4.7.9Z"/></svg></span><span><b>Fisio Balance</b><span>Hola Bárbara, te recordamos tu cita de mañana a las 12:30 pm</span></span></div><span class="barra"></span></div></div></div></div>
       <p class="panel-note">Contesta a las 11 de la noche, un domingo, o mientras tienes las manos en un paciente.</p>
     </div>
 
-    <div class="sc-panel" role="tabpanel" id="p-cobros" aria-labelledby="t-cobros" hidden>
-      <div class="escena"><div class="marco"><div class="pc"><div class="pc-nav"><span class="pc-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#A98BFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</span><span class="pc-menu"><span class="">Agenda</span><span class="">Conversaciones</span><span class="on">Cobros</span><span class="">Recordatorios</span><span class="">Pacientes</span><span class="">Reportes</span></span><span class="pc-icos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="pc-yo"></span></span></div><div class="rp-filtros"><div class="rp-f"><em>Periodo</em><b>01/08/2026 – 31/08/2026</b></div><div class="rp-f"><em>Terapeuta</em><b>Todos</b></div><div class="rp-f"><em>Comparar contra</em><b>Mes anterior</b></div></div><div class="rp-ia"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 14 9l6.5 2-6.5 2-2 6.5-2-6.5L3.5 11 10 9Z"/></svg>Citali detectó algo</b><p>Cobrar anticipo bajó tus citas perdidas de 14% a 4%. Son 11 sesiones recuperadas este mes, unos $5,500.</p></div><div class="rp-grid"><div class="rp-card"><h6>Resumen</h6><div class="rp-kpi"><em>Total cobrado</em><div class="v"><b>$26,400</b><span class="rp-delta">↑ 42.1%</span></div></div><div class="rp-kpi"><em>Citas atendidas</em><div class="v"><b>168</b><span class="rp-delta">↑ 15.4%</span></div></div><div class="rp-kpi"><em>Anticipo promedio</em><div class="v"><b>$157</b><span class="rp-delta">↑ 8.2%</span></div></div></div><div class="rp-card"><h6>Cobrado por día</h6><svg class="rp-chart" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="20" x2="300" y2="20" stroke="#F2EEF8" stroke-width="1"/><line x1="0" y1="40" x2="300" y2="40" stroke="#F2EEF8" stroke-width="1"/><line x1="0" y1="60" x2="300" y2="60" stroke="#F2EEF8" stroke-width="1"/><line x1="0" y1="80" x2="300" y2="80" stroke="#F2EEF8" stroke-width="1"/><polyline fill="none" stroke="#D6CFE2" stroke-width="2" points="0,72 40,64 80,70 120,52 160,58 200,44 240,50 280,38 300,42"/><polyline fill="none" stroke="#6D4AE0" stroke-width="2.6" stroke-linejoin="round" points="0,80 40,58 80,66 120,34 160,46 200,26 240,36 280,16 300,20"/><circle cx="280" cy="16" r="3.4" fill="#6D4AE0"/></svg></div></div></div><div class="tel"><div class="term"><div class="term-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.5a7 7 0 0 1 0 7M10 5.5a12 12 0 0 1 0 13M14 3a16 16 0 0 1 0 18"/></svg></div><div class="term-cuerpo"><div class="term-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#6D4AE0" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</div><div class="lbl">Total a cobrar</div><div class="tot">$500.00</div><div class="term-op"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg>Tarjeta de débito</div><div class="term-op sel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg>Tarjeta de crédito</div><div class="term-logos"><span style="background:#EB001B">MC</span><span style="background:#1A1F71">VISA</span><span style="background:#006FCF">AMEX</span></div></div></div></div></div></div>
+    <div class="sc-panel" role="tabpanel" id="p-cobros" aria-labelledby="t-cobros">
+      <div class="escena"><div class="marco"><div class="pc"><div class="pc-nav"><span class="pc-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#A98BFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</span><span class="pc-menu"><span class="">Agenda</span><span class="">Conversaciones</span><span class="on">Cobros</span><span class="">Recordatorios</span><span class="">Pacientes</span><span class="">Reportes</span></span><span class="pc-icos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="pc-yo"></span></span></div><div class="rp-filtros"><div class="rp-f"><em>Periodo</em><b>01/08/2026 – 31/08/2026</b></div><div class="rp-f"><em>Terapeuta</em><b>Todos</b></div><div class="rp-f"><em>Comparar contra</em><b>Mes anterior</b></div></div><div class="rp-ia"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 14 9l6.5 2-6.5 2-2 6.5-2-6.5L3.5 11 10 9Z"/></svg>Citali detectó algo</b><p>Cobrar anticipo bajó tus citas perdidas de 14% a 4%. Son 11 sesiones recuperadas este mes, unos $5,500.</p></div><div class="rp-grid"><div class="rp-card"><h6>Resumen</h6><div class="rp-kpi"><em>Total cobrado</em><div class="v"><b>$26,400</b><span class="rp-delta">↑ 42.1%</span></div></div><div class="rp-kpi"><em>Citas atendidas</em><div class="v"><b>168</b><span class="rp-delta">↑ 15.4%</span></div></div><div class="rp-kpi"><em>Anticipo promedio</em><div class="v"><b>$157</b><span class="rp-delta">↑ 8.2%</span></div></div></div><div class="rp-card"><h6>Cobrado por día</h6><svg class="rp-chart" viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="20" x2="300" y2="20" stroke="#F2EEF8" stroke-width="1"/><line x1="0" y1="40" x2="300" y2="40" stroke="#F2EEF8" stroke-width="1"/><line x1="0" y1="60" x2="300" y2="60" stroke="#F2EEF8" stroke-width="1"/><line x1="0" y1="80" x2="300" y2="80" stroke="#F2EEF8" stroke-width="1"/><polyline fill="none" stroke="#D6CFE2" stroke-width="2" points="0,72 40,64 80,70 120,52 160,58 200,44 240,50 280,38 300,42"/><polyline fill="none" stroke="#6D4AE0" stroke-width="2.6" stroke-linejoin="round" points="0,80 40,58 80,66 120,34 160,46 200,26 240,36 280,16 300,20"/><circle cx="280" cy="16" r="3.4" fill="#6D4AE0"/></svg></div></div><div style="padding:0 .55rem .6rem"><div class="rp-card"><h6>Anticipos recientes</h6><div class="i-fila" style="padding:.34rem 0"><span class="av s1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Bárbara Tovar</b><span>Terapia manual · mié 12, 12:30</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">$150</em><span class="i-eti ok">Pagado</span></div></div><div class="i-fila" style="padding:.34rem 0"><span class="av s3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Hugo Ferrer</b><span>Valoración · jue 13, 09:00</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">$150</em><span class="i-eti esp">Enviado</span></div></div><div class="i-fila" style="padding:.34rem 0"><span class="av s4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Nadia Cruz</b><span>Rehabilitación · jue 13, 16:00</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">$150</em><span class="i-eti ok">Pagado</span></div></div><div class="i-fila" style="padding:.34rem 0"><span class="av s5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Óscar Vela</b><span>Rehabilitación · vie 14, 08:00</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">$150</em><span class="i-eti ok">Pagado</span></div></div></div></div></div><div class="tel"><div class="term"><div class="term-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8.5a7 7 0 0 1 0 7M10 5.5a12 12 0 0 1 0 13M14 3a16 16 0 0 1 0 18"/></svg></div><div class="term-cuerpo"><div class="term-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#6D4AE0" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</div><div class="lbl">Total a cobrar</div><div class="tot">$500.00</div><div class="term-op"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg>Tarjeta de débito</div><div class="term-op sel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/></svg>Tarjeta de crédito</div><div class="term-logos"><span style="background:#EB001B">MC</span><span style="background:#1A1F71">VISA</span><span style="background:#006FCF">AMEX</span></div></div></div></div></div></div>
       <p class="panel-note">Sin anticipo no se aparta el horario. Es la diferencia entre una cita y una intención.</p>
     </div>
 
-    <div class="sc-panel" role="tabpanel" id="p-recuerd" aria-labelledby="t-recuerd" hidden>
-      <div class="escena"><div class="marco"><div class="pc"><div class="pc-nav"><span class="pc-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#A98BFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</span><span class="pc-menu"><span class="">Agenda</span><span class="">Conversaciones</span><span class="">Cobros</span><span class="on">Recordatorios</span><span class="">Pacientes</span><span class="">Reportes</span></span><span class="pc-icos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="pc-yo"></span></span></div><div class="rp-tiles"><div class="rp-tile"><b>$5,500</b><em>recuperado este mes</em></div><div class="rp-tile"><b>11</b><em>citas rescatadas</em></div><div class="rp-tile osc"><b>184</b><em>recordatorios enviados</em></div></div><div class="rp-grid" style="grid-template-columns:1fr 1.35fr"><div class="rp-card"><h6>Cómo responden</h6><div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;text-align:center"><div><b style="font-family:var(--display);font-size:1.1rem;color:#1B6640">88%</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">confirman</em></div><div><b style="font-family:var(--display);font-size:1.1rem;color:#5433C6">6 min</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">tardan en responder</em></div><div><b style="font-family:var(--display);font-size:1.1rem;color:#8A5510">8%</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">reagendan</em></div><div><b style="font-family:var(--display);font-size:1.1rem;color:#8E3A22">4%</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">no llegan</em></div></div></div><div class="rp-card"><h6>Qué hizo Citali este mes</h6><div class="rp-barras"><div class="rp-b"><em>Recordatorios<span>184 enviados</span></em><i class="bA" style="--w:100%"></i><b>35%</b></div><div class="rp-b"><em>Citas confirmadas<span>162 en total</span></em><i class="bB" style="--w:88%"></i><b>31%</b></div><div class="rp-b"><em>Reagendadas<span>15 en total</span></em><i class="bC" style="--w:24%"></i><b>8%</b></div><div class="rp-b"><em>Huecos reofrecidos<span>11 en total</span></em><i class="bD" style="--w:18%"></i><b>6%</b></div><div class="rp-b"><em>Sin respuesta<span>7 en total</span></em><i class="bE" style="--w:11%"></i><b>4%</b></div></div></div></div></div><div class="tel"><div class="p-top" style="background:#075E54"><b>Fisio Balance</b><em>ayer</em></div><div class="p-chat"><div class="p-b them">Hola Bárbara 👋 Te recordamos tu cita mañana <b>miércoles 12:30 pm</b> con Marcela. ¿Todo bien para asistir?</div><div class="p-b us">Sí, ahí estaré 👍</div><div class="p-b them">¡Perfecto! Av. Chapultepec 218, interior 4. Trae ropa cómoda 🙂</div><div class="p-b them">Te comparto cómo llegar:<span class="lnk" style="border-color:#CBD5E1;color:#2F6BD8">Ver ubicación →</span></div></div></div></div></div>
+    <div class="sc-panel" role="tabpanel" id="p-recuerd" aria-labelledby="t-recuerd">
+      <div class="escena"><div class="marco"><div class="pc"><div class="pc-nav"><span class="pc-marca"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#A98BFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g></svg>Citali</span><span class="pc-menu"><span class="">Agenda</span><span class="">Conversaciones</span><span class="">Cobros</span><span class="on">Recordatorios</span><span class="">Pacientes</span><span class="">Reportes</span></span><span class="pc-icos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.2 16.2 4.3 4.3"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="pc-yo"></span></span></div><div class="rp-tiles"><div class="rp-tile"><b>$5,500</b><em>recuperado este mes</em></div><div class="rp-tile"><b>11</b><em>citas rescatadas</em></div><div class="rp-tile osc"><b>184</b><em>recordatorios enviados</em></div></div><div class="rp-grid" style="grid-template-columns:1fr 1.35fr"><div class="rp-card"><h6>Cómo responden</h6><div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;text-align:center"><div><b style="font-family:var(--display);font-size:1.1rem;color:#1B6640">88%</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">confirman</em></div><div><b style="font-family:var(--display);font-size:1.1rem;color:#5433C6">6 min</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">tardan en responder</em></div><div><b style="font-family:var(--display);font-size:1.1rem;color:#8A5510">8%</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">reagendan</em></div><div><b style="font-family:var(--display);font-size:1.1rem;color:#8E3A22">4%</b><em style="display:block;font-style:normal;font-size:.4rem;color:#8A809C">no llegan</em></div></div></div><div class="rp-card"><h6>Qué hizo Citali este mes</h6><div class="rp-barras"><div class="rp-b"><em>Recordatorios<span>184 enviados</span></em><i class="bA" style="--w:100%"></i><b>35%</b></div><div class="rp-b"><em>Citas confirmadas<span>162 en total</span></em><i class="bB" style="--w:88%"></i><b>31%</b></div><div class="rp-b"><em>Reagendadas<span>15 en total</span></em><i class="bC" style="--w:24%"></i><b>8%</b></div><div class="rp-b"><em>Huecos reofrecidos<span>11 en total</span></em><i class="bD" style="--w:18%"></i><b>6%</b></div><div class="rp-b"><em>Sin respuesta<span>7 en total</span></em><i class="bE" style="--w:11%"></i><b>4%</b></div></div></div></div><div style="padding:0 .55rem .6rem"><div class="rp-card"><h6>Salen hoy</h6><div class="i-fila" style="padding:.34rem 0"><span class="av s4"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Elsa Prieto</b><span>Cita mañana 13:30 · aviso de 24 h</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">18:00</em><span class="i-eti ia">Programado</span></div></div><div class="i-fila" style="padding:.34rem 0"><span class="av s3"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Gael Ponce</b><span>Cita mañana 16:00 · aviso de 24 h</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">18:00</em><span class="i-eti ia">Programado</span></div></div><div class="i-fila" style="padding:.34rem 0"><span class="av s5"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Alma Vidal</b><span>Cita hoy 17:30 · aviso de 3 h</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">14:30</em><span class="i-eti ok">Enviado</span></div></div><div class="i-fila" style="padding:.34rem 0"><span class="av s2"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="4.1" fill="rgba(70,42,26,.42)"/><path d="M3.4 24c.9-5.2 4.6-7.8 8.6-7.8s7.7 2.6 8.6 7.8Z" fill="rgba(70,42,26,.42)"/></svg></span><div class="i-tex"><b>Marco Díaz</b><span>No respondió el de ayer</span></div><div class="i-meta"><em style="font-size:.48rem;color:#241B31;font-weight:600">—</em><span class="i-eti esp">Para ti</span></div></div></div></div></div><div class="tel"><div class="p-top" style="background:#075E54"><b>Fisio Balance</b><em>ayer</em></div><div class="p-chat"><div class="p-b them">Hola Bárbara 👋 Te recordamos tu cita mañana <b>miércoles 12:30 pm</b> con Marcela. ¿Todo bien para asistir?</div><div class="p-b us">Sí, ahí estaré 👍</div><div class="p-b them">¡Perfecto! Av. Chapultepec 218, interior 4. Trae ropa cómoda 🙂</div><div class="p-b them">Te comparto cómo llegar:<span class="lnk" style="border-color:#CBD5E1;color:#2F6BD8">Ver ubicación →</span></div></div></div></div></div>
       <p class="panel-note">El paciente confirma por WhatsApp. Si cancela, el hueco no se queda vacío.</p>
     </div>
 
-    <div class="sc-panel" role="tabpanel" id="p-sitio" aria-labelledby="t-sitio" hidden>
+    <div class="sc-panel" role="tabpanel" id="p-sitio" aria-labelledby="t-sitio">
       <div class="escena"><div class="fila">
           <div class="disp orilla izq" aria-hidden="true"><div class="d-top">Resumen del mes</div><div class="d-body"><div class="d-kpi"><b>184</b><span>citas agendadas</span></div><div class="d-barra"><i style="--w:78%"></i></div><div class="d-fila"><span>Agendadas por Citali</span><span>71%</span></div><div class="d-barra"><i style="--w:71%"></i></div><div class="d-fila"><span>Con anticipo pagado</span><span>88%</span></div><div class="d-barra"><i style="--w:88%"></i></div><div class="d-fila"><span>No llegaron</span><span>4%</span></div><div class="d-barra"><i style="--w:8%"></i></div><div class="d-kpi"><b>$26,400</b><span>cobrado</span></div></div></div>
           <div class="disp fono"><div class="n-foto foto manos" style="height:3.4rem"></div><div class="n-cab"><b>Terapia manual</b><span class="r-dir">50 min · $500 · Marcela Ruvalcaba</span></div><div style="padding:.1rem .45rem .45rem"><p class="r-tit">Miércoles 12 de agosto</p><div class="hor-grid" style="grid-template-columns:repeat(3,1fr);gap:.28rem"><span>09:00</span><span class="no">10:00</span><span class="pick">12:30</span><span>16:00</span><span>17:00</span><span class="no">18:00</span></div><p class="r-tit" style="margin-top:.45rem">Jueves 13</p><div class="hor-grid" style="grid-template-columns:repeat(3,1fr);gap:.28rem"><span>10:00</span><span>11:30</span><span class="no">17:30</span></div><div class="n-cta" style="margin:.5rem 0 0">Apartar con $150</div></div></div>
@@ -1101,7 +1128,11 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
       </div></div>
       <p class="panel-note">Tu propia página de reservas, con tus fotos, tus precios y tus reseñas.</p>
     </div>
-  </div>
+        </div>
+    </div>
+
+    <div class="shell"><div class="puntos" id="puntos" role="group" aria-label="Ir a una función"></div>
+</div>
 </section>
 
 
@@ -1615,38 +1646,101 @@ document.getElementById('heroCta').addEventListener('click', function(){
   track('InitiateCheckout', { content_name: 'CTA hero' });
 });
 
-/* ===================== Pestañas del showcase =========================== */
+/* ===================== Carrusel de funciones ============================ */
 (function(){
-  const tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-  if (!tabs.length) return;
+  const pista  = document.getElementById('pista');
+  const puntos = document.getElementById('puntos');
+  if (!pista) return;
 
-  const muestra = function(i){
+  const diapos = Array.prototype.slice.call(pista.children);
+  const tabs   = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  const marco  = pista.parentElement;
+  const ESPERA = 5200;
+  let actual = 0, reloj = null;
+
+  // un punto por función, para saber dónde vas
+  diapos.forEach(function(_, i){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Ver ' + tabs[i].textContent.trim());
+    b.addEventListener('click', function(){ ir(i, true); });
+    puntos.appendChild(b);
+  });
+  const bolitas = Array.prototype.slice.call(puntos.children);
+
+  const centrar = function(){
+    const d = diapos[actual];
+    const salto = d.offsetLeft + d.offsetWidth / 2 - marco.clientWidth / 2;
+    pista.style.transform = 'translateX(' + (-salto) + 'px)';
+
+    diapos.forEach(function(x, j){ x.classList.toggle('act', j === actual); });
     tabs.forEach(function(t, j){
-      const panel = document.getElementById(t.getAttribute('aria-controls'));
-      const activo = i === j;
-      t.classList.toggle('on', activo);
-      t.setAttribute('aria-selected', activo ? 'true' : 'false');
-      t.tabIndex = activo ? 0 : -1;
-      if (panel) panel.hidden = !activo;
+      t.classList.toggle('on', j === actual);
+      t.setAttribute('aria-selected', j === actual ? 'true' : 'false');
+      t.tabIndex = j === actual ? 0 : -1;
     });
+    bolitas.forEach(function(b, j){ b.setAttribute('aria-current', j === actual ? 'true' : 'false'); });
   };
 
+  const ir = function(i, manual){
+    actual = (i + diapos.length) % diapos.length;
+    centrar();
+    if (manual) arranca();          // reinicia el reloj si el usuario tomó el control
+  };
+
+  const arranca = function(){
+    clearInterval(reloj);
+    if (reduce) return;             // sin movimiento automático si así lo pidió el sistema
+    reloj = setInterval(function(){ ir(actual + 1); }, ESPERA);
+  };
+  const detiene = function(){ clearInterval(reloj); };
+
   tabs.forEach(function(t, i){
-    t.tabIndex = i === 0 ? 0 : -1;
     t.addEventListener('click', function(){
-      muestra(i);
-      track('ViewContent', { content_name: 'Showcase: ' + t.textContent.trim() });
+      ir(i, true);
+      track('ViewContent', { content_name: 'Función: ' + t.textContent.trim() });
     });
-    // flechas para moverse entre pestañas, como espera un lector de pantalla
     t.addEventListener('keydown', function(e){
       const paso = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
       if (!paso) return;
       e.preventDefault();
-      const sig = (i + paso + tabs.length) % tabs.length;
-      muestra(sig);
-      tabs[sig].focus();
+      ir(actual + paso, true);
+      tabs[actual].focus();
     });
   });
+
+  // se detiene mientras lo miras de cerca, y al salir de la pestaña
+  ['mouseenter','focusin','touchstart'].forEach(function(ev){
+    marco.addEventListener(ev, detiene, { passive: true });
+  });
+  ['mouseleave','focusout'].forEach(function(ev){
+    marco.addEventListener(ev, arranca);
+  });
+  document.addEventListener('visibilitychange', function(){
+    document.hidden ? detiene() : arranca();
+  });
+
+  // arrastrar con el dedo o el ratón
+  let x0 = null;
+  marco.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, { passive: true });
+  marco.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) ir(actual + (dx < 0 ? 1 : -1), true);
+    x0 = null;
+  });
+
+  let ajuste;
+  addEventListener('resize', function(){
+    clearTimeout(ajuste);
+    const t = pista.style.transition;
+    pista.style.transition = 'none';          // recolocar sin animar
+    centrar();
+    ajuste = setTimeout(function(){ pista.style.transition = t; }, 60);
+  });
+
+  centrar();
+  arranca();
 })();
 
 /* ====================== El flujo de pre-registro ======================== */
