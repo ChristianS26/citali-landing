@@ -1647,57 +1647,97 @@ document.getElementById('heroCta').addEventListener('click', function(){
 });
 
 /* ===================== Carrusel de funciones ============================ */
+/* Avance infinito: se clona la tanda de funciones antes y después, así la
+   pista siempre tiene a dónde seguir. Al pisar una copia, salta a la
+   original sin animación y nadie nota la costura.                        */
 (function(){
   const pista  = document.getElementById('pista');
   const puntos = document.getElementById('puntos');
   if (!pista) return;
 
-  const diapos = Array.prototype.slice.call(pista.children);
-  const tabs   = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-  const marco  = pista.parentElement;
-  const ESPERA = 5200;
-  let actual = 0, reloj = null;
+  const marco   = pista.parentElement;
+  const tabs    = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  const reales  = Array.prototype.slice.call(pista.children);
+  const N       = reales.length;
+  const ESPERA  = 5200;
 
-  // un punto por función, para saber dónde vas
-  diapos.forEach(function(_, i){
+  // ── copias a los lados ────────────────────────────────────────────────
+  const clonar = function(d){
+    const c = d.cloneNode(true);
+    c.removeAttribute('id');
+    c.removeAttribute('aria-labelledby');
+    c.setAttribute('aria-hidden', 'true');
+    c.classList.remove('act');
+    c.dataset.copia = '1';
+    return c;
+  };
+  // Las copias del inicio van en un fragmento y entran de golpe: si se
+  // insertan una por una al frente, quedan en orden invertido y la vecina
+  // izquierda de la primera función acaba siendo ella misma.
+  const antes = document.createDocumentFragment();
+  reales.forEach(function(d){ antes.appendChild(clonar(d)); });
+  reales.forEach(function(d){ pista.appendChild(clonar(d)); });
+  pista.insertBefore(antes, pista.firstChild);
+
+  const diapos = Array.prototype.slice.call(pista.children);
+  let actual = N;    // arrancamos en la primera real
+  let reloj = null, animando = false;
+
+  // ── puntos ────────────────────────────────────────────────────────────
+  reales.forEach(function(_, i){
     const b = document.createElement('button');
     b.type = 'button';
     b.setAttribute('aria-label', 'Ver ' + tabs[i].textContent.trim());
-    b.addEventListener('click', function(){ ir(i, true); });
+    b.addEventListener('click', function(){ ir(N + i, true); });
     puntos.appendChild(b);
   });
   const bolitas = Array.prototype.slice.call(puntos.children);
 
-  const centrar = function(){
+  const coloca = function(animar){
     const d = diapos[actual];
     const salto = d.offsetLeft + d.offsetWidth / 2 - marco.clientWidth / 2;
+    if (!animar) pista.style.transition = 'none';
     pista.style.transform = 'translateX(' + (-salto) + 'px)';
-
+    if (!animar) {
+      void pista.offsetWidth;                 // fuerza el recálculo antes de devolver la animación
+      pista.style.transition = '';
+    }
+    const i = ((actual % N) + N) % N;
     diapos.forEach(function(x, j){ x.classList.toggle('act', j === actual); });
     tabs.forEach(function(t, j){
-      t.classList.toggle('on', j === actual);
-      t.setAttribute('aria-selected', j === actual ? 'true' : 'false');
-      t.tabIndex = j === actual ? 0 : -1;
+      t.classList.toggle('on', j === i);
+      t.setAttribute('aria-selected', j === i ? 'true' : 'false');
+      t.tabIndex = j === i ? 0 : -1;
     });
-    bolitas.forEach(function(b, j){ b.setAttribute('aria-current', j === actual ? 'true' : 'false'); });
+    bolitas.forEach(function(b, j){ b.setAttribute('aria-current', j === i ? 'true' : 'false'); });
   };
 
-  const ir = function(i, manual){
-    actual = (i + diapos.length) % diapos.length;
-    centrar();
-    if (manual) arranca();          // reinicia el reloj si el usuario tomó el control
+  const ir = function(destino, manual){
+    if (animando) return;
+    animando = true;
+    actual = destino;
+    coloca(!reduce);
+    if (manual) arranca();
+    if (reduce) { animando = false; recentra(); return; }
+    setTimeout(function(){ animando = false; recentra(); }, 880);
+  };
+
+  // al terminar el viaje, si estamos sobre una copia volvemos a la original
+  const recentra = function(){
+    if (actual >= 2 * N)      { actual -= N; coloca(false); }
+    else if (actual < N)      { actual += N; coloca(false); }
   };
 
   const arranca = function(){
     clearInterval(reloj);
-    if (reduce) return;             // sin movimiento automático si así lo pidió el sistema
+    if (reduce) return;
     reloj = setInterval(function(){ ir(actual + 1); }, ESPERA);
   };
   const detiene = function(){ clearInterval(reloj); };
 
   tabs.forEach(function(t, i){
     t.addEventListener('click', function(){
-      ir(i, true);
+      ir(N + i, true);
       track('ViewContent', { content_name: 'Función: ' + t.textContent.trim() });
     });
     t.addEventListener('keydown', function(e){
@@ -1705,22 +1745,18 @@ document.getElementById('heroCta').addEventListener('click', function(){
       if (!paso) return;
       e.preventDefault();
       ir(actual + paso, true);
-      tabs[actual].focus();
+      tabs[((actual % N) + N) % N].focus();
     });
   });
 
-  // se detiene mientras lo miras de cerca, y al salir de la pestaña
   ['mouseenter','focusin','touchstart'].forEach(function(ev){
     marco.addEventListener(ev, detiene, { passive: true });
   });
-  ['mouseleave','focusout'].forEach(function(ev){
-    marco.addEventListener(ev, arranca);
-  });
+  ['mouseleave','focusout'].forEach(function(ev){ marco.addEventListener(ev, arranca); });
   document.addEventListener('visibilitychange', function(){
     document.hidden ? detiene() : arranca();
   });
 
-  // arrastrar con el dedo o el ratón
   let x0 = null;
   marco.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, { passive: true });
   marco.addEventListener('touchend', function(e){
@@ -1733,13 +1769,10 @@ document.getElementById('heroCta').addEventListener('click', function(){
   let ajuste;
   addEventListener('resize', function(){
     clearTimeout(ajuste);
-    const t = pista.style.transition;
-    pista.style.transition = 'none';          // recolocar sin animar
-    centrar();
-    ajuste = setTimeout(function(){ pista.style.transition = t; }, 60);
+    ajuste = setTimeout(function(){ coloca(false); }, 120);
   });
 
-  centrar();
+  coloca(false);
   arranca();
 })();
 
