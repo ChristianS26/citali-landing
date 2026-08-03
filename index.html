@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Citali — Tu WhatsApp agenda y cobra solo</title>
-<meta name="description" content="Citali contesta el WhatsApp de tu negocio, agenda la cita y cobra el anticipo. Para fisios, terapeutas y estudios de bienestar. Apártate un lugar en la beta.">
-<meta name="theme-color" content="#FBFAF7">
+<meta name="description" content="Citali contesta el WhatsApp de tu consultorio, ofrece tus horarios libres, cobra el anticipo y confirma la cita. Para fisioterapeutas y terapeutas en México. Beta privada.">
+<meta name="theme-color" content="#17111F">
 <link rel="canonical" href="https://citali.mx/">
 
 <meta property="og:type" content="website">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Citali">
 <meta property="og:url" content="https://citali.mx/">
 <meta property="og:title" content="Tu WhatsApp agenda y cobra solo — Citali">
-<meta property="og:description" content="La recepcionista con inteligencia artificial para fisios, terapeutas y estudios de bienestar. Sin cambiar tu número.">
+<meta property="og:description" content="La recepcionista con inteligencia artificial para fisioterapeutas y terapeutas. Contesta desde tu mismo número, cobra el anticipo y confirma la cita.">
 <meta property="og:image" content="https://citali.mx/og.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:alt" content="Citali — Tu WhatsApp agenda y cobra solo">
@@ -28,439 +28,827 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Instrument+Sans:wght@400..600&display=swap" rel="stylesheet">
 
 <style>
-/* =========================================================================
-   CITALI — Landing de pre-registro. Una sola pantalla.
-   ========================================================================= */
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-img,svg{max-width:100%;display:block}
-
 :root{
-  --paper:#FBFAF7;
+  --void:#17111F;
+  --void-2:#211829;
   --ink:#241B31;
-  --ink-2:#4A3F5C;
+  --ink-2:#4A3F58;
   --muted:#6E6480;
+  --paper:#FAF8F4;
+  --surface:#FFFFFF;
+  --wash:#F1ECF9;
   --violet:#6D4AE0;
-  --violet-deep:#4E2FB8;
-  --violet-wash:#EFE9FC;
-  --lavender:#B79DFF;
-  --coral:#D95F41;
-  --good:#2E8B67;
+  --violet-deep:#5433C6;
+  --violet-lift:#A98BFF;
+  --confirm:#3AA37A;
+  --confirm-wash:#E4F3ED;
+  --ghost:#D95F41;
   --line:#E7E1EF;
-  --line-2:#EFEAE0;
+  --line-dark:#332942;
   --r:14px;
   --display:"Fraunces",Charter,Georgia,serif;
   --sans:"Instrument Sans",ui-sans-serif,"Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --shell:72rem;
+  --pad:clamp(1.15rem,4vw,2.5rem);
 }
 
-html,body{overflow-x:hidden}
+*{box-sizing:border-box}
+/* `hidden` debe ganarle a cualquier display de autor (.btn es inline-flex) */
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%;background:var(--void)}
 body{
-  margin:0;min-height:100vh;min-height:100svh;
-  background:
-    radial-gradient(80ch 55ch at 82% -15%, rgba(183,157,255,.30), transparent 60%),
-    radial-gradient(60ch 40ch at 0% 105%, rgba(255,236,214,.6), transparent 60%),
-    var(--paper);
-  color:var(--ink);
-  font-family:var(--sans);
-  font-size:1.03rem;line-height:1.6;
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:1.02rem;line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
-body::after{
-  content:"";position:fixed;inset:0;z-index:9;pointer-events:none;
-  opacity:.32;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+img{max-width:100%;display:block}
+
+a{color:var(--violet-deep)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,
+textarea:focus-visible,summary:focus-visible{
+  outline:2.5px solid var(--violet);outline-offset:3px;border-radius:4px;
 }
 
-h1,h2,h3{
-  font-family:var(--display);font-variation-settings:"SOFT" 42,"WONK" 1;
-  font-weight:600;line-height:1.07;letter-spacing:-.025em;text-wrap:balance;margin:0;
-}
-h1{font-size:clamp(2.15rem,1.5rem + 3.2vw,3.5rem);letter-spacing:-.032em}
-h1 em{
-  font-style:italic;color:var(--violet-deep);
-  font-variation-settings:"SOFT" 70,"WONK" 1;
-}
-p{margin:0}
+.shell{max-width:var(--shell);margin-inline:auto;padding-inline:var(--pad)}
+.prose{max-width:62ch}
 
-.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(1.15rem,4vw,2rem)}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-0.018em;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.3rem,6vw,3.9rem);line-height:1.03}
+h2{font-size:clamp(1.75rem,4vw,2.6rem);line-height:1.1}
+h3{font-size:1.12rem;letter-spacing:-0.008em}
+p{margin:0 0 1rem}
 
-/* ---------- Logotipo ---------- */
-.logo{
-  font-family:var(--display);font-variation-settings:"SOFT" 30,"WONK" 1;
-  font-weight:600;letter-spacing:-.03em;line-height:1;
-  display:inline-flex;white-space:nowrap;color:var(--ink);text-decoration:none;
+.eyebrow{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;
+  text-transform:uppercase;margin:0 0 1rem;
 }
-.logo .i{position:relative;display:inline-block}
-.logo .i svg{position:absolute;width:.44em;height:.44em;left:50%;transform:translateX(-46%);top:-.36em;fill:var(--violet)}
 
-/* ---------- Encabezado ---------- */
-header{padding:1.5rem 0 .5rem}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.brand{display:flex;align-items:center;gap:.72rem}
-.app-icon{
-  width:48px;height:48px;border-radius:14px;flex:none;
-  background:linear-gradient(150deg,var(--violet),var(--violet-deep));
-  display:grid;place-items:center;
-  box-shadow:0 10px 22px -10px rgba(78,47,184,.65);
+/* ── barra ─────────────────────────────────────────────────────── */
+.bar{background:var(--void);border-bottom:1px solid var(--line-dark)}
+.bar-in{
+  max-width:var(--shell);margin-inline:auto;padding:.85rem var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
 }
-.app-icon svg{width:24px;height:24px;fill:#fff}
-header .logo{font-size:2.1rem}
-.badge{
+.mark{
+  font-family:var(--display);font-size:1.28rem;font-weight:600;
+  color:#fff;letter-spacing:-.02em;display:flex;align-items:baseline;gap:.34rem;
+}
+.mark i{color:var(--violet-lift);font-style:normal;font-size:.85em}
+.bar-note{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;
+  text-transform:uppercase;color:#9C8DB4;
+}
+
+/* ── hero ──────────────────────────────────────────────────────── */
+.hero{background:var(--void);color:#fff;padding-block:clamp(3rem,7vw,5.25rem) clamp(3.25rem,8vw,6rem);overflow:hidden}
+.hero-grid{
+  max-width:var(--shell);margin-inline:auto;padding-inline:var(--pad);
+  display:grid;gap:clamp(2.5rem,5vw,4rem);
+  grid-template-columns:minmax(0,1fr);align-items:center;
+}
+@media(min-width:62rem){.hero-grid{grid-template-columns:1.02fr .98fr}}
+
+.hero .eyebrow{color:var(--violet-lift)}
+.hero h1{color:#fff;max-width:14ch}
+.hero h1 em{font-style:italic;color:var(--violet-lift)}
+.lede{font-size:clamp(1.03rem,2vw,1.16rem);color:#CFC5DC;max-width:46ch;margin:1.15rem 0 1.6rem;line-height:1.55}
+
+.claims{list-style:none;margin:0 0 2rem;padding:0;display:grid;gap:.6rem;max-width:36ch}
+.claims li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem;color:#E4DCEE}
+.claims svg{flex:0 0 auto;margin-top:.28rem}
+
+.hero-cta{display:flex;flex-wrap:wrap;gap:.85rem 1.1rem;align-items:center}
+.btn{
   display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--violet-deep);background:rgba(255,255,255,.75);
-  border:1px solid var(--line);padding:.4rem .9rem;border-radius:99px;
+  font-family:var(--sans);font-size:1rem;font-weight:600;
+  padding:.9rem 1.5rem;border-radius:999px;border:0;cursor:pointer;
+  text-decoration:none;transition:transform .16s ease,background .16s ease;
 }
-.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px rgba(46,139,103,.16)}
+.btn-primary{background:var(--violet);color:#fff}
+.btn-primary:hover{background:#7d5cf0;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#CFC5DC;border:1px solid var(--line-dark);padding:.85rem 1.3rem}
+.btn-ghost:hover{color:#fff;border-color:#4B3D5E}
+.cta-note{font-size:.85rem;color:#9C8DB4}
 
-/* ---------- Reja principal ---------- */
-main{padding:clamp(1.6rem,4vw,3rem) 0 clamp(2.5rem,5vw,4rem)}
-.grid{display:grid;grid-template-columns:1fr;gap:clamp(2rem,4vw,3rem);align-items:start}
-@media (min-width:940px){
-  .grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2.5rem,5vw,4.5rem)}
-}
-.pitch{display:flex;flex-direction:column;gap:1.25rem}
+/* ── el escenario: hilo + columna del día ──────────────────────── */
+.stage{display:grid;gap:.9rem;grid-template-columns:minmax(0,1.25fr) minmax(9.5rem,.75fr)}
+@media(max-width:32rem){.stage{grid-template-columns:1fr}}
 
-.sub{font-size:clamp(1.03rem,1rem + .4vw,1.18rem);color:var(--ink-2);max-width:50ch}
-.ticks{display:flex;flex-wrap:wrap;gap:.5rem}
-.tick{
-  display:inline-flex;align-items:center;gap:.42rem;
-  font-size:.87rem;font-weight:500;color:var(--ink-2);
-  background:rgba(255,255,255,.72);border:1px solid var(--line);
-  padding:.42rem .85rem;border-radius:99px;
+.thread{
+  background:var(--void-2);border:1px solid var(--line-dark);
+  border-radius:var(--r);padding:.95rem .9rem 1.05rem;
 }
-.tick svg{width:.8em;height:.8em;fill:var(--violet);flex:none}
+.thread-head{
+  display:flex;align-items:center;gap:.55rem;padding-bottom:.75rem;
+  border-bottom:1px solid var(--line-dark);margin-bottom:.85rem;
+}
+.avatar{
+  width:1.85rem;height:1.85rem;border-radius:50%;background:var(--violet-deep);
+  display:grid;place-items:center;color:#fff;font-weight:600;font-size:.8rem;flex:0 0 auto;
+}
+.thread-who{font-size:.82rem;font-weight:600;color:#fff;line-height:1.25}
+.thread-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:#8C7DA4}
 
-/* ---------- Conversación ---------- */
-.phone{
-  position:relative;max-width:370px;margin-top:.4rem;
-  background:#fff;border:1px solid var(--line);border-radius:22px;
-  box-shadow:0 30px 60px -30px rgba(78,47,184,.4), 0 4px 14px -8px rgba(36,27,49,.16);
-  overflow:hidden;
-}
-.phone-bar{display:flex;align-items:center;gap:.65rem;padding:.75rem .95rem;border-bottom:1px solid var(--line-2)}
-.avatar{width:34px;height:34px;border-radius:50%;flex:none;background:linear-gradient(150deg,var(--violet),var(--violet-deep));display:grid;place-items:center}
-.avatar svg{width:15px;height:15px;fill:#fff}
-.phone-bar b{font-size:.9rem;display:block;letter-spacing:-.01em}
-.phone-bar span{font-size:.72rem;color:var(--muted);display:block;line-height:1.35}
-.chat{
-  height:330px;display:flex;flex-direction:column;justify-content:flex-end;gap:.42rem;
-  padding:1rem;overflow:hidden;background:#F7F4FB;
-}
-.chat.armed > *:not(.in){display:none}
+.msgs{display:flex;flex-direction:column;gap:.45rem;min-height:15.5rem}
 .msg{
-  max-width:86%;padding:.58rem .8rem;border-radius:15px;font-size:.9rem;line-height:1.42;
-  box-shadow:0 1px 1px rgba(36,27,49,.05);
-  animation:pop .42s cubic-bezier(.2,.9,.3,1) both;
+  max-width:86%;padding:.5rem .7rem;border-radius:12px;font-size:.845rem;line-height:1.42;
+  opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease;
 }
-@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
-.msg.them{align-self:flex-start;background:#fff;border:1px solid var(--line-2);border-bottom-left-radius:5px}
-.msg.bot{align-self:flex-end;background:var(--violet);color:#fff;border-bottom-right-radius:5px}
-.paylink{display:inline-block;margin-top:.28rem;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);padding:.26rem .65rem;border-radius:8px;font-weight:600;font-size:.83rem}
-.chat-event{align-self:center;font-size:.75rem;font-weight:600;color:var(--good);background:#E4F3EC;border:1px solid #C7E6D8;padding:.24rem .75rem;border-radius:99px;animation:pop .42s cubic-bezier(.2,.9,.3,1) both}
-.typing{align-self:flex-end;display:flex;gap:4px;background:var(--violet);padding:.68rem .8rem;border-radius:15px;border-bottom-right-radius:5px;animation:pop .3s ease both}
-.typing i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.75);animation:blink 1.15s infinite}
+.msg.in{opacity:1;transform:none}
+.msg.them{background:#2E2439;color:#E4DCEE;border-bottom-left-radius:4px;align-self:flex-start}
+.msg.us{background:var(--violet-deep);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.msg b{font-weight:600}
+.pay{
+  display:inline-block;margin-top:.35rem;font-family:var(--mono);font-size:.72rem;
+  background:rgba(255,255,255,.14);padding:.24rem .5rem;border-radius:6px;letter-spacing:.02em;
+}
+.paid{color:#8BE0BC;font-family:var(--mono);font-size:.76rem;letter-spacing:.02em}
+
+.typing{
+  align-self:flex-start;display:inline-flex;gap:.22rem;padding:.6rem .7rem;
+  background:#2E2439;border-radius:12px;border-bottom-left-radius:4px;
+}
+.typing i{width:.34rem;height:.34rem;border-radius:50%;background:#8C7DA4;animation:blink 1.3s infinite}
 .typing i:nth-child(2){animation-delay:.18s}
 .typing i:nth-child(3){animation-delay:.36s}
-@keyframes blink{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+@keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
 
-/* ---------- Tarjeta del formulario ---------- */
-.card{
-  background:#fff;border:1px solid var(--line);border-radius:22px;
-  padding:clamp(1.35rem,3.5vw,1.9rem);
-  box-shadow:0 26px 60px -30px rgba(36,27,49,.3), 0 2px 8px -4px rgba(36,27,49,.1);
-  position:relative;
+/* la columna del día — el elemento firma */
+.day{
+  background:var(--void-2);border:1px solid var(--line-dark);
+  border-radius:var(--r);padding:.9rem .75rem;
 }
-.card h2{font-size:1.5rem}
-.card > p.intro{font-size:.9rem;color:var(--muted);margin-top:.35rem;margin-bottom:1.3rem}
+.day-head{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  color:#8C7DA4;padding-bottom:.6rem;margin-bottom:.6rem;border-bottom:1px solid var(--line-dark);
+}
+.day-head b{display:block;font-family:var(--display);font-size:1.02rem;color:#fff;letter-spacing:-.01em;margin-top:.2rem;text-transform:none}
+.slots{display:grid;gap:.3rem}
+.slot{
+  display:grid;grid-template-columns:3.1rem 1fr;gap:.5rem;align-items:center;
+  padding:.42rem .5rem;border-radius:8px;border:1px solid transparent;
+  font-size:.74rem;transition:background .45s ease,border-color .45s ease;
+}
+.slot time{font-family:var(--mono);font-size:.72rem;color:#8C7DA4;font-variant-numeric:tabular-nums}
+.slot span{color:#6E6480;font-size:.72rem}
+.slot.taken{background:#251C2F}
+.slot.taken span{color:#9C8DB4}
+.slot.free{border-color:var(--line-dark);border-style:dashed}
+.slot.booking{background:rgba(109,74,224,.16);border-color:var(--violet)}
+.slot.booking span{color:var(--violet-lift)}
+.slot.booked{background:rgba(58,163,122,.14);border-color:var(--confirm)}
+.slot.booked time{color:#8BE0BC}
+.slot.booked span{color:#8BE0BC;font-weight:600}
+.slot.booked span::before{content:"✓ ";}
 
-form{display:flex;flex-direction:column;gap:.95rem}
-.field{display:flex;flex-direction:column;gap:.34rem}
-.field label{font-size:.83rem;font-weight:600;color:var(--ink-2)}
-.input{
-  font-family:var(--sans);font-size:1rem;color:var(--ink);
-  background:#FDFCFB;border:1.5px solid var(--line);border-radius:var(--r);
-  padding:.8rem .9rem;width:100%;transition:border-color .16s, box-shadow .16s, background .16s;
+/* ── secciones claras ──────────────────────────────────────────── */
+section{padding-block:clamp(3rem,7vw,5rem)}
+.sec-line{border-top:1px solid var(--line)}
+
+.lead-2{font-size:1.05rem;color:var(--ink-2);max-width:56ch}
+.sec-head{margin-bottom:2.4rem}
+.sec-head .eyebrow{color:var(--violet-deep)}
+
+/* problema */
+.cost{
+  display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;margin-top:2.2rem;
+  grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
 }
-.input::placeholder{color:#A79DB8}
-.input:focus{outline:none;background:#fff;border-color:var(--violet);box-shadow:0 0 0 3.5px rgba(109,74,224,.15)}
-.input[aria-invalid="true"]{border-color:var(--coral);background:#FEF7F5}
-.phone-input{display:flex;gap:.5rem}
-.lada{display:flex;align-items:center;flex:none;background:#FDFCFB;border:1.5px solid var(--line);border-radius:var(--r);padding:0 .75rem;font-size:.95rem;font-weight:600;color:var(--ink-2)}
-.err{font-size:.79rem;color:var(--coral);font-weight:500;display:none}
+.cost > div{background:var(--surface);padding:1.5rem 1.35rem}
+.cost .n{
+  font-family:var(--display);font-size:2rem;font-weight:600;letter-spacing:-.03em;
+  color:var(--ghost);display:block;line-height:1;margin-bottom:.5rem;
+}
+.cost .n.ok{color:var(--confirm)}
+.cost h3{font-size:.95rem;font-family:var(--sans);font-weight:600;margin-bottom:.35rem}
+.cost p{font-size:.9rem;color:var(--muted);margin:0;line-height:1.5}
+
+/* cómo funciona — sí es una secuencia */
+.steps{display:grid;gap:1.5rem;margin-top:2.2rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.step{position:relative;padding-top:2.6rem}
+.step::before{
+  content:attr(data-n);position:absolute;top:0;left:0;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--violet-deep);
+  border:1px solid var(--violet);border-radius:999px;width:1.85rem;height:1.85rem;
+  display:grid;place-items:center;font-weight:600;
+}
+.step h3{margin-bottom:.45rem}
+.step p{font-size:.94rem;color:var(--ink-2);margin:0}
+
+/* precio */
+.price-wrap{
+  display:grid;gap:1.5rem;margin-top:2.2rem;align-items:start;
+  grid-template-columns:minmax(0,1fr);
+}
+@media(min-width:52rem){.price-wrap{grid-template-columns:1fr 1fr}}
+.price-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:1.75rem 1.6rem;
+}
+.price-card .amount{
+  font-family:var(--display);font-size:2.9rem;font-weight:600;letter-spacing:-.035em;
+  line-height:1;color:var(--ink);
+}
+.price-card .per{font-family:var(--sans);font-size:.95rem;color:var(--muted);font-weight:400;letter-spacing:0}
+.price-card ul{list-style:none;margin:1.35rem 0 0;padding:0;display:grid;gap:.6rem}
+.price-card li{display:flex;gap:.55rem;font-size:.92rem;color:var(--ink-2);align-items:flex-start}
+.price-card li svg{flex:0 0 auto;margin-top:.3rem}
+
+.founding{
+  background:var(--wash);border:1px solid #DCD1F2;border-radius:var(--r);padding:1.75rem 1.6rem;
+}
+.founding .eyebrow{color:var(--violet-deep);margin-bottom:.7rem}
+.founding h3{font-family:var(--display);font-size:1.5rem;margin-bottom:.6rem;color:var(--violet-deep)}
+.founding p{font-size:.94rem;color:var(--ink-2);margin-bottom:.7rem}
+.founding p:last-child{margin-bottom:0}
+
+/* objeciones */
+.faq{margin-top:2rem;max-width:44rem;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  cursor:pointer;padding:1.05rem 2rem 1.05rem 0;font-weight:600;font-size:1rem;
+  list-style:none;position:relative;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:.3rem;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);color:var(--violet-deep);font-size:1.1rem;
+}
+.faq details[open] summary::after{content:"–"}
+.faq p{font-size:.94rem;color:var(--ink-2);margin:0 0 1.1rem;max-width:58ch}
+
+/* ── el flujo ──────────────────────────────────────────────────── */
+.flow{background:var(--void);color:#fff}
+.flow .eyebrow{color:var(--violet-lift)}
+.flow h2{color:#fff}
+.flow .lead-2{color:#CFC5DC}
+
+.panel{
+  background:var(--void-2);border:1px solid var(--line-dark);border-radius:18px;
+  padding:clamp(1.4rem,3.5vw,2.1rem);margin-top:2.2rem;max-width:38rem;
+}
+.progress{display:flex;gap:.4rem;margin-bottom:1.5rem}
+.progress i{
+  height:3px;flex:1;background:#332942;border-radius:2px;
+  transition:background .3s ease;
+}
+.progress i.on{background:var(--violet-lift)}
+.step-label{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;
+  color:#8C7DA4;margin-bottom:.55rem;
+}
+.panel h3{color:#fff;font-size:1.35rem;margin-bottom:.4rem}
+.panel .hint{font-size:.9rem;color:#9C8DB4;margin-bottom:1.4rem}
+
+fieldset{border:0;margin:0;padding:0}
+.field{margin-bottom:1.15rem}
+.field:last-of-type{margin-bottom:0}
+label{display:block;font-size:.86rem;font-weight:600;color:#E4DCEE;margin-bottom:.42rem}
+.opt{font-weight:400;color:#8C7DA4}
+
+input[type=text],input[type=tel],input[type=email],select{
+  width:100%;font-family:var(--sans);font-size:1rem;color:#fff;
+  background:#17111F;border:1px solid #3B3049;border-radius:10px;
+  padding:.78rem .85rem;transition:border-color .18s ease;
+}
+input::placeholder{color:#6B5C80}
+input:focus,select:focus{border-color:var(--violet);outline-offset:1px}
+input[aria-invalid=true],select[aria-invalid=true]{border-color:var(--ghost)}
+select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238C7DA4' d='M6 8 0 0h12z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem}
+
+.tel-wrap{display:flex;gap:.5rem}
+.tel-prefix{
+  flex:0 0 auto;display:grid;place-items:center;padding:0 .8rem;
+  background:#17111F;border:1px solid #3B3049;border-radius:10px;
+  font-family:var(--mono);font-size:.9rem;color:#9C8DB4;
+}
+
+.choices{display:grid;gap:.5rem;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr))}
+.choice{position:relative;display:block}
+.choice input{position:absolute;opacity:0;width:0;height:0}
+.choice span{
+  display:block;text-align:center;padding:.7rem .5rem;font-size:.9rem;
+  background:#17111F;border:1px solid #3B3049;border-radius:10px;cursor:pointer;
+  color:#CFC5DC;transition:border-color .16s ease,background .16s ease;
+}
+.choice input:checked + span{border-color:var(--violet);background:rgba(109,74,224,.18);color:#fff;font-weight:600}
+.choice input:focus-visible + span{outline:2.5px solid var(--violet);outline-offset:2px}
+
+.err{
+  display:none;color:#F0917A;font-size:.8rem;margin-top:.35rem;
+}
 .err.show{display:block}
 
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;width:100%;
-  font-family:var(--sans);font-size:1.05rem;font-weight:600;line-height:1;
-  padding:1.1rem 1.5rem;border-radius:99px;border:0;
-  background:var(--violet);color:#fff;cursor:pointer;text-decoration:none;
-  box-shadow:0 1px 0 rgba(255,255,255,.28) inset, 0 12px 26px -12px rgba(78,47,184,.8);
-  transition:transform .18s cubic-bezier(.2,.8,.3,1), box-shadow .18s;
-  margin-top:.25rem;
+.nav-row{display:flex;gap:.75rem;align-items:center;margin-top:1.7rem;flex-wrap:wrap}
+.btn-back{
+  background:none;border:0;color:#9C8DB4;font-family:var(--sans);font-size:.92rem;
+  cursor:pointer;padding:.5rem .2rem;
 }
-.btn:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.28) inset, 0 18px 34px -14px rgba(78,47,184,.9)}
-.btn:active{transform:translateY(0)}
-.btn .arrow{transition:transform .18s}
-.btn:hover .arrow{transform:translateX(3px)}
-:where(a,button,input):focus-visible{outline:2.5px solid var(--violet);outline-offset:3px;border-radius:6px}
+.btn-back:hover{color:#fff}
+button[data-loading=true]{opacity:.6;pointer-events:none}
+button[data-loading=true] .btn-text::after{content:"…"}
 
-.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-.legal{font-size:.76rem;color:var(--muted);line-height:1.5;text-align:center}
-.legal a{color:var(--violet-deep)}
-.form-msg{display:none;font-size:.88rem;font-weight:500;background:#FEF3F0;border:1px solid #F3D4CA;color:#A33F24;padding:.75rem .9rem;border-radius:var(--r)}
+.trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.form-msg{
+  display:none;margin-top:1rem;font-size:.9rem;color:#F0917A;
+  background:rgba(217,95,65,.12);border:1px solid rgba(217,95,65,.4);
+  padding:.8rem .9rem;border-radius:10px;
+}
 .form-msg.show{display:block}
-.spinner{width:17px;height:17px;border-radius:50%;flex:none;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .7s linear infinite;display:none}
-@keyframes spin{to{transform:rotate(360deg)}}
-button[data-loading="true"] .spinner{display:block}
-button[data-loading="true"]{pointer-events:none}
+.form-msg a{color:#F0917A}
 
-/* Confirmación */
-.done{display:none;flex-direction:column;align-items:center;text-align:center;gap:1rem;padding:1rem 0}
-.done.show{display:flex;animation:pop .5s cubic-bezier(.2,.9,.3,1) both}
-.done-star{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--violet-wash);border:1px solid #DDD2F7}
-.done-star svg{width:26px;height:26px;fill:var(--violet)}
-.done h2{font-size:1.45rem}
-.done p{color:var(--ink-2);font-size:.95rem;max-width:40ch}
-.done .btn{background:#fff;color:var(--violet-deep);border:1.5px solid var(--line);box-shadow:none;font-size:.95rem;padding:.9rem 1.4rem}
-.done .btn:hover{border-color:var(--lavender);transform:translateY(-2px)}
-
-/* ---------- Pie ---------- */
-footer{padding:1.5rem 0 2.5rem;border-top:1px solid var(--line)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;justify-content:space-between;font-size:.82rem;color:var(--muted)}
-footer a{color:var(--muted)}
-
-/* ---------- Diálogo del aviso ---------- */
-dialog{border:0;padding:0;max-width:min(600px,92vw);width:100%;border-radius:20px;background:var(--paper);color:var(--ink);box-shadow:0 40px 90px -30px rgba(0,0,0,.55)}
-dialog::backdrop{background:rgba(36,27,49,.55)}
-.dlg{padding:clamp(1.3rem,4vw,2rem);max-height:80vh;overflow:auto}
-.dlg h3{font-size:1.3rem;margin-bottom:.6rem}
-.dlg h4{font-family:var(--sans);font-size:.95rem;margin:1.1rem 0 .25rem}
-.dlg p{font-size:.9rem;color:var(--ink-2);margin-bottom:.4rem}
-.dlg .btn{margin-top:1.3rem}
-
-/* =========================================================================
-   CELULAR — la mayoría del tráfico de redes llega por aquí
-   ========================================================================= */
-/* Botón que baja al formulario: solo existe en celular y tableta */
-.cta-movil{display:none}
-
-@media (max-width:939px){
-  main{padding:1.4rem 0 2.2rem}
-  .cta-movil{display:inline-flex;width:auto;align-self:flex-start;margin:.1rem 0 .2rem;font-size:1rem;padding:.95rem 1.5rem}
-  .cta-movil .arrow{transition:transform .18s}
-  .cta-movil:active .arrow{transform:translateY(2px)}
-  .grid{gap:1.8rem}
-  .pitch{gap:1.1rem}
-  .phone{max-width:100%;margin-top:.2rem}
-  .chat{height:290px}
-  .card{border-radius:20px}
-  /* Área de toque cómoda con el pulgar */
-  .input{padding:.9rem .9rem}
-  .btn{padding:1.15rem 1.5rem}
+/* éxito */
+.done{display:none}
+.done.show{display:block;animation:rise .45s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.done .tick{
+  width:2.75rem;height:2.75rem;border-radius:50%;background:rgba(58,163,122,.16);
+  border:1px solid var(--confirm);display:grid;place-items:center;margin-bottom:1.1rem;
+}
+.done h3{font-size:1.5rem;margin-bottom:.6rem}
+.done p{color:#CFC5DC;font-size:.96rem}
+.next{
+  list-style:none;margin:1.4rem 0;padding:1.1rem 1.2rem;display:grid;gap:.75rem;
+  background:#17111F;border:1px solid var(--line-dark);border-radius:12px;
+}
+.next li{display:flex;gap:.7rem;font-size:.9rem;color:#CFC5DC;align-items:flex-start}
+.next .k{
+  font-family:var(--mono);font-size:.68rem;color:var(--violet-lift);flex:0 0 auto;
+  margin-top:.15rem;letter-spacing:.06em;
 }
 
-@media (max-width:600px){
-  header{padding:1.1rem 0 .3rem}
-  header .wrap{gap:.6rem}
-  .brand{gap:.6rem}
-  .app-icon{width:40px;height:40px;border-radius:12px}
-  .app-icon svg{width:20px;height:20px}
-  header .logo{font-size:1.8rem}
-  .badge{font-size:.63rem;letter-spacing:.08em;padding:.34rem .7rem;gap:.4rem}
-  .badge .dot{width:6px;height:6px}
+/* ── pie ───────────────────────────────────────────────────────── */
+footer{background:var(--void);color:#8C7DA4;padding-block:2.5rem 3rem;border-top:1px solid var(--line-dark)}
+.foot-in{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between;font-size:.85rem}
+footer a{color:#CFC5DC;text-decoration:none;border-bottom:1px solid #3B3049}
+footer a:hover{color:#fff;border-color:var(--violet-lift)}
 
-  .sub{font-size:1.02rem}
-  .tick{font-size:.82rem;padding:.38rem .75rem}
-  .chat{height:270px}
-  .msg{font-size:.88rem;max-width:88%}
-
-  .card{padding:1.3rem 1.15rem}
-  .card h2{font-size:1.35rem}
-  .card > p.intro{font-size:.88rem;margin-bottom:1.1rem}
-  form{gap:.85rem}
-
-  .dlg{max-height:85svh}
-  footer{padding:1.2rem 0 calc(2rem + env(safe-area-inset-bottom))}
-  footer .wrap{font-size:.78rem}
+dialog{
+  border:0;border-radius:16px;padding:0;max-width:36rem;width:calc(100% - 2rem);
+  color:var(--ink);background:var(--surface);
 }
+dialog::backdrop{background:rgba(23,17,31,.62)}
+.dlg-in{padding:1.75rem 1.6rem}
+.dlg-in h3{font-size:1.35rem;margin-bottom:.9rem}
+.dlg-in h4{font-family:var(--sans);font-size:.9rem;font-weight:600;margin:1.1rem 0 .3rem}
+.dlg-in p{font-size:.9rem;color:var(--ink-2);margin:0}
 
-/* Pantallas angostas (iPhone SE y similares) */
-@media (max-width:400px){
-  .badge-mx{display:none}
-  header .logo{font-size:1.65rem}
-  .chat{height:250px}
-  .ticks{gap:.4rem}
-  .tick{font-size:.78rem;padding:.34rem .68rem}
-}
+.no-js .js-only{display:none}
+.nojs-note{background:var(--ghost);color:#fff;padding:1rem;text-align:center;font-size:.9rem}
 
-/* Celular acostado: la conversación estorba, se recorta */
-@media (max-height:520px) and (orientation:landscape){
-  .chat{height:200px}
-}
-
-/* ---------- Entrada ---------- */
-.rise{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.3,1)}
-.go .rise{opacity:1;transform:none}
-.go .d1{transition-delay:.05s}
-.go .d2{transition-delay:.12s}
-.go .d3{transition-delay:.19s}
-.go .d4{transition-delay:.26s}
-.go .d5{transition-delay:.16s}
-.no-js .rise{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
-  .rise{opacity:1;transform:none}
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 }
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <symbol id="star" viewBox="0 0 100 100">
-    <path d="M50 2 C55.5 33 67 44.5 98 50 C67 55.5 55.5 67 50 98 C44.5 67 33 55.5 2 50 C33 44.5 44.5 33 50 2 Z"/>
-  </symbol>
-  <symbol id="check" viewBox="0 0 24 24"><path d="M9.6 16.9 5 12.3l1.4-1.4 3.2 3.2 8-8L19 7.5z"/></symbol>
-</defs></svg>
+<div class="bar">
+  <div class="bar-in">
+    <span class="mark">c<i>✶</i>itali</span>
+    <span class="bar-note">Beta privada · México</span>
+  </div>
+</div>
 
-<div id="page">
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Para fisioterapeutas y terapeutas</p>
+      <h1>Tu WhatsApp agenda y cobra <em>solo</em>.</h1>
+      <p class="lede">
+        Citali contesta desde el número que ya usas, ofrece tus horarios libres,
+        cobra el anticipo y confirma la cita. Tú sigues con el paciente que tienes enfrente.
+      </p>
 
-<header>
-  <div class="wrap">
-    <div class="brand">
-      <span class="app-icon"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg></span>
-      <span class="logo">c<span>&#8203;</span>ital<span class="i">ı<svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg></span></span>
+      <ul class="claims">
+        <li>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#A98BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sigues usando tu mismo número de WhatsApp
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#A98BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Nunca dos pacientes en el mismo horario
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#A98BFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sin anticipo no hay cita: se acaban las citas fantasma
+        </li>
+      </ul>
+
+      <div class="hero-cta">
+        <a href="#empezar" class="btn btn-primary" id="heroCta">
+          Apartar mi lugar
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <span class="cta-note">Toma 2 minutos. No pedimos tarjeta.</span>
+      </div>
     </div>
-    <span class="badge"><span class="dot"></span>Beta privada<span class="badge-mx"> · México</span></span>
+
+    <div class="stage" aria-label="Ejemplo de cómo trabaja Citali">
+      <div class="thread">
+        <div class="thread-head">
+          <span class="avatar">FB</span>
+          <span>
+            <span class="thread-who">Fisio Balance</span><br>
+            <span class="thread-sub">WhatsApp · el número de siempre</span>
+          </span>
+        </div>
+        <div class="msgs" id="msgs">
+          <div class="msg them">Hola, ¿tienen espacio para fisioterapia esta semana?</div>
+          <div class="msg us">¡Hola! Claro que sí 😊 Con Marcela hay lugar el jueves a las 10:00, 12:30 o 5:00 pm. ¿Cuál te acomoda?</div>
+          <div class="msg them">La de 12:30 👍</div>
+          <div class="msg us">Perfecto. Para apartarlo va el anticipo de $150:<span class="pay">Pagar aquí →</span></div>
+          <div class="msg them"><span class="paid">✓ Pago recibido</span></div>
+          <div class="msg us">Listo. Tu cita quedó confirmada: <b>jueves 16, 12:30 pm</b>.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-head">Tu agenda<b>Jueves 16</b></div>
+        <div class="slots" id="slots">
+          <div class="slot taken"><time>09:00</time><span>Ocupado</span></div>
+          <div class="slot free" data-slot="1"><time>10:00</time><span>Libre</span></div>
+          <div class="slot taken"><time>11:15</time><span>Ocupado</span></div>
+          <div class="slot free" data-slot="2"><time>12:30</time><span>Libre</span></div>
+          <div class="slot taken"><time>16:00</time><span>Ocupado</span></div>
+          <div class="slot free" data-slot="3"><time>17:00</time><span>Libre</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
-<main>
-  <div class="wrap grid">
-
-    <div class="pitch">
-      <h1 class="rise d1">Tu WhatsApp <em>agenda y cobra</em> solo, mientras tú atiendes.</h1>
-
-      <p class="sub rise d2">La recepcionista con inteligencia artificial para fisios, terapeutas y estudios de bienestar. Contesta desde tu mismo número, ofrece los horarios libres, cobra el anticipo y confirma la cita.</p>
-
-      <div class="ticks rise d3">
-        <span class="tick"><svg aria-hidden="true"><use href="#check"/></svg>Sin cambiar tu número</span>
-        <span class="tick"><svg aria-hidden="true"><use href="#check"/></svg>Cero citas empalmadas</span>
-        <span class="tick"><svg aria-hidden="true"><use href="#check"/></svg>Adiós a las citas fantasma</span>
-      </div>
-
-      <a class="btn cta-movil rise d4" href="#registro">Apartar mi lugar <span class="arrow" aria-hidden="true">↓</span></a>
-
-      <div class="phone rise d4">
-        <div class="phone-bar">
-          <div class="avatar"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg></div>
-          <div>
-            <b>Fisio Balance</b>
-            <span>WhatsApp · el número de siempre</span>
-          </div>
-        </div>
-        <div class="chat" id="chat" aria-label="Ejemplo de conversación con Citali">
-          <div class="msg them">Hola, ¿tienen espacio para fisioterapia esta semana?</div>
-          <div class="msg bot">¡Hola! Claro que sí 😊 Con Marcela hay lugar el jueves a las 10:00, 12:30 o 5:00 pm. ¿Cuál te acomoda?</div>
-          <div class="msg them">La de 12:30 👍</div>
-          <div class="msg bot">Perfecto. Para apartar tu lugar solo falta el anticipo de $150:<br><span class="paylink">Pagar aquí →</span></div>
-          <div class="chat-event">✓ Pago recibido</div>
-          <div class="msg bot">¡Listo! Tu cita quedó confirmada: <b>jueves 16, 12:30 pm</b> ✶</div>
-        </div>
-      </div>
+<section>
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Por qué duele</p>
+      <h2>La cita que no llega te cuesta dos veces.</h2>
+      <p class="lead-2">
+        Pierdes la sesión y pierdes el horario que ya no le pudiste dar a nadie más.
+        El anticipo cambia esa conversación por completo: quien ya pagó, llega.
+      </p>
     </div>
 
-    <div class="card rise d5" id="registro">
-      <div id="formWrap">
-        <h2>Apártate un lugar</h2>
-        <p class="intro">Estamos abriendo la beta por grupos pequeños. Déjanos tus datos y te escribimos por WhatsApp cuando te toque.</p>
+    <div class="cost">
+      <div>
+        <span class="n">$400–600</span>
+        <h3>Lo que vale una sesión</h3>
+        <p>Rango típico de fisioterapia particular en México. Cada hueco vacío es esa cantidad.</p>
+      </div>
+      <div>
+        <span class="n">2 al mes</span>
+        <h3>Lo que cuesta el servicio</h3>
+        <p>Recuperar dos citas fantasma al mes ya paga la suscripción. Lo demás es tuyo.</p>
+      </div>
+      <div>
+        <span class="n ok">24/7</span>
+        <h3>Cuándo contesta</h3>
+        <p>El paciente escribe a las 11 de la noche y sale agendado. Tú te enteras al día siguiente.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <form id="preForm" novalidate>
-          <div class="field">
-            <label for="nombre">¿Cómo te llamas?</label>
-            <input class="input" type="text" id="nombre" name="nombre" placeholder="Marcela Ríos" autocomplete="name" required>
-            <span class="err" id="err-nombre">Escribe tu nombre.</span>
-          </div>
+<section class="sec-line">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Cómo funciona</p>
+      <h2>Tres pasos, una sola vez.</h2>
+      <p class="lead-2">La configuración es al principio. Después es tu WhatsApp de siempre, trabajando solo.</p>
+    </div>
 
-          <div class="field">
-            <label for="whatsapp">Tu WhatsApp</label>
-            <div class="phone-input">
-              <span class="lada" aria-hidden="true">🇲🇽 +52</span>
-              <input class="input" type="tel" id="whatsapp" name="whatsapp" placeholder="55 1234 5678" inputmode="numeric" autocomplete="tel-national" maxlength="13" required>
+    <div class="steps">
+      <div class="step" data-n="1">
+        <h3>Conectas tu número</h3>
+        <p>El mismo WhatsApp que ya le das a tus pacientes. No cambias de número ni les avisas nada.</p>
+      </div>
+      <div class="step" data-n="2">
+        <h3>Cargas tu horario y tus precios</h3>
+        <p>Tus días, tus horas, cuánto dura cada sesión y de cuánto es el anticipo. Se ajusta cuando quieras.</p>
+      </div>
+      <div class="step" data-n="3">
+        <h3>Citali contesta por ti</h3>
+        <p>Ofrece solo los huecos libres, manda el link de pago y confirma. Si algo se sale del guion, te lo pasa a ti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-line">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Cuánto cuesta</p>
+      <h2>Un precio, sin letras chiquitas.</h2>
+      <p class="lead-2">Lo publicamos desde ahora para que no tengas que pedir cotización ni hablar con un vendedor.</p>
+    </div>
+
+    <div class="price-wrap">
+      <div class="price-card">
+        <div class="amount">$899<span class="per"> MXN/mes</span></div>
+        <p style="color:var(--muted);font-size:.9rem;margin:.55rem 0 0">Por consultorio, un terapeuta. Sin contrato ni costo de instalación.</p>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Conversaciones ilimitadas por WhatsApp</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Cobro de anticipos y recordatorios</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Tu agenda sincronizada</li>
+          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Cancelas cuando quieras</li>
+        </ul>
+        <p style="font-size:.83rem;color:var(--muted);margin:1.2rem 0 0">
+          La comisión de la pasarela de pago (alrededor de 3.5%) la cobra el procesador
+          sobre cada anticipo. Va aparte y te la mostramos siempre desglosada.
+        </p>
+      </div>
+
+      <div class="founding">
+        <p class="eyebrow">Oferta de fundador</p>
+        <h3>Los primeros 30 negocios entran con 3 meses gratis.</h3>
+        <p>
+          Estamos abriendo la beta por grupos pequeños para poder configurar cada consultorio
+          a mano y acompañarlo. Quien entre en los primeros 30 no paga los tres primeros meses.
+        </p>
+        <p>
+          A cambio te vamos a pedir algo concreto: que nos digas qué falla. Esa
+          retroalimentación es lo que estamos comprando con esos tres meses.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-line">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Lo que todos preguntan</p>
+      <h2>Antes de que lo preguntes.</h2>
+    </div>
+
+    <div class="faq">
+      <details>
+        <summary>¿De verdad no tengo que cambiar mi número?</summary>
+        <p>No. Citali trabaja sobre el número de WhatsApp que ya usas con tus pacientes. Ellos escriben al mismo lugar de siempre y ni se enteran del cambio.</p>
+      </details>
+      <details>
+        <summary>¿Y si el paciente pregunta algo que el bot no sabe?</summary>
+        <p>Te lo pasa a ti. Citali agenda, reagenda y cobra; cuando la conversación se sale de eso —una duda clínica, un caso especial— te avisa y tomas tú el control del chat.</p>
+      </details>
+      <details>
+        <summary>¿Me obliga a cobrar anticipo?</summary>
+        <p>No, se configura. Puedes pedirlo siempre, solo a pacientes nuevos, o no pedirlo. Nuestra recomendación es pedirlo a los nuevos: ahí es donde se concentran las citas fantasma.</p>
+      </details>
+      <details>
+        <summary>¿Tengo que mudar mi agenda a otro sistema?</summary>
+        <p>No. Ese es justo el punto. Si hoy usas Google Calendar o una libreta, Citali se acomoda a lo que ya tienes en lugar de pedirte que migres todo.</p>
+      </details>
+      <details>
+        <summary>¿En qué estado está el producto?</summary>
+        <p>En beta privada. Estamos abriendo por grupos pequeños para configurar cada consultorio a mano. Si dejas tus datos entras a la lista y te escribimos por WhatsApp cuando abramos tu grupo — no es acceso inmediato.</p>
+      </details>
+      <details>
+        <summary>¿Quién está detrás?</summary>
+        <p>Un equipo pequeño en México construyendo esto a tiempo completo. Escríbenos a <a href="mailto:hola@citali.mx">hola@citali.mx</a> y te contesta una persona.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="flow" id="empezar">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Apartar mi lugar</p>
+      <h2>Cuéntanos de tu consultorio.</h2>
+      <p class="lead-2">
+        Con estas respuestas dejamos tu configuración lista antes de que abramos tu grupo,
+        para que el día que entres solo tengas que conectar el número.
+      </p>
+    </div>
+
+    <div class="panel">
+      <noscript>
+        <div class="nojs-note">Para apartar tu lugar necesitas activar JavaScript, o escríbenos por WhatsApp.</div>
+      </noscript>
+
+      <div class="js-only" id="formWrap">
+        <div class="progress" aria-hidden="true">
+          <i class="on"></i><i></i><i></i><i></i>
+        </div>
+
+        <form id="onboard" novalidate>
+          <!-- Paso 1 -->
+          <fieldset data-step="1">
+            <p class="step-label">Paso 1 de 4 · Quién eres</p>
+            <h3>Empecemos por ti</h3>
+            <p class="hint">Te escribimos por WhatsApp, no por correo.</p>
+
+            <div class="field">
+              <label for="nombre">¿Cómo te llamas?</label>
+              <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Marcela Ríos">
+              <p class="err" id="err-nombre">Escribe tu nombre.</p>
             </div>
-            <span class="err" id="err-whatsapp">Necesitamos 10 dígitos, con lada.</span>
-          </div>
 
-          <div class="field">
-            <label for="giro">¿A qué se dedica tu negocio?</label>
-            <input class="input" type="text" id="giro" name="giro" placeholder="Fisioterapia deportiva, spa, consultorio…" required>
-            <span class="err" id="err-giro">Cuéntanos a qué se dedica.</span>
-          </div>
+            <div class="field">
+              <label for="whatsapp">Tu WhatsApp</label>
+              <div class="tel-wrap">
+                <span class="tel-prefix">🇲🇽 +52</span>
+                <input type="tel" id="whatsapp" name="whatsapp" inputmode="numeric" autocomplete="tel-national" placeholder="55 1234 5678">
+              </div>
+              <p class="err" id="err-whatsapp">Necesitamos 10 dígitos, con lada.</p>
+            </div>
 
-          <div class="field">
-            <label for="ciudad">¿En qué ciudad?</label>
-            <input class="input" type="text" id="ciudad" name="ciudad" placeholder="Guadalajara, Jalisco" autocomplete="address-level2" required>
-            <span class="err" id="err-ciudad">Dinos tu ciudad.</span>
-          </div>
+            <div class="field">
+              <label for="ciudad">¿En qué ciudad atiendes?</label>
+              <input type="text" id="ciudad" name="ciudad" autocomplete="address-level2" placeholder="Guadalajara">
+              <p class="err" id="err-ciudad">Dinos tu ciudad.</p>
+            </div>
+          </fieldset>
 
-          <div class="hp" aria-hidden="true">
+          <!-- Paso 2 -->
+          <fieldset data-step="2" hidden>
+            <p class="step-label">Paso 2 de 4 · Tu práctica</p>
+            <h3>Qué haces y con quién</h3>
+            <p class="hint">Esto define los servicios que Citali va a ofrecer por ti.</p>
+
+            <div class="field">
+              <label for="giro">¿A qué se dedica tu consultorio?</label>
+              <select id="giro" name="giro">
+                <option value="">Elige una opción</option>
+                <option>Fisioterapia</option>
+                <option>Rehabilitación física</option>
+                <option>Masaje terapéutico</option>
+                <option>Quiropráctica</option>
+                <option>Psicología</option>
+                <option>Nutrición</option>
+                <option>Estudio de bienestar</option>
+                <option>Otro</option>
+              </select>
+              <p class="err" id="err-giro">Elige a qué se dedica.</p>
+            </div>
+
+            <div class="field">
+              <label for="negocio">Nombre del consultorio <span class="opt">(opcional)</span></label>
+              <input type="text" id="negocio" name="negocio" placeholder="Fisio Balance">
+            </div>
+
+            <div class="field">
+              <label>¿Cuántos terapeutas atienden?</label>
+              <div class="choices" role="group" aria-label="Número de terapeutas">
+                <label class="choice"><input type="radio" name="tamano" id="t1" value="Solo yo"><span>Solo yo</span></label>
+                <label class="choice"><input type="radio" name="tamano" id="t2" value="2 a 3"><span>2 a 3</span></label>
+                <label class="choice"><input type="radio" name="tamano" id="t3" value="4 a 10"><span>4 a 10</span></label>
+                <label class="choice"><input type="radio" name="tamano" id="t4" value="Más de 10"><span>Más de 10</span></label>
+              </div>
+              <p class="err" id="err-tamano">Elige una opción.</p>
+            </div>
+          </fieldset>
+
+          <!-- Paso 3 -->
+          <fieldset data-step="3" hidden>
+            <p class="step-label">Paso 3 de 4 · Tu agenda</p>
+            <h3>Cómo agendas hoy</h3>
+            <p class="hint">Nos dice a qué se tiene que conectar Citali.</p>
+
+            <div class="field">
+              <label for="herramienta">¿Con qué llevas tus citas ahora?</label>
+              <select id="herramienta" name="herramienta">
+                <option value="">Elige una opción</option>
+                <option>Libreta o agenda de papel</option>
+                <option>WhatsApp, a mano</option>
+                <option>Google Calendar</option>
+                <option>Excel o Google Sheets</option>
+                <option>Un software de agenda</option>
+                <option>Una recepcionista</option>
+              </select>
+              <p class="err" id="err-herramienta">Elige una opción.</p>
+            </div>
+
+            <div class="field">
+              <label>¿Cuántas citas atiendes por semana, más o menos?</label>
+              <div class="choices" role="group" aria-label="Citas por semana">
+                <label class="choice"><input type="radio" name="volumen" id="v1" value="Menos de 10"><span>Menos de 10</span></label>
+                <label class="choice"><input type="radio" name="volumen" id="v2" value="10 a 25"><span>10 a 25</span></label>
+                <label class="choice"><input type="radio" name="volumen" id="v3" value="25 a 50"><span>25 a 50</span></label>
+                <label class="choice"><input type="radio" name="volumen" id="v4" value="Más de 50"><span>Más de 50</span></label>
+              </div>
+              <p class="err" id="err-volumen">Elige un rango.</p>
+            </div>
+
+            <div class="field">
+              <label for="precio">¿Cuánto cobras por sesión?</label>
+              <select id="precio" name="precio">
+                <option value="">Elige un rango</option>
+                <option>Menos de $300</option>
+                <option>$300 a $500</option>
+                <option>$500 a $800</option>
+                <option>Más de $800</option>
+              </select>
+              <p class="err" id="err-precio">Elige un rango.</p>
+            </div>
+          </fieldset>
+
+          <!-- Paso 4 -->
+          <fieldset data-step="4" hidden>
+            <p class="step-label">Paso 4 de 4 · El problema</p>
+            <h3>Las citas que no llegan</h3>
+            <p class="hint">La última, y es la que más nos importa.</p>
+
+            <div class="field">
+              <label>El mes pasado, ¿cuántos pacientes no llegaron a su cita?</label>
+              <div class="choices" role="group" aria-label="Citas perdidas el mes pasado">
+                <label class="choice"><input type="radio" name="fantasma" id="f1" value="Ninguno"><span>Ninguno</span></label>
+                <label class="choice"><input type="radio" name="fantasma" id="f2" value="1 a 3"><span>1 a 3</span></label>
+                <label class="choice"><input type="radio" name="fantasma" id="f3" value="4 a 10"><span>4 a 10</span></label>
+                <label class="choice"><input type="radio" name="fantasma" id="f4" value="Más de 10"><span>Más de 10</span></label>
+                <label class="choice"><input type="radio" name="fantasma" id="f5" value="No lo sé"><span>No lo sé</span></label>
+              </div>
+              <p class="err" id="err-fantasma">Elige una opción, aunque sea un aproximado.</p>
+            </div>
+
+            <div class="field">
+              <label>¿Cobras anticipo hoy?</label>
+              <div class="choices" role="group" aria-label="Cobro de anticipo">
+                <label class="choice"><input type="radio" name="anticipo" id="a1" value="Sí, siempre"><span>Sí, siempre</span></label>
+                <label class="choice"><input type="radio" name="anticipo" id="a2" value="A veces"><span>A veces</span></label>
+                <label class="choice"><input type="radio" name="anticipo" id="a3" value="Nunca"><span>Nunca</span></label>
+              </div>
+              <p class="err" id="err-anticipo">Elige una opción.</p>
+            </div>
+          </fieldset>
+
+          <div class="trap" aria-hidden="true">
             <label for="sitio">No llenes este campo</label>
             <input type="text" id="sitio" name="sitio" tabindex="-1" autocomplete="off">
           </div>
 
-          <div class="form-msg" id="formMsg" role="alert"></div>
+          <div class="nav-row">
+            <button type="button" class="btn btn-ghost" id="backBtn" hidden>Atrás</button>
+            <button type="button" class="btn btn-primary" id="nextBtn">
+              <span class="btn-text">Continuar</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="submit" class="btn btn-primary" id="submitBtn" hidden>
+              <span class="btn-text">Apartar mi lugar</span>
+            </button>
+          </div>
 
-          <button class="btn" type="submit" id="submitBtn">
-            <span class="spinner" aria-hidden="true"></span>
-            <span>Apartar mi lugar</span>
-            <span class="arrow" aria-hidden="true">→</span>
-          </button>
-
-          <p class="legal">Gratis y sin compromiso. Solo te escribimos sobre Citali. <a href="#" id="privacyLink">Aviso de privacidad</a>.</p>
+          <p class="form-msg" id="formMsg"></p>
+          <p style="font-size:.8rem;color:#8C7DA4;margin:1.1rem 0 0">
+            Gratis y sin compromiso. Usamos tus datos solo para contactarte sobre Citali.
+            <a href="#" id="privacyLink" style="color:#CFC5DC">Aviso de privacidad</a>.
+          </p>
         </form>
       </div>
 
-      <div class="done" id="done" role="status">
-        <div class="done-star"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#star"/></svg></div>
-        <h2>¡Tu lugar quedó apartado!</h2>
-        <p id="doneName">Te escribimos por WhatsApp en cuanto abramos tu grupo.</p>
-        <a class="btn" id="shareBtn" href="#" target="_blank" rel="noopener">Pásale la voz a un colega <span class="arrow" aria-hidden="true">→</span></a>
+      <div class="done" id="done">
+        <div class="tick">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 id="doneTitle">Quedaste en la lista.</h3>
+        <p id="doneBody">
+          Guardamos las respuestas de tu consultorio. Te escribimos por WhatsApp
+          en cuanto abramos tu grupo.
+        </p>
+
+        <ul class="next">
+          <li><span class="k">1</span><span>Revisamos tu registro y preparamos tu configuración con lo que nos contaste.</span></li>
+          <li><span class="k">2</span><span>Te escribimos por WhatsApp desde el número de Citali para agendar la conexión.</span></li>
+          <li><span class="k">3</span><span>Si eres de los primeros 30 consultorios, entras con tus 3 meses gratis.</span></li>
+        </ul>
+
+        <p style="font-size:.9rem;color:#9C8DB4">¿Conoces a otro terapeuta al que le sirva?</p>
+        <a class="btn btn-ghost" id="shareBtn" href="#" target="_blank" rel="noopener">Pasar la voz por WhatsApp</a>
       </div>
     </div>
-
   </div>
-</main>
+</section>
 
 <footer>
-  <div class="wrap">
+  <div class="shell foot-in">
     <span>© <span id="year">2026</span> Citali · Hecho en México ✶</span>
-    <a href="#" id="privacyLink2">Aviso de privacidad</a>
+    <span>
+      <a href="mailto:hola@citali.mx" id="footMail">hola@citali.mx</a>
+      &nbsp;·&nbsp;
+      <a href="#" id="privacyLink2">Aviso de privacidad</a>
+    </span>
   </div>
 </footer>
 
-</div>
-
-<dialog id="privacyDlg">
-  <div class="dlg">
-    <h3>Aviso de privacidad</h3>
+<dialog id="privacyDlg" aria-labelledby="dlgTitle">
+  <div class="dlg-in">
+    <h3 id="dlgTitle">Aviso de privacidad</h3>
     <h4>Quién es responsable</h4>
     <p>Citali (proyecto en formación, México) es responsable de los datos que nos compartes en este formulario.</p>
     <h4>Qué recabamos y para qué</h4>
-    <p>Tu nombre, número de WhatsApp, giro y ciudad. Los usamos únicamente para contactarte sobre el lanzamiento de Citali e invitarte a la beta.</p>
+    <p>Tu nombre, número de WhatsApp, ciudad y las respuestas sobre tu consultorio. Los usamos únicamente para contactarte sobre el lanzamiento de Citali, invitarte a la beta y preparar tu configuración.</p>
     <h4>Qué no hacemos</h4>
     <p>No vendemos, rentamos ni compartimos tus datos con terceros para fines publicitarios.</p>
     <h4>Tus derechos</h4>
-    <p>Puedes pedirnos acceder, rectificar, cancelar u oponerte al uso de tus datos (derechos ARCO) cuando quieras: responde «BAJA» a cualquier mensaje o escríbenos a <b id="privacyMail">hola@citali.mx</b>.</p>
-    <button class="btn" id="closeDlg" type="button">Entendido</button>
+    <p>Puedes pedirnos acceder, rectificar, cancelar u oponerte al uso de tus datos (derechos ARCO) cuando quieras: responde «BAJA» a cualquier mensaje o escríbenos a <span id="privacyMail">hola@citali.mx</span>.</p>
+    <p style="margin-top:1.4rem"><button class="btn btn-primary" id="closeDlg" type="button">Entendido</button></p>
   </div>
 </dialog>
-
-<noscript>
-  <div style="background:#241B31;color:#fff;padding:1rem;text-align:center;font-size:.9rem">
-    Para pre-registrarte necesitas activar JavaScript.
-  </div>
-</noscript>
 
 <script>
 /* =========================================================================
@@ -471,10 +859,9 @@ const CONFIG = {
   SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfycbzV_c_CxlgcGxKRfIQY2PJfdLcVmn_rizf2WepBRLExYqN37bLrPJAMcFDMZdAfSCMx/exec",
 
   // 2) WhatsApp de contacto: plan B si falla el envío. Sin + ni espacios.
-  //    Si el enlace no abre tu chat, prueba con "5216221254659" (con el 1 de México).
   WHATSAPP: "526221254659",
 
-  // 3) Correo de contacto (aparece en el aviso de privacidad).
+  // 3) Correo de contacto (aparece en el aviso de privacidad y en el pie).
   EMAIL: "hola@citali.mx",
 
   // 4) Píxel de Meta (Facebook/Instagram). Vacío = apagado.
@@ -484,7 +871,7 @@ const CONFIG = {
   GA4_ID: "",
 
   // 6) Texto que se comparte desde la pantalla de confirmación.
-  SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del negocio, agenda y cobra el anticipo sola. Está en beta y puedes apartar lugar: https://citali.mx"
+  SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del consultorio, agenda y cobra el anticipo sola. Está en beta y puedes apartar lugar: https://citali.mx"
 };
 
 /* ========================= Marcadores (Meta / GA4) ======================= */
@@ -517,36 +904,78 @@ document.documentElement.classList.remove('no-js');
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.getElementById('year').textContent = new Date().getFullYear();
 document.getElementById('privacyMail').textContent = CONFIG.EMAIL;
+document.getElementById('footMail').textContent = CONFIG.EMAIL;
+document.getElementById('footMail').href = 'mailto:' + CONFIG.EMAIL;
 
-requestAnimationFrame(function(){
-  requestAnimationFrame(function(){ document.getElementById('page').classList.add('go'); });
-});
-
-/* ===================== La conversación se escribe sola ================== */
+/* ============ El escenario: el hilo corre y el día se llena ============= */
 (function(){
-  const chat = document.getElementById('chat');
-  if (!chat || reduce) return;
-  const pasos = Array.prototype.slice.call(chat.children);
-  chat.classList.add('armed');
+  const msgs  = document.getElementById('msgs');
+  const slots = document.getElementById('slots');
+  if (!msgs || !slots) return;
 
-  let t = 900;
-  pasos.forEach(function(el){
-    if (el.classList.contains('bot')) {
+  const burbujas = Array.prototype.slice.call(msgs.children);
+  const objetivo = slots.querySelector('[data-slot="2"]');   // el hueco de las 12:30
+
+  const cierra = function(){
+    if (!objetivo) return;
+    objetivo.className = 'slot booked';
+    objetivo.querySelector('span').textContent = 'Confirmado · anticipo $150';
+  };
+
+  // Sin animación: el estado final, de inmediato.
+  if (reduce) {
+    burbujas.forEach(function(b){ b.classList.add('in'); });
+    cierra();
+    return;
+  }
+
+  burbujas.forEach(function(b){ b.remove(); });
+
+  let t = 700;
+  burbujas.forEach(function(el, i){
+    const nuestro = el.classList.contains('us');
+
+    if (nuestro) {
       setTimeout(function(){
         const p = document.createElement('div');
-        p.className = 'typing in'; p.id = 'typing';
+        p.className = 'typing'; p.id = 'typing';
         p.innerHTML = '<i></i><i></i><i></i>';
-        chat.appendChild(p);
+        msgs.appendChild(p);
       }, t);
       setTimeout(function(){
         const p = document.getElementById('typing');
         if (p) p.remove();
-        el.classList.add('in'); chat.appendChild(el);
-      }, t + 900);
-      t += 1850;
+        msgs.appendChild(el);
+        requestAnimationFrame(function(){ el.classList.add('in'); });
+
+        // La segunda burbuja nuestra ofrece horarios: se marcan los libres.
+        if (i === 1) {
+          slots.querySelectorAll('.free').forEach(function(s){
+            s.classList.add('booking');
+            s.querySelector('span').textContent = 'Ofrecido';
+          });
+        }
+      }, t + 850);
+      t += 1750;
+
     } else {
-      setTimeout(function(){ el.classList.add('in'); chat.appendChild(el); }, t);
-      t += 850;
+      setTimeout(function(){
+        msgs.appendChild(el);
+        requestAnimationFrame(function(){ el.classList.add('in'); });
+
+        // El paciente elige las 12:30: los otros dos vuelven a quedar libres.
+        if (i === 2) {
+          slots.querySelectorAll('.booking').forEach(function(s){
+            if (s !== objetivo) {
+              s.className = 'slot free';
+              s.querySelector('span').textContent = 'Libre';
+            }
+          });
+        }
+        // Llegó el pago: el hueco queda cerrado.
+        if (i === 4) cierra();
+      }, t);
+      t += 900;
     }
   });
 })();
@@ -560,24 +989,26 @@ requestAnimationFrame(function(){
   document.getElementById('closeDlg').addEventListener('click', function(){ dlg.close(); });
 })();
 
-/* =============== Botón de celular que baja al formulario =============== */
-(function(){
-  const cta = document.querySelector('.cta-movil');
-  if (cta) cta.addEventListener('click', function(){
-    track('InitiateCheckout', { content_name: 'CTA celular' });
-  });
-})();
+document.getElementById('heroCta').addEventListener('click', function(){
+  track('InitiateCheckout', { content_name: 'CTA hero' });
+});
 
-/* ============================ Formulario =============================== */
+/* ====================== El flujo de pre-registro ======================== */
 (function(){
-  const form = document.getElementById('preForm');
-  const btn  = document.getElementById('submitBtn');
-  const msg  = document.getElementById('formMsg');
-  const wrap = document.getElementById('formWrap');
-  const done = document.getElementById('done');
+  const form   = document.getElementById('onboard');
+  const pasos  = Array.prototype.slice.call(form.querySelectorAll('fieldset'));
+  const barras = Array.prototype.slice.call(document.querySelectorAll('.progress i'));
+  const next   = document.getElementById('nextBtn');
+  const back   = document.getElementById('backBtn');
+  const enviar = document.getElementById('submitBtn');
+  const msg    = document.getElementById('formMsg');
+  const wrap   = document.getElementById('formWrap');
+  const done   = document.getElementById('done');
   const abierto = Date.now();
 
-  // Formato del teléfono: 55 1234 5678
+  let actual = 0;
+
+  /* --- teléfono: 55 1234 5678 --- */
   const tel = document.getElementById('whatsapp');
   tel.addEventListener('input', function(){
     const d = tel.value.replace(/\D/g, '').slice(0, 10);
@@ -586,6 +1017,7 @@ requestAnimationFrame(function(){
               : d;
   });
 
+  /* --- validación --- */
   const marca = function(id, mal){
     const campo = document.getElementById(id);
     const error = document.getElementById('err-' + id);
@@ -594,28 +1026,91 @@ requestAnimationFrame(function(){
     return !mal;
   };
 
-  const valida = function(){
-    let ok = true, primero = null;
-    const nombre = document.getElementById('nombre');
-    const ciudad = document.getElementById('ciudad');
-    const giro   = document.getElementById('giro');
-
-    if (!marca('nombre', nombre.value.trim().length < 2)) { ok = false; primero = primero || nombre; }
-    if (!marca('whatsapp', tel.value.replace(/\D/g,'').length !== 10)) { ok = false; primero = primero || tel; }
-    if (!marca('giro', giro.value.trim().length < 3))     { ok = false; primero = primero || giro; }
-    if (!marca('ciudad', ciudad.value.trim().length < 2)) { ok = false; primero = primero || ciudad; }
-
-    if (primero) primero.focus();
-    return ok;
+  const elegido = function(nombre){
+    const r = form.querySelector('input[name="' + nombre + '"]:checked');
+    return r ? r.value : '';
   };
 
-  ['nombre','whatsapp','giro','ciudad'].forEach(function(id){
-    const el = document.getElementById(id);
-    el.addEventListener('blur', function(){
-      if (el.getAttribute('aria-invalid') === 'true') valida();
-    });
+  const marcaGrupo = function(nombre, mal){
+    const error = document.getElementById('err-' + nombre);
+    if (error) error.classList.toggle('show', mal);
+    return !mal;
+  };
+
+  const reglas = [
+    function(){                                   // paso 1
+      let ok = true, foco = null;
+      const n = document.getElementById('nombre'), c = document.getElementById('ciudad');
+      if (!marca('nombre', n.value.trim().length < 2))            { ok = false; foco = foco || n; }
+      if (!marca('whatsapp', tel.value.replace(/\D/g,'').length !== 10)) { ok = false; foco = foco || tel; }
+      if (!marca('ciudad', c.value.trim().length < 2))            { ok = false; foco = foco || c; }
+      if (foco) foco.focus();
+      return ok;
+    },
+    function(){                                   // paso 2
+      let ok = true, foco = null;
+      const g = document.getElementById('giro');
+      if (!marca('giro', !g.value))               { ok = false; foco = foco || g; }
+      if (!marcaGrupo('tamano', !elegido('tamano'))) { ok = false; }
+      if (foco) foco.focus();
+      return ok;
+    },
+    function(){                                   // paso 3
+      let ok = true, foco = null;
+      const h = document.getElementById('herramienta'), p = document.getElementById('precio');
+      if (!marca('herramienta', !h.value))        { ok = false; foco = foco || h; }
+      if (!marcaGrupo('volumen', !elegido('volumen'))) { ok = false; }
+      if (!marca('precio', !p.value))             { ok = false; foco = foco || p; }
+      if (foco) foco.focus();
+      return ok;
+    },
+    function(){                                   // paso 4
+      let ok = true;
+      if (!marcaGrupo('fantasma', !elegido('fantasma'))) ok = false;
+      if (!marcaGrupo('anticipo', !elegido('anticipo'))) ok = false;
+      return ok;
+    }
+  ];
+
+  /* --- navegación --- */
+  const pinta = function(){
+    pasos.forEach(function(f, i){ f.hidden = (i !== actual); });
+    barras.forEach(function(b, i){ b.classList.toggle('on', i <= actual); });
+    back.hidden   = actual === 0;
+    next.hidden   = actual === pasos.length - 1;
+    enviar.hidden = actual !== pasos.length - 1;
+
+    const primero = pasos[actual].querySelector('input:not([type=radio]), select, input[type=radio]');
+    if (primero && actual > 0) primero.focus();
+  };
+
+  next.addEventListener('click', function(){
+    if (!reglas[actual]()) return;
+    track('OnboardStep', { step: actual + 1 });
+    actual++;
+    pinta();
   });
 
+  back.addEventListener('click', function(){
+    if (actual > 0) { actual--; pinta(); }
+  });
+
+  // Enter avanza en vez de enviar a medias
+  form.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && actual < pasos.length - 1) {
+      e.preventDefault();
+      next.click();
+    }
+  });
+
+  // Revalida en vivo lo que ya estaba marcado como mal
+  form.addEventListener('change', function(e){
+    const n = e.target.name;
+    if (n && document.getElementById('err-' + n)) marcaGrupo(n, !elegido(n));
+    if (e.target.getAttribute('aria-invalid') === 'true') reglas[actual]();
+  });
+
+  /* --- envío --- */
   const parametros = new URLSearchParams(location.search);
   const utm = function(k){ return parametros.get(k) || ''; };
 
@@ -641,15 +1136,22 @@ requestAnimationFrame(function(){
 
     // Anti-spam: trampa llena o enviado en menos de 3 segundos
     if (document.getElementById('sitio').value || (Date.now() - abierto) < 3000) return;
-    if (!valida()) return;
+    if (!reglas[actual]()) return;
 
-    btn.dataset.loading = 'true';
+    enviar.dataset.loading = 'true';
 
     const datos = {
-      nombre:   document.getElementById('nombre').value.trim(),
-      whatsapp: '+52' + tel.value.replace(/\D/g, ''),
-      giro:     document.getElementById('giro').value.trim(),
-      ciudad:   document.getElementById('ciudad').value.trim(),
+      nombre:      document.getElementById('nombre').value.trim(),
+      whatsapp:    '+52' + tel.value.replace(/\D/g, ''),
+      ciudad:      document.getElementById('ciudad').value.trim(),
+      giro:        document.getElementById('giro').value,
+      negocio:     document.getElementById('negocio').value.trim(),
+      tamano:      elegido('tamano'),
+      herramienta: document.getElementById('herramienta').value,
+      volumen:     elegido('volumen'),
+      precio:      document.getElementById('precio').value,
+      fantasma:    elegido('fantasma'),
+      anticipo:    elegido('anticipo'),
       utm_source:   utm('utm_source'),
       utm_medium:   utm('utm_medium'),
       utm_campaign: utm('utm_campaign'),
@@ -667,19 +1169,25 @@ requestAnimationFrame(function(){
 
       wrap.style.display = 'none';
       done.classList.add('show');
-      document.getElementById('doneName').textContent =
-        'Gracias, ' + datos.nombre.split(' ')[0] + '. Te escribimos por WhatsApp en cuanto abramos tu grupo.';
-      document.getElementById('shareBtn').href = 'https://wa.me/?text=' + encodeURIComponent(CONFIG.SHARE_TEXT);
+      document.getElementById('doneTitle').textContent =
+        'Quedaste en la lista, ' + datos.nombre.split(' ')[0] + '.';
+      document.getElementById('shareBtn').href =
+        'https://wa.me/?text=' + encodeURIComponent(CONFIG.SHARE_TEXT);
+      done.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
 
     } catch (err) {
       console.error('[Citali] No se pudo guardar el registro:', err);
       msg.innerHTML = 'No pudimos guardar tu registro. Inténtalo otra vez o escríbenos por ' +
-        '<a href="https://wa.me/' + CONFIG.WHATSAPP + '?text=' + encodeURIComponent('Hola, quiero apartar mi lugar en la beta de Citali') + '" target="_blank" rel="noopener">WhatsApp</a>.';
+        '<a href="https://wa.me/' + CONFIG.WHATSAPP + '?text=' +
+        encodeURIComponent('Hola, quiero apartar mi lugar en la beta de Citali') +
+        '" target="_blank" rel="noopener">WhatsApp</a>.';
       msg.classList.add('show');
     } finally {
-      btn.dataset.loading = 'false';
+      enviar.dataset.loading = 'false';
     }
   });
+
+  pinta();
 })();
 </script>
 </body>

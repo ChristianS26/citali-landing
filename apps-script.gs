@@ -14,7 +14,8 @@ const CORREO_AVISO = 'tu-correo@ejemplo.com';
 const ZONA = 'America/Mexico_City';
 
 const COLUMNAS = [
-  'Fecha', 'Nombre', 'Negocio', 'WhatsApp', 'Correo', 'Giro', 'Ciudad', 'Tamaño',
+  'Fecha', 'Nombre', 'Negocio', 'WhatsApp', 'Ciudad', 'Giro', 'Tamaño',
+  'Agenda hoy', 'Citas/semana', 'Precio sesión', 'Citas fantasma', 'Cobra anticipo',
   'Repetido', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
   'Referencia', 'Página', 'Dispositivo'
 ];
@@ -44,10 +45,14 @@ function doPost(e) {
       datos.nombre || '',
       datos.negocio || '',
       "'" + (datos.whatsapp || ''),   // el apóstrofo evita que Sheets lo lea como número
-      datos.correo || '',
-      datos.giro || '',
       datos.ciudad || '',
+      datos.giro || '',
       datos.tamano || '',
+      datos.herramienta || '',
+      datos.volumen || '',
+      datos.precio || '',
+      datos.fantasma || '',
+      datos.anticipo || '',
       repetido,
       datos.utm_source || '',
       datos.utm_medium || '',
@@ -131,10 +136,15 @@ function avisar_(d) {
         '<h2 style="color:#4E2FB8;margin:0 0 12px">Nuevo pre-registro</h2>' +
         '<p><b>' + (d.nombre || '') + '</b>' + (d.negocio ? ' — ' + d.negocio : '') + '</p>' +
         '<p>WhatsApp: <b>' + (d.whatsapp || '') + '</b><br>' +
-        'Correo: ' + (d.correo || '—') + '<br>' +
         'Giro: ' + (d.giro || '—') + '<br>' +
         'Ciudad: ' + (d.ciudad || '—') + '<br>' +
-        'Tamaño: ' + (d.tamano || '—') + '</p>' +
+        'Terapeutas: ' + (d.tamano || '—') + '</p>' +
+        '<p style="background:#EFE9FC;padding:10px;border-radius:8px">' +
+        'Agenda hoy con: <b>' + (d.herramienta || '—') + '</b><br>' +
+        'Citas por semana: <b>' + (d.volumen || '—') + '</b><br>' +
+        'Precio por sesión: <b>' + (d.precio || '—') + '</b><br>' +
+        'Citas fantasma el mes pasado: <b>' + (d.fantasma || '—') + '</b><br>' +
+        'Cobra anticipo hoy: <b>' + (d.anticipo || '—') + '</b></p>' +
         '<p style="color:#6E6480;font-size:13px">Campaña: ' +
         [d.utm_source, d.utm_medium, d.utm_campaign, d.utm_content].filter(String).join(' · ') +
         '</p></div>'
