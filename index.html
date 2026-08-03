@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Citali — Tu WhatsApp agenda y cobra solo</title>
-<meta name="description" content="Citali contesta el WhatsApp de tu consultorio, ofrece tus horarios libres, cobra el anticipo y confirma la cita. Para fisioterapeutas y terapeutas en México. Beta privada.">
+<meta name="description" content="Citali contesta el WhatsApp de tu consultorio, ofrece tus horarios libres, cobra el anticipo y confirma la cita. Para fisioterapeutas y terapeutas en México.">
 <meta name="theme-color" content="#17111F">
 <link rel="canonical" href="https://citali.mx/">
 
@@ -96,19 +96,29 @@ p{margin:0 0 1rem}
   color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem;
 }
 .mark-logo{width:1.75rem;height:1.75rem;flex:0 0 auto;display:block}
+.bar-cta{
+  font-family:var(--sans);font-size:.85rem;font-weight:600;color:#fff;
+  background:var(--violet);padding:.5rem 1rem;border-radius:999px;text-decoration:none;
+  transition:background .16s ease;white-space:nowrap;
+}
+.bar-cta:hover{background:#7d5cf0;color:#fff}
 .bar-note{
   font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;
   text-transform:uppercase;color:#9C8DB4;
 }
 
 /* ── hero ──────────────────────────────────────────────────────── */
-.hero{background:var(--void);color:#fff;padding-block:clamp(3rem,7vw,5.25rem) clamp(3.25rem,8vw,6rem);overflow:hidden}
+.hero{background:var(--void);color:#fff;padding-block:clamp(3rem,7vw,5rem) clamp(2rem,4vw,3rem);overflow:hidden;position:relative}
 .hero-grid{
   max-width:var(--shell);margin-inline:auto;padding-inline:var(--pad);
   display:grid;gap:clamp(2.5rem,5vw,4rem);
   grid-template-columns:minmax(0,1fr);align-items:center;
 }
-@media(min-width:62rem){.hero-grid{grid-template-columns:1.02fr .98fr}}
+.hero-grid{justify-items:center;text-align:center}
+.hero h1{margin-inline:auto}
+.lede{margin-inline:auto}
+.claims{margin-inline:auto;text-align:left}
+.hero-cta{justify-content:center}
 
 .hero .eyebrow{color:var(--violet-lift)}
 .hero h1{color:#fff;max-width:14ch}
@@ -402,6 +412,178 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 .no-js .js-only{display:none}
 .nojs-note{background:var(--ghost);color:#fff;padding:1rem;text-align:center;font-size:.9rem}
 
+/* ══ SHOWCASE: pestañas + pantallas de producto ══════════════════════ */
+.showcase{background:var(--void);padding-block:0 clamp(3rem,7vw,5rem);position:relative}
+.showcase::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 55% at 50% 0%,rgba(109,74,224,.30),transparent 70%);
+}
+.showcase > .shell{position:relative}
+
+.tabs{
+  display:flex;gap:.3rem;overflow-x:auto;scrollbar-width:none;
+  padding-bottom:1.5rem;justify-content:center;flex-wrap:wrap;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  font-family:var(--sans);font-size:.9rem;font-weight:500;white-space:nowrap;
+  color:#9C8DB4;background:transparent;border:1px solid transparent;
+  padding:.55rem 1.05rem;border-radius:999px;cursor:pointer;
+  transition:color .16s ease,background .16s ease,border-color .16s ease;
+}
+.tab:hover{color:#E4DCEE}
+.tab.on{color:#fff;background:rgba(255,255,255,.09);border-color:var(--line-dark);font-weight:600}
+
+.sc-panel[hidden]{display:none}
+.sc-panel{animation:panelIn .28s ease both}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.panel-note{
+  text-align:center;color:#9C8DB4;font-size:.9rem;margin:1.2rem auto 0;max-width:52ch;
+}
+
+/* marco de "pantalla" */
+.ui{
+  background:#FFFFFF;border-radius:14px;overflow:hidden;
+  box-shadow:0 24px 60px -18px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);
+}
+.ui-bar{
+  display:flex;align-items:center;gap:.4rem;padding:.6rem .85rem;
+  background:#F3F0F7;border-bottom:1px solid #E7E1EF;
+}
+.ui-bar i{width:.55rem;height:.55rem;border-radius:50%;background:#D6CFE2;flex:0 0 auto}
+.ui-bar span{
+  margin-left:.5rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;
+  color:#6E6480;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ui-body{padding:1rem}
+.dos{display:grid;gap:1rem;grid-template-columns:minmax(0,1fr)}
+@media(min-width:48rem){.dos{grid-template-columns:1fr 1fr}}
+
+/* ── agenda semanal ── */
+.cal{overflow-x:auto}
+.cal-head,.cal-grid{min-width:34rem}
+.cal-head{
+  display:grid;grid-template-columns:3.1rem repeat(5,1fr);gap:.3rem;
+  font-size:.68rem;color:#6E6480;font-weight:600;padding-bottom:.5rem;
+}
+.cal-head span{text-align:center}
+.cal-head .hoy{color:var(--violet-deep)}
+.cal-grid{display:grid;grid-template-columns:3.1rem repeat(5,1fr);gap:.3rem}
+.horas{display:grid;grid-template-rows:repeat(8,1.55rem);gap:.18rem}
+.horas span{
+  font-family:var(--mono);font-size:.6rem;color:#9A90AC;text-align:right;
+  padding-right:.3rem;font-variant-numeric:tabular-nums;
+}
+.dia{
+  display:grid;grid-template-rows:repeat(8,1.55rem);gap:.18rem;
+  background:repeating-linear-gradient(#FAF8FC 0 1.55rem,transparent 1.55rem 1.73rem);
+  border-radius:5px;
+}
+.cita,.libre{
+  grid-row:calc(var(--i) + 1) / span var(--n);
+  border-radius:5px;padding:.24rem .38rem;overflow:hidden;
+  font-size:.62rem;line-height:1.2;
+}
+.cita b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cita em{font-style:normal;opacity:.72;font-size:.58rem}
+.c1{background:#E3EEFD;color:#1F4C86}
+.c2{background:#E6F6EC;color:#1E6640}
+.c3{background:#FDF0E0;color:#8A5510}
+.c4{background:#F3E9FD;color:#5A2E92}
+.cita.nueva{background:#DFF3EA;color:#1B6B4C;box-shadow:inset 0 0 0 1.5px #3AA37A}
+.libre{
+  border:1.5px dashed #D6CFE2;color:#9A90AC;display:grid;place-items:center;
+  font-size:.6rem;
+}
+
+/* ── chat ── */
+.ui-chat .ui-body{background:#EFE7DE}
+.chat{display:flex;flex-direction:column;gap:.4rem}
+.chat .b{
+  max-width:78%;padding:.5rem .68rem;border-radius:11px;font-size:.8rem;line-height:1.4;
+}
+.chat .them{background:#fff;color:#241B31;align-self:flex-start;border-bottom-left-radius:3px}
+.chat .us{background:#D8FDD2;color:#111B21;align-self:flex-end;border-bottom-right-radius:3px}
+.chat .them.ok{background:#fff;color:#1E6640;font-weight:600}
+.chat .hora{
+  align-self:flex-start;background:none;padding:0 .3rem;font-size:.62rem;color:#7C7183;
+}
+.chat .chip{
+  display:block;margin-top:.4rem;background:#fff;border:1px solid #BFE3B8;
+  color:#1E6640;font-weight:600;text-align:center;padding:.34rem;border-radius:7px;font-size:.76rem;
+}
+
+/* ── cobros ── */
+.pago{display:grid;gap:.55rem}
+.pago-monto{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:.5rem;border-bottom:1px solid #E7E1EF}
+.pago-monto span{font-size:.76rem;color:#6E6480}
+.pago-monto b{font-family:var(--display);font-size:1.7rem;letter-spacing:-.02em;color:#241B31}
+.pago-linea{display:flex;justify-content:space-between;font-size:.78rem;color:#4A3F58}
+.pago-ok{
+  background:#E4F3ED;color:#1E6640;font-weight:600;font-size:.78rem;
+  padding:.45rem .6rem;border-radius:7px;text-align:center;margin-top:.2rem;
+}
+.pago-pie{font-size:.7rem;color:#9A90AC;margin:0;text-align:center}
+
+.barras{display:grid;gap:.45rem}
+.barras .fila{display:grid;grid-template-columns:1.9rem 1fr 2.7rem;gap:.5rem;align-items:center}
+.barras .fila span{font-size:.68rem;color:#6E6480}
+.barras .fila i{height:.5rem;border-radius:3px;background:linear-gradient(90deg,#6D4AE0,#A354FD);width:var(--w)}
+.barras .fila b{font-family:var(--mono);font-size:.7rem;color:#241B31;text-align:right;font-variant-numeric:tabular-nums}
+.barras .total{
+  display:flex;justify-content:space-between;align-items:baseline;
+  border-top:1px solid #E7E1EF;padding-top:.55rem;margin-top:.2rem;
+}
+.barras .total span{font-size:.72rem;color:#6E6480}
+.barras .total b{font-family:var(--display);font-size:1.15rem;color:var(--violet-deep)}
+
+/* ── recordatorios ── */
+.linea{display:grid;gap:.75rem}
+.hito{display:grid;grid-template-columns:4.4rem 1fr;gap:.7rem;align-items:start}
+.hito .cuando{
+  font-family:var(--mono);font-size:.62rem;color:var(--violet-deep);
+  text-align:right;padding-top:.42rem;letter-spacing:.02em;
+}
+.hito .msj{
+  background:#F5F2FA;border-radius:9px;padding:.5rem .68rem;font-size:.78rem;
+  color:#241B31;line-height:1.42;
+}
+.hito .msj.resp{background:#D8FDD2;color:#111B21}
+.hito .msj.alt{background:#FDF0E0;color:#8A5510}
+
+/* ── sitio de reservas ── */
+.reservas{display:grid;gap:.5rem}
+.neg{display:flex;align-items:center;gap:.6rem;padding-bottom:.6rem;border-bottom:1px solid #E7E1EF}
+.neg-ini{
+  width:2.1rem;height:2.1rem;border-radius:8px;background:linear-gradient(135deg,#00C6F9,#A354FD);
+  display:grid;place-items:center;color:#fff;font-weight:600;font-size:.75rem;flex:0 0 auto;
+}
+.neg b{display:block;font-size:.86rem;color:#241B31}
+.neg em{font-style:normal;font-size:.68rem;color:#6E6480}
+.serv{
+  display:flex;justify-content:space-between;align-items:center;
+  border:1px solid #E7E1EF;border-radius:9px;padding:.55rem .7rem;
+}
+.serv b{display:block;font-size:.79rem;color:#241B31;font-weight:600}
+.serv em{font-style:normal;font-size:.67rem;color:#9A90AC}
+.serv span{font-family:var(--mono);font-size:.78rem;color:#4A3F58}
+.serv.sel{border-color:var(--violet);background:#F5F2FA}
+
+.horarios{display:grid;gap:.6rem}
+.hor-dia{font-size:.78rem;color:#4A3F58;margin:0;font-weight:600}
+.hor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem}
+.hor-grid span{
+  text-align:center;padding:.45rem .2rem;border:1px solid #E7E1EF;border-radius:7px;
+  font-family:var(--mono);font-size:.74rem;color:#4A3F58;
+}
+.hor-grid .no{color:#C9C1D4;text-decoration:line-through;border-style:dashed}
+.hor-grid .pick{background:var(--violet);border-color:var(--violet);color:#fff;font-weight:600}
+.hor-btn{
+  width:100%;background:var(--violet);color:#fff;border:0;border-radius:9px;
+  padding:.6rem;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:default;
+}
+.hor-pie{font-size:.68rem;color:#9A90AC;margin:0;text-align:center}
+
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
 }
@@ -412,7 +594,7 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 <div class="bar">
   <div class="bar-in">
     <span class="mark"><svg class="mark-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="citaliGrad" x1="6" y1="10" x2="58" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#00C6F9"/><stop offset=".45" stop-color="#4D57FA"/><stop offset="1" stop-color="#A354FD"/></linearGradient></defs><g fill="none" stroke="url(#citaliGrad)" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"><path d="M34.9 51.7H12A6.2 6.2 0 0 1 5.8 45.5V21.8A6.2 6.2 0 0 1 12 15.6h26.2a6.2 6.2 0 0 1 6.2 6.2v18.4"/><path d="M17.2 7v11.3M34 7v11.3"/><path d="M17.4 31.4 23 39.8 32.6 28.3"/><path d="M35.9 50.5C35.6 52.5 35.4 54.3 35.3 55.8C39 55.9 42.9 55.6 46.4 54.8A9.35 9.35 0 1 0 35.9 50.5Z"/></g><g fill="url(#citaliGrad)"><circle cx="41.4" cy="46.3" r="1.55"/><circle cx="46.8" cy="46.3" r="1.55"/><path d="M52.6 11.8c.7 3.5 2 4.8 5.5 5.5-3.5.7-4.8 2-5.5 5.5-.7-3.5-2-4.8-5.5-5.5 3.5-.7 4.8-2 5.5-5.5Z"/><path d="M57.5 23.9c.4 2 1.1 2.7 3.1 3.1-2 .4-2.7 1.1-3.1 3.1-.4-2-1.1-2.7-3.1-3.1 2-.4 2.7-1.1 3.1-3.1Z"/></g></svg>Citali</span>
-    <span class="bar-note">Beta privada · México</span>
+    <a class="bar-cta" href="#empezar">Empieza gratis</a>
   </div>
 </div>
 
@@ -443,46 +625,175 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 
       <div class="hero-cta">
         <a href="#empezar" class="btn btn-primary" id="heroCta">
-          Apartar mi lugar
+          Empieza gratis
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <span class="cta-note">Toma 2 minutos. No pedimos tarjeta.</span>
-      </div>
-    </div>
-
-    <div class="stage" aria-label="Ejemplo de cómo trabaja Citali">
-      <div class="thread">
-        <div class="thread-head">
-          <span class="avatar">FB</span>
-          <span>
-            <span class="thread-who">Fisio Balance</span><br>
-            <span class="thread-sub">WhatsApp · el número de siempre</span>
-          </span>
-        </div>
-        <div class="msgs" id="msgs">
-          <div class="msg them">Hola, ¿tienen espacio para fisioterapia esta semana?</div>
-          <div class="msg us">¡Hola! Claro que sí 😊 Con Marcela hay lugar el jueves a las 10:00, 12:30 o 5:00 pm. ¿Cuál te acomoda?</div>
-          <div class="msg them">La de 12:30 👍</div>
-          <div class="msg us">Perfecto. Para apartarlo va el anticipo de $150:<span class="pay">Pagar aquí →</span></div>
-          <div class="msg them"><span class="paid">✓ Pago recibido</span></div>
-          <div class="msg us">Listo. Tu cita quedó confirmada: <b>jueves 16, 12:30 pm</b>.</div>
-        </div>
-      </div>
-
-      <div class="day">
-        <div class="day-head">Tu agenda<b>Jueves 16</b></div>
-        <div class="slots" id="slots">
-          <div class="slot taken"><time>09:00</time><span>Ocupado</span></div>
-          <div class="slot free" data-slot="1"><time>10:00</time><span>Libre</span></div>
-          <div class="slot taken"><time>11:15</time><span>Ocupado</span></div>
-          <div class="slot free" data-slot="2"><time>12:30</time><span>Libre</span></div>
-          <div class="slot taken"><time>16:00</time><span>Ocupado</span></div>
-          <div class="slot free" data-slot="3"><time>17:00</time><span>Libre</span></div>
-        </div>
+        <span class="cta-note">Sin tarjeta. Configuramos tu cuenta contigo.</span>
       </div>
     </div>
   </div>
 </header>
+
+<!-- ══ SHOWCASE: pestañas + pantallas de producto originales ══ -->
+<section class="showcase" id="producto">
+  <div class="shell">
+    <div class="tabs" role="tablist" aria-label="Qué hace Citali">
+      <button role="tab" id="t-agenda"  aria-controls="p-agenda"  aria-selected="true"  class="tab on">Agenda</button>
+      <button role="tab" id="t-wa"      aria-controls="p-wa"      aria-selected="false" class="tab">WhatsApp con IA</button>
+      <button role="tab" id="t-cobros"  aria-controls="p-cobros"  aria-selected="false" class="tab">Cobros</button>
+      <button role="tab" id="t-recuerd" aria-controls="p-recuerd" aria-selected="false" class="tab">Recordatorios</button>
+      <button role="tab" id="t-sitio"   aria-controls="p-sitio"   aria-selected="false" class="tab">Sitio de reservas</button>
+    </div>
+
+    <!-- ── Agenda ───────────────────────────────────────────── -->
+    <div class="sc-panel on" role="tabpanel" id="p-agenda" aria-labelledby="t-agenda">
+      <div class="ui">
+        <div class="ui-bar"><i></i><i></i><i></i><span>Agenda · semana del 10 de agosto</span></div>
+        <div class="ui-body">
+          <div class="cal">
+            <div class="cal-head">
+              <span></span>
+              <span>Lun 10</span><span>Mar 11</span><span class="hoy">Mié 12</span><span>Jue 13</span><span>Vie 14</span>
+            </div>
+            <div class="cal-grid">
+              <div class="horas">
+                <span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span>
+                <span>13:00</span><span>16:00</span><span>17:00</span><span>18:00</span>
+              </div>
+              <div class="dia">
+                <div class="cita c1" style="--i:0;--n:2"><b>Ana Robles</b><em>Rehabilitación</em></div>
+                <div class="cita c2" style="--i:3;--n:2"><b>Luis Paredes</b><em>Valoración</em></div>
+                <div class="cita c3" style="--i:6;--n:2"><b>Sofía Nava</b><em>Terapia manual</em></div>
+              </div>
+              <div class="dia">
+                <div class="cita c2" style="--i:1;--n:2"><b>Marco Díaz</b><em>Sesión 3 de 8</em></div>
+                <div class="cita c4" style="--i:5;--n:3"><b>Rita Campos</b><em>Rehabilitación</em></div>
+              </div>
+              <div class="dia">
+                <div class="cita c1" style="--i:0;--n:2"><b>Iván Lara</b><em>Sesión 2 de 6</em></div>
+                <div class="cita nueva" style="--i:3;--n:2"><b>Bárbara Tovar</b><em>Anticipo pagado ✓</em></div>
+                <div class="cita c3" style="--i:6;--n:2"><b>Elsa Prieto</b><em>Terapia manual</em></div>
+              </div>
+              <div class="dia">
+                <div class="cita c4" style="--i:2;--n:2"><b>Hugo Ferrer</b><em>Valoración</em></div>
+                <div class="libre" style="--i:5;--n:2">Libre</div>
+                <div class="cita c1" style="--i:7;--n:2"><b>Nadia Cruz</b><em>Sesión 5 de 8</em></div>
+              </div>
+              <div class="dia">
+                <div class="cita c3" style="--i:1;--n:3"><b>Óscar Vela</b><em>Rehabilitación</em></div>
+                <div class="cita c2" style="--i:6;--n:2"><b>Pilar Ochoa</b><em>Sesión 1 de 4</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="panel-note">Cada cita entra sola desde WhatsApp. Tú solo abres la agenda para ver a quién sigues.</p>
+    </div>
+
+    <!-- ── WhatsApp con IA ──────────────────────────────────── -->
+    <div class="sc-panel" role="tabpanel" id="p-wa" aria-labelledby="t-wa" hidden>
+      <div class="ui ui-chat">
+        <div class="ui-bar"><i></i><i></i><i></i><span>WhatsApp · tu número de siempre</span></div>
+        <div class="ui-body chat">
+          <div class="b them">Buenas noches, ¿tendrán espacio para fisioterapia esta semana?</div>
+          <div class="b hora">11:42 pm</div>
+          <div class="b us">¡Hola! Sí 😊 Con Marcela hay lugar el miércoles a las 10:00, 12:30 o 5:00 pm. ¿Cuál te queda mejor?</div>
+          <div class="b them">La de 12:30</div>
+          <div class="b us">Va. Para apartarla necesito el anticipo de $150.<span class="chip">Pagar $150 →</span></div>
+          <div class="b them ok">✓ Pago recibido</div>
+          <div class="b us">Listo, quedó confirmada: <b>miércoles 12, 12:30 pm</b>. Te mando recordatorio un día antes.</div>
+        </div>
+      </div>
+      <p class="panel-note">Contesta a las 11 de la noche, un domingo, o mientras tienes las manos en un paciente.</p>
+    </div>
+
+    <!-- ── Cobros ───────────────────────────────────────────── -->
+    <div class="sc-panel" role="tabpanel" id="p-cobros" aria-labelledby="t-cobros" hidden>
+      <div class="dos">
+        <div class="ui">
+          <div class="ui-bar"><i></i><i></i><i></i><span>Cobro del anticipo</span></div>
+          <div class="ui-body pago">
+            <div class="pago-monto"><span>Anticipo</span><b>$150.00</b></div>
+            <div class="pago-linea"><span>Bárbara Tovar</span><span>Terapia manual</span></div>
+            <div class="pago-linea"><span>Miércoles 12, 12:30 pm</span><span>50 min</span></div>
+            <div class="pago-ok">✓ Pagado · 11:44 pm</div>
+            <p class="pago-pie">El resto ($350) se cobra en el consultorio.</p>
+          </div>
+        </div>
+        <div class="ui">
+          <div class="ui-bar"><i></i><i></i><i></i><span>Anticipos de la semana</span></div>
+          <div class="ui-body barras">
+            <div class="fila"><span>Lun</span><i style="--w:62%"></i><b>$450</b></div>
+            <div class="fila"><span>Mar</span><i style="--w:41%"></i><b>$300</b></div>
+            <div class="fila"><span>Mié</span><i style="--w:82%"></i><b>$600</b></div>
+            <div class="fila"><span>Jue</span><i style="--w:55%"></i><b>$400</b></div>
+            <div class="fila"><span>Vie</span><i style="--w:34%"></i><b>$250</b></div>
+            <div class="total"><span>Cobrado por adelantado</span><b>$2,000</b></div>
+          </div>
+        </div>
+      </div>
+      <p class="panel-note">Sin anticipo no se aparta el horario. Es la diferencia entre una cita y una intención.</p>
+    </div>
+
+    <!-- ── Recordatorios ────────────────────────────────────── -->
+    <div class="sc-panel" role="tabpanel" id="p-recuerd" aria-labelledby="t-recuerd" hidden>
+      <div class="ui">
+        <div class="ui-bar"><i></i><i></i><i></i><span>Recordatorios automáticos</span></div>
+        <div class="ui-body linea">
+          <div class="hito">
+            <span class="cuando">24 h antes</span>
+            <div class="msj">Hola Bárbara 👋 Te recordamos tu cita mañana miércoles a las 12:30 pm con Marcela. ¿Todo bien para asistir?</div>
+          </div>
+          <div class="hito">
+            <span class="cuando">Responde</span>
+            <div class="msj resp">Sí, ahí estaré 👍</div>
+          </div>
+          <div class="hito">
+            <span class="cuando">3 h antes</span>
+            <div class="msj">Nos vemos hoy a las 12:30. Estamos en Av. Chapultepec 218, interior 4. Trae ropa cómoda.</div>
+          </div>
+          <div class="hito">
+            <span class="cuando">Si cancela</span>
+            <div class="msj alt">El horario se libera y Citali le ofrece las 12:30 a quien esté en lista de espera.</div>
+          </div>
+        </div>
+      </div>
+      <p class="panel-note">El paciente confirma por WhatsApp. Si cancela, el hueco no se queda vacío.</p>
+    </div>
+
+    <!-- ── Sitio de reservas ────────────────────────────────── -->
+    <div class="sc-panel" role="tabpanel" id="p-sitio" aria-labelledby="t-sitio" hidden>
+      <div class="dos">
+        <div class="ui">
+          <div class="ui-bar"><i></i><i></i><i></i><span>fisiobalance.citali.mx</span></div>
+          <div class="ui-body reservas">
+            <div class="neg">
+              <span class="neg-ini">FB</span>
+              <div><b>Fisio Balance</b><em>Guadalajara · Av. Chapultepec 218</em></div>
+            </div>
+            <div class="serv"><div><b>Valoración inicial</b><em>60 min</em></div><span>$600</span></div>
+            <div class="serv sel"><div><b>Terapia manual</b><em>50 min</em></div><span>$500</span></div>
+            <div class="serv"><div><b>Rehabilitación deportiva</b><em>50 min</em></div><span>$500</span></div>
+          </div>
+        </div>
+        <div class="ui">
+          <div class="ui-bar"><i></i><i></i><i></i><span>Elegir horario</span></div>
+          <div class="ui-body horarios">
+            <p class="hor-dia">Miércoles 12 de agosto</p>
+            <div class="hor-grid">
+              <span>09:00</span><span class="no">10:00</span><span class="pick">12:30</span>
+              <span>16:00</span><span>17:00</span><span class="no">18:00</span>
+            </div>
+            <button class="hor-btn" type="button" tabindex="-1">Apartar con $150</button>
+            <p class="hor-pie">También pueden reservar escribiéndote por WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+      <p class="panel-note">Tu propia página de reservas, con tu nombre y tus precios. Se arma sola con lo que configuras.</p>
+    </div>
+  </div>
+</section>
+
 
 <section>
   <div class="shell">
@@ -568,8 +879,8 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
         <p class="eyebrow">Oferta de fundador</p>
         <h3>Los primeros 30 negocios entran con 3 meses gratis.</h3>
         <p>
-          Estamos abriendo la beta por grupos pequeños para poder configurar cada consultorio
-          a mano y acompañarlo. Quien entre en los primeros 30 no paga los tres primeros meses.
+          Activamos por grupos pequeños para poder configurar cada consultorio a mano y
+          acompañarlo de cerca. Quien entre en los primeros 30 no paga los tres primeros meses.
         </p>
         <p>
           A cambio te vamos a pedir algo concreto: que nos digas qué falla. Esa
@@ -605,8 +916,8 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
         <p>No. Ese es justo el punto. Si hoy usas Google Calendar o una libreta, Citali se acomoda a lo que ya tienes en lugar de pedirte que migres todo.</p>
       </details>
       <details>
-        <summary>¿En qué estado está el producto?</summary>
-        <p>En beta privada. Estamos abriendo por grupos pequeños para configurar cada consultorio a mano. Si dejas tus datos entras a la lista y te escribimos por WhatsApp cuando abramos tu grupo — no es acceso inmediato.</p>
+        <summary>¿Qué pasa cuando me registro?</summary>
+        <p>Nos escribes por WhatsApp el mismo día para conectar tu número y dejar tu agenda cargada. La activación es asistida: la hacemos contigo, no te dejamos solo frente a un panel de configuración.</p>
       </details>
       <details>
         <summary>¿Quién está detrás?</summary>
@@ -619,7 +930,7 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 <section class="flow" id="empezar">
   <div class="shell">
     <div class="sec-head">
-      <p class="eyebrow">Apartar mi lugar</p>
+      <p class="eyebrow">Empieza gratis</p>
       <h2>Cuéntanos de tu consultorio.</h2>
       <p class="lead-2">
         Con estas respuestas dejamos tu configuración lista antes de que abramos tu grupo,
@@ -790,7 +1101,7 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <button type="submit" class="btn btn-primary" id="submitBtn" hidden>
-              <span class="btn-text">Apartar mi lugar</span>
+              <span class="btn-text">Crear mi cuenta</span>
             </button>
           </div>
 
@@ -806,16 +1117,16 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
         <div class="tick">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <h3 id="doneTitle">Quedaste en la lista.</h3>
+        <h3 id="doneTitle">Tu cuenta está en camino.</h3>
         <p id="doneBody">
-          Guardamos las respuestas de tu consultorio. Te escribimos por WhatsApp
-          en cuanto abramos tu grupo.
+          Guardamos la configuración de tu consultorio. Te escribimos por WhatsApp
+          para conectar tu número y dejarla andando.
         </p>
 
         <ul class="next">
-          <li><span class="k">1</span><span>Revisamos tu registro y preparamos tu configuración con lo que nos contaste.</span></li>
-          <li><span class="k">2</span><span>Te escribimos por WhatsApp desde el número de Citali para agendar la conexión.</span></li>
-          <li><span class="k">3</span><span>Si eres de los primeros 30 consultorios, entras con tus 3 meses gratis.</span></li>
+          <li><span class="k">1</span><span>Preparamos tu agenda, tus servicios y tus precios con lo que nos contaste.</span></li>
+          <li><span class="k">2</span><span>Te escribimos por WhatsApp desde el número de Citali para conectar el tuyo.</span></li>
+          <li><span class="k">3</span><span>Si eres de los primeros 30 consultorios, tus 3 meses corren por nuestra cuenta.</span></li>
         </ul>
 
         <p style="font-size:.9rem;color:#9C8DB4">¿Conoces a otro terapeuta al que le sirva?</p>
@@ -842,7 +1153,7 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
     <h4>Quién es responsable</h4>
     <p>Citali (proyecto en formación, México) es responsable de los datos que nos compartes en este formulario.</p>
     <h4>Qué recabamos y para qué</h4>
-    <p>Tu nombre, número de WhatsApp, ciudad y las respuestas sobre tu consultorio. Los usamos únicamente para contactarte sobre el lanzamiento de Citali, invitarte a la beta y preparar tu configuración.</p>
+    <p>Tu nombre, número de WhatsApp, ciudad y las respuestas sobre tu consultorio. Los usamos únicamente para contactarte, activar tu cuenta y preparar tu configuración.</p>
     <h4>Qué no hacemos</h4>
     <p>No vendemos, rentamos ni compartimos tus datos con terceros para fines publicitarios.</p>
     <h4>Tus derechos</h4>
@@ -872,7 +1183,7 @@ const CONFIG = {
   GA4_ID: "",
 
   // 6) Texto que se comparte desde la pantalla de confirmación.
-  SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del consultorio, agenda y cobra el anticipo sola. Está en beta y puedes apartar lugar: https://citali.mx"
+  SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del consultorio, agenda y cobra el anticipo sola. Estamos activando cuentas por grupos: https://citali.mx"
 };
 
 /* ========================= Marcadores (Meta / GA4) ======================= */
@@ -993,6 +1304,40 @@ document.getElementById('footMail').href = 'mailto:' + CONFIG.EMAIL;
 document.getElementById('heroCta').addEventListener('click', function(){
   track('InitiateCheckout', { content_name: 'CTA hero' });
 });
+
+/* ===================== Pestañas del showcase =========================== */
+(function(){
+  const tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  if (!tabs.length) return;
+
+  const muestra = function(i){
+    tabs.forEach(function(t, j){
+      const panel = document.getElementById(t.getAttribute('aria-controls'));
+      const activo = i === j;
+      t.classList.toggle('on', activo);
+      t.setAttribute('aria-selected', activo ? 'true' : 'false');
+      t.tabIndex = activo ? 0 : -1;
+      if (panel) panel.hidden = !activo;
+    });
+  };
+
+  tabs.forEach(function(t, i){
+    t.tabIndex = i === 0 ? 0 : -1;
+    t.addEventListener('click', function(){
+      muestra(i);
+      track('ViewContent', { content_name: 'Showcase: ' + t.textContent.trim() });
+    });
+    // flechas para moverse entre pestañas, como espera un lector de pantalla
+    t.addEventListener('keydown', function(e){
+      const paso = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!paso) return;
+      e.preventDefault();
+      const sig = (i + paso + tabs.length) % tabs.length;
+      muestra(sig);
+      tabs[sig].focus();
+    });
+  });
+})();
 
 /* ====================== El flujo de pre-registro ======================== */
 (function(){
@@ -1180,7 +1525,7 @@ document.getElementById('heroCta').addEventListener('click', function(){
       console.error('[Citali] No se pudo guardar el registro:', err);
       msg.innerHTML = 'No pudimos guardar tu registro. Inténtalo otra vez o escríbenos por ' +
         '<a href="https://wa.me/' + CONFIG.WHATSAPP + '?text=' +
-        encodeURIComponent('Hola, quiero apartar mi lugar en la beta de Citali') +
+        encodeURIComponent('Hola, quiero empezar con Citali') +
         '" target="_blank" rel="noopener">WhatsApp</a>.';
       msg.classList.add('show');
     } finally {
