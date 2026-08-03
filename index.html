@@ -794,6 +794,12 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
   position:absolute;inset:0;display:grid;place-items:center;
   color:var(--claro);overflow:hidden;
 }
+/* Si la tarjeta trae <img>, la foto manda y el icono se quita solo.
+   Así se pueden ir sustituyendo de una en una, sin tocar el resto. */
+.rb-lienzo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,.61,.36,1)}
+.rb:hover .rb-lienzo img{transform:scale(1.05)}
+.rb-lienzo:has(img) .rb-ico{display:none}
+.rb-lienzo:has(img)::before{background:radial-gradient(60% 60% at 70% 20%,rgba(255,255,255,.12),transparent 70%)}
 .rb-lienzo::before{  /* luz suave, para que no sea un bloque de color plano */
   content:"";position:absolute;inset:0;
   background:radial-gradient(58% 62% at 72% 22%,rgba(255,255,255,.34),transparent 66%),
