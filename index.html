@@ -766,6 +766,56 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 }
 .puntos button[aria-current="true"]{width:1.5rem;background:var(--violet-lift)}
 
+
+/* ══ RUBROS ═══════════════════════════════════════════════════════════ */
+.rubros{background:var(--void);color:#fff;padding-block:clamp(3rem,7vw,5rem)}
+.rb-cab{text-align:center;margin-bottom:clamp(2rem,4vw,3rem)}
+.rb-cab .eyebrow{color:var(--violet-lift)}
+.rb-cab h2{color:#fff;margin-inline:auto;max-width:20ch}
+.rb-cab .lead-2{color:#C4B8D8;margin:1rem auto 0;max-width:52ch}
+.rb-cta{margin-top:1.6rem}
+
+.rb-grid{display:grid;gap:clamp(.8rem,1.8vw,1.3rem);grid-template-columns:repeat(3,1fr)}
+@media(max-width:34rem){.rb-grid{display:grid;gap:clamp(.8rem,1.8vw,1.3rem);grid-template-columns:repeat(3,1fr)}}
+
+.rb{
+  position:relative;display:block;border-radius:14px;overflow:hidden;
+  text-decoration:none;color:#fff;aspect-ratio:16/11;isolation:isolate;
+  background:linear-gradient(150deg,var(--base),color-mix(in srgb,var(--base) 55%,#100C18));
+  transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease;
+}
+.rb::after{  /* velo inferior para que el texto se lea siempre */
+  content:"";position:absolute;inset:auto 0 0 0;height:62%;
+  background:linear-gradient(0deg,rgba(9,6,14,.88),rgba(9,6,14,.28) 55%,transparent);
+}
+.rb:hover,.rb:focus-visible{transform:translateY(-4px);box-shadow:0 22px 44px -16px rgba(0,0,0,.65)}
+
+.rb-lienzo{
+  position:absolute;inset:0;display:grid;place-items:center;
+  color:var(--claro);overflow:hidden;
+}
+.rb-lienzo::before{  /* luz suave, para que no sea un bloque de color plano */
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(58% 62% at 72% 22%,rgba(255,255,255,.34),transparent 66%),
+             radial-gradient(46% 50% at 18% 84%,rgba(0,0,0,.34),transparent 70%);
+}
+.rb-ico{position:relative;width:38%;max-width:8rem;opacity:.95;transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+.rb:hover .rb-ico{position:relative;width:38%;max-width:8rem;opacity:.95;transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+
+.rb-pie{position:absolute;left:0;right:0;bottom:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:1rem 1.15rem}
+.rb-tit{font-family:var(--display);font-size:clamp(1rem,1.7vw,1.3rem);font-weight:600;letter-spacing:-.015em}
+.rb-fle{width:1.25rem;height:1.25rem;flex:0 0 auto;transition:transform .3s ease}
+.rb:hover .rb-fle{width:1.25rem;height:1.25rem;flex:0 0 auto;transition:transform .3s ease}
+
+.rb-nota{
+  text-align:center;color:#9C8DB4;font-size:.92rem;margin:clamp(1.6rem,3vw,2.4rem) auto 0;max-width:48ch;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rb,.rb-ico,.rb-fle{width:1.25rem;height:1.25rem;flex:0 0 auto;transition:transform .3s ease}
+  .rb:hover{transform:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   .pista{transition:none}
   .sc-panel{transition:none}
@@ -1135,6 +1185,63 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 </div>
 </section>
 
+
+<section class="rubros" id="rubros">
+  <div class="shell">
+    <div class="rb-cab">
+      <p class="eyebrow">A quién le sirve</p>
+      <h2>Citali trabaja para consultorios que agendan uno a uno.</h2>
+      <p class="lead-2">
+        Si tu día se llena de citas y tu WhatsApp es la puerta de entrada, encajas.
+        Estos son los giros con los que estamos empezando.
+      </p>
+      <a href="#empezar" class="btn btn-primary rb-cta">Empieza gratis
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="rb-grid">
+        <a class="rb" href="#empezar" style="--base:#1D6E8C;--claro:#7FD3E8">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="32" cy="13" r="6"/><path d="M32 21v16m0 0-9 14m9-14 9 14M20 27h24"/><path d="M12 34a22 22 0 0 1 4-14M52 34a22 22 0 0 0-4-14" opacity=".55"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Fisioterapia</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#2B4E9B;--claro:#8FB4F5">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 8v18l-8 12 10 18"/><circle cx="26" cy="28" r="6.5"/><path d="M41 15a25 25 0 0 1 0 34" opacity=".5"/><path d="M48 23a14 14 0 0 1 0 18" opacity=".3"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Rehabilitación física</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#5B3AA8;--claro:#B9A0F5">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 8c-5 6-5 10 0 16s5 10 0 16 5 10 0 16"/><path d="M22 14h20M20 24h24M20 34h24M22 44h20M25 53h14" opacity=".7"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Quiropráctica</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#9A5A18;--claro:#F2C489">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 36V21a3.5 3.5 0 0 1 7 0v10M27 31V16a3.5 3.5 0 0 1 7 0v15M34 31V18a3.5 3.5 0 0 1 7 0v13"/><path d="M41 31v-6a3.5 3.5 0 0 1 7 0v17c0 9-6 15-14 15s-14-6-14-14v-7"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Masaje terapéutico</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#1F6B4F;--claro:#8FD9B8">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M42 50v6H24v-8c-6-4-10-10-10-18a18 18 0 0 1 36 0c0 6-2 9-4 12h-4"/><path d="M32 34c-3-4-8-2-8 2s8 8 8 8 8-4 8-8-5-6-8-2Z" opacity=".75"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Psicología</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#4A7A1E;--claro:#C0E08A">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 21c-9 0-15 7-15 16s7 18 15 18 15-9 15-18-6-16-15-16Z"/><path d="M32 21V10m0 0c5 0 8 2 8 5s-3 6-8 6" opacity=".8"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Nutrición</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#146A78;--claro:#8BD7DD">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M27 51c-5-5-7-12-7-19 0-8 5-13 12-13s12 5 12 12c0 8-5 12-5 20a6 6 0 0 1-12 0Z"/><circle cx="23" cy="15" r="3"/><circle cx="32" cy="11" r="3.4"/><circle cx="41" cy="14" r="3"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Podología</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#9B2F53;--claro:#F0A5BE">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 50 41 22M23 13l27 27"/><circle cx="43" cy="20" r="3.6"/><circle cx="21" cy="11" r="3.6"/><path d="M11 54l3-9M53 50l-9 3" opacity=".55"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Acupuntura</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="rb" href="#empezar" style="--base:#A8452C;--claro:#F5B39F">
+          <span class="rb-lienzo"><svg class="rb-ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 26v12M30 20v24M38 24v16M46 28v8"/><path d="M12 22a30 30 0 0 1 0 20" opacity=".5"/><path d="M54 22a30 30 0 0 1 0 20" opacity=".5"/></svg></span>
+          <span class="rb-pie"><span class="rb-tit">Terapia de lenguaje</span><svg class="rb-fle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </a>
+    </div>
+
+    <p class="rb-nota">¿Tu consultorio no está en la lista? Escríbenos: si agendas citas por WhatsApp, seguramente encajamos.</p>
+  </div>
+</section>
 
 <section>
   <div class="shell">
