@@ -254,31 +254,6 @@ section{padding-block:clamp(3rem,7vw,5rem)}
 .step p{font-size:.94rem;color:var(--ink-2);margin:0}
 
 /* precio */
-.price-wrap{
-  display:grid;gap:1.5rem;margin-top:2.2rem;align-items:start;
-  grid-template-columns:minmax(0,1fr);
-}
-@media(min-width:52rem){.price-wrap{grid-template-columns:1fr 1fr}}
-.price-card{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
-  padding:1.75rem 1.6rem;
-}
-.price-card .amount{
-  font-family:var(--display);font-size:2.9rem;font-weight:600;letter-spacing:-.035em;
-  line-height:1;color:var(--ink);
-}
-.price-card .per{font-family:var(--sans);font-size:.95rem;color:var(--muted);font-weight:400;letter-spacing:0}
-.price-card ul{list-style:none;margin:1.35rem 0 0;padding:0;display:grid;gap:.6rem}
-.price-card li{display:flex;gap:.55rem;font-size:.92rem;color:var(--ink-2);align-items:flex-start}
-.price-card li svg{flex:0 0 auto;margin-top:.3rem}
-
-.founding{
-  background:var(--wash);border:1px solid #DCD1F2;border-radius:var(--r);padding:1.75rem 1.6rem;
-}
-.founding .eyebrow{color:var(--violet-deep);margin-bottom:.7rem}
-.founding h3{font-family:var(--display);font-size:1.5rem;margin-bottom:.6rem;color:var(--violet-deep)}
-.founding p{font-size:.94rem;color:var(--ink-2);margin-bottom:.7rem}
-.founding p:last-child{margin-bottom:0}
 
 /* objeciones */
 .faq{margin-top:2rem;max-width:44rem;border-top:1px solid var(--line)}
@@ -1582,46 +1557,6 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
 <section class="sec-line">
   <div class="shell">
     <div class="sec-head">
-      <p class="eyebrow">Cuánto cuesta</p>
-      <h2>Un precio, sin letras chiquitas.</h2>
-      <p class="lead-2">Lo publicamos desde ahora para que no tengas que pedir cotización ni hablar con un vendedor.</p>
-    </div>
-
-    <div class="price-wrap">
-      <div class="price-card">
-        <div class="amount">$899<span class="per"> MXN/mes</span></div>
-        <p style="color:var(--muted);font-size:.9rem;margin:.55rem 0 0">Por consultorio, un terapeuta. Sin contrato ni costo de instalación.</p>
-        <ul>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Conversaciones ilimitadas por WhatsApp</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Cobro de anticipos y recordatorios</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Tu agenda sincronizada</li>
-          <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Cancelas cuando quieras</li>
-        </ul>
-        <p style="font-size:.83rem;color:var(--muted);margin:1.2rem 0 0">
-          La comisión de la pasarela de pago (alrededor de 3.5%) la cobra el procesador
-          sobre cada anticipo. Va aparte y te la mostramos siempre desglosada.
-        </p>
-      </div>
-
-      <div class="founding">
-        <p class="eyebrow">Oferta de fundador</p>
-        <h3>Los primeros 30 negocios entran con 3 meses gratis.</h3>
-        <p>
-          Activamos por grupos pequeños para poder configurar cada consultorio a mano y
-          acompañarlo de cerca. Quien entre en los primeros 30 no paga los tres primeros meses.
-        </p>
-        <p>
-          A cambio te vamos a pedir algo concreto: que nos digas qué falla. Esa
-          retroalimentación es lo que estamos comprando con esos tres meses.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec-line">
-  <div class="shell">
-    <div class="sec-head">
       <p class="eyebrow">Lo que todos preguntan</p>
       <h2>Antes de que lo preguntes.</h2>
     </div>
@@ -1642,6 +1577,10 @@ dialog::backdrop{background:rgba(23,17,31,.62)}
       <details>
         <summary>¿Tengo que mudar mi agenda a otro sistema?</summary>
         <p>No. Ese es justo el punto. Si hoy usas Google Calendar o una libreta, Citali se acomoda a lo que ya tienes en lugar de pedirte que migres todo.</p>
+      </details>
+      <details>
+        <summary>¿Cuánto cuesta?</summary>
+        <p>Te lo decimos en cuanto nos escribas, sin cotización ni vendedor de por medio. Depende de cuántas personas atienden en tu consultorio, y por eso es de las cosas que te preguntamos al registrarte: así el número que te damos ya es el tuyo y no un rango.</p>
       </details>
       <details>
         <summary>¿Qué pasa cuando me registro?</summary>
