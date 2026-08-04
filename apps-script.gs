@@ -22,6 +22,7 @@ const VERIFICAR = true;              // false = se guarda sin pedir código
 const WABA = {
   VERSION:   'v21.0',
   PHONE_ID:  '',                     // Phone Number ID del número emisor
+  CUENTA_ID: '',                     // WhatsApp Business Account ID (solo para crear/revisar la plantilla)
   PLANTILLA: 'citali_codigo',        // Nombre de tu plantilla de AUTENTICACIÓN
   IDIOMA:    'es_MX',                // Debe coincidir con el idioma de la plantilla
   BOTON_COPIAR: true                 // true si la plantilla trae botón "Copiar código"
@@ -356,13 +357,137 @@ function responder_(objeto) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+//  PUESTA A PUNTO — se corren a mano desde el editor, una sola vez
+// ═══════════════════════════════════════════════════════════════════════════
+
 /**
- * Corre esto una vez desde el editor para guardar el token sin dejarlo escrito
- * en el código. Pega el token, ejecuta, y luego borra el valor de aquí.
+ * 1) Guarda el token sin dejarlo escrito en el código.
+ *    Pega el token, ejecuta, y luego borra el valor de aquí.
  */
 function guardaToken() {
   const TOKEN = 'PEGA_AQUI_TU_TOKEN_PERMANENTE';
   if (TOKEN.indexOf('PEGA_AQUI') === 0) throw new Error('Pega tu token antes de ejecutar.');
   PropertiesService.getScriptProperties().setProperty('WABA_TOKEN', TOKEN);
   console.log('Token guardado. Ya puedes borrar el valor de esta función.');
+}
+
+/**
+ * 2) Crea la plantilla de autenticación. Es lo mismo que armarla en WhatsApp
+ *    Manager, pero sin buscar dónde va cada casilla.
+ *
+ *    El texto del cuerpo NO se escribe: en las plantillas de autenticación lo
+ *    pone Meta y lo traduce según el idioma. Lo único que mandamos es qué
+ *    partes queremos (recomendación de seguridad, aviso de vencimiento, botón).
+ */
+function crearPlantilla() {
+  if (!WABA.CUENTA_ID) throw new Error('Falta WABA.CUENTA_ID (WhatsApp Business Account ID).');
+  if (!token_())       throw new Error('Falta el token. Corre guardaToken() primero.');
+
+  const componentes = [
+    { type: 'body',   add_security_recommendation: true },
+    { type: 'footer', code_expiration_minutes: OTP.VIGENCIA_MIN }
+  ];
+  if (WABA.BOTON_COPIAR) {
+    componentes.push({
+      type: 'buttons',
+      buttons: [{ type: 'otp', otp_type: 'copy_code', text: 'Copiar código' }]
+    });
+  }
+
+  const cuerpo = {
+    name: WABA.PLANTILLA,
+    language: WABA.IDIOMA,
+    category: 'authentication',
+    // Si el mensaje no se entregó en este rato, mejor que no llegue: un código
+    // que aparece cuando ya venció solo confunde.
+    message_send_ttl_seconds: OTP.VIGENCIA_MIN * 60,
+    components: componentes
+  };
+
+  const r = UrlFetchApp.fetch(
+    'https://graph.facebook.com/' + WABA.VERSION + '/' + WABA.CUENTA_ID + '/message_templates',
+    {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { Authorization: 'Bearer ' + token_() },
+      payload: JSON.stringify(cuerpo),
+      muteHttpExceptions: true
+    }
+  );
+
+  const texto = r.getContentText();
+  if (r.getResponseCode() >= 300) {
+    console.error('Meta rechazó la plantilla:\n' + texto);
+    if (texto.indexOf('already exists') >= 0) {
+      console.log('Ya existía. Corre revisarPlantilla() para ver si está aprobada.');
+    }
+    return;
+  }
+  console.log('Plantilla enviada a revisión:\n' + texto);
+  console.log('Las de autenticación suelen aprobarse en minutos. ' +
+              'Corre revisarPlantilla() para ver cómo va.');
+}
+
+/** 3) ¿Ya quedó aprobada? */
+function revisarPlantilla() {
+  if (!WABA.CUENTA_ID) throw new Error('Falta WABA.CUENTA_ID.');
+
+  const r = UrlFetchApp.fetch(
+    'https://graph.facebook.com/' + WABA.VERSION + '/' + WABA.CUENTA_ID +
+    '/message_templates?name=' + encodeURIComponent(WABA.PLANTILLA),
+    { headers: { Authorization: 'Bearer ' + token_() }, muteHttpExceptions: true }
+  );
+
+  const salida = JSON.parse(r.getContentText());
+  if (!salida.data || !salida.data.length) {
+    console.log('No hay ninguna plantilla llamada "' + WABA.PLANTILLA + '". ' +
+                'Corre crearPlantilla().');
+    return;
+  }
+
+  salida.data.forEach(function(p) {
+    console.log(
+      p.name + ' · ' + p.language + ' · ' + p.category + ' → ' + p.status +
+      (p.status === 'REJECTED' ? '  (motivo: ' + (p.rejected_reason || '?') + ')' : '')
+    );
+    if (p.language === WABA.IDIOMA && p.status !== 'APPROVED') {
+      console.warn('Todavía no se puede usar: el estado tiene que ser APPROVED.');
+    }
+  });
+}
+
+/**
+ * 4) Prueba de punta a punta: manda un código de verdad a tu propio número.
+ *    Ojo: es un mensaje real y se cobra como conversación de autenticación.
+ */
+function probarEnvio() {
+  const MI_NUMERO = 'PEGA_AQUI_TU_NUMERO';   // 10 dígitos, o con 52 al frente
+  if (MI_NUMERO.indexOf('PEGA_AQUI') === 0) throw new Error('Pon tu número antes de ejecutar.');
+
+  const tel = normaliza_(MI_NUMERO);
+  if (!tel) throw new Error('Ese número no quedó bien. Deben ser 10 dígitos.');
+
+  const codigo = generaCodigo_();
+  const salida = mandaPlantilla_(tel, codigo);
+  console.log(salida.ok
+    ? 'Enviado a ' + tel + '. Debe llegarte el código ' + codigo
+    : 'No salió: ' + salida.detalle);
+}
+
+/** 5) Revisa que no falte nada antes de abrir el registro. */
+function diagnostico() {
+  const filas = [
+    ['Token guardado',        !!token_()],
+    ['Phone Number ID',       !!WABA.PHONE_ID],
+    ['WhatsApp Account ID',   !!WABA.CUENTA_ID],
+    ['Verificación encendida', VERIFICAR]
+  ];
+  filas.forEach(function(f) { console.log((f[1] ? '✓ ' : '✗ ') + f[0]); });
+
+  if (!token_() || !WABA.CUENTA_ID) {
+    console.log('Completa lo de arriba y vuelve a correr diagnostico().');
+    return;
+  }
+  revisarPlantilla();
 }

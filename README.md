@@ -76,43 +76,52 @@ API (Meta Cloud API).
 > directo. **No hay modo intermedio a propósito**: una verificación que deja
 > pasar a todos sin comprobar nada no es una verificación.
 
-### a) La plantilla
+### a) Lo que necesitas de Meta
 
-En **Meta Business Suite → WhatsApp Manager → Plantillas de mensaje**, crea una:
+Antes de tocar el Apps Script, junta tres cosas en
+**developers.facebook.com → tu app → WhatsApp → Configuración de la API**:
 
-| Campo | Valor |
+| Dato | Dónde sale |
 |---|---|
-| Nombre | `citali_codigo` |
-| Categoría | **Autenticación** |
-| Idioma | Español (México) — `es_MX` |
-| Botón | **Copiar código** |
+| **Phone Number ID** | En la misma pantalla, debajo del número emisor |
+| **WhatsApp Business Account ID** | Ahí mismo, un renglón abajo |
+| **Token permanente** | Business Settings → Usuarios del sistema |
 
-Meta genera el texto solo; no lo escribes tú. La aprobación de las plantillas de
-autenticación suele tardar minutos.
+Para el token: crea un usuario del sistema con rol de administrador sobre la
+app y dale los permisos `whatsapp_business_messaging` y
+`whatsapp_business_management`. **El token de prueba de 24 horas no sirve** para
+producción: deja de funcionar al día siguiente y los códigos dejan de salir.
 
-### b) Las credenciales
+### b) Ponlos en el Apps Script
 
-1. En **developers.facebook.com → tu app → WhatsApp → Configuración de la API**,
-   copia el **Phone Number ID** del número emisor.
-2. Genera un **token permanente**: Business Settings → Usuarios del sistema →
-   crea uno con rol de administrador sobre la app, y dale permisos
-   `whatsapp_business_messaging` y `whatsapp_business_management`.
-   El token de prueba de 24 horas **no sirve** para producción.
+En `apps-script.gs` llena `WABA.PHONE_ID` y `WABA.CUENTA_ID`.
 
-### c) Ponlas en el Apps Script
+**El token no va en el código.** Abre la función `guardaToken()`, pega el token,
+ejecútala una vez y luego borra el valor. Queda guardado en Propiedades del
+script, fuera del repositorio.
 
-En `apps-script.gs`, llena `WABA.PHONE_ID` y, si tu plantilla no trae botón de
-copiar, pon `WABA.BOTON_COPIAR` en `false`.
+### c) Crea la plantilla
 
-**El token no va en el código.** En el editor de Apps Script abre la función
-`guardaToken()`, pega el token, ejecútala una vez y luego borra el valor. Queda
-en Propiedades del script, fuera del repositorio.
+Puedes armarla a mano en WhatsApp Manager, pero es más rápido desde el editor:
+ejecuta **`crearPlantilla()`**. Crea `citali_codigo` en `es_MX`, categoría
+Autenticación, con botón *Copiar código* y aviso de vencimiento a los 10
+minutos.
 
-Para comprobar que quedó: abre la URL `/exec` en el navegador. Debe decir
-`"verificacion":"lista"`. Si dice `"sin credenciales"`, falta el token o el
-Phone Number ID.
+> En las plantillas de autenticación el texto del cuerpo **no se escribe**: lo
+> pone Meta y lo traduce solo. Lo único que se elige es qué partes lleva.
 
-### d) Topes que ya vienen puestos
+Luego ejecuta **`revisarPlantilla()`** hasta que diga `APPROVED`. Las de
+autenticación suelen tardar minutos. Si sale `REJECTED`, la consola te dice el
+motivo.
+
+### d) Compruébalo de punta a punta
+
+1. **`diagnostico()`** — revisa que no falte token, IDs ni la plantilla.
+2. **`probarEnvio()`** — pon tu número y ejecuta: debe llegarte un código real
+   por WhatsApp. Ojo, es un mensaje real y se cobra.
+3. Abre la URL `/exec` en el navegador. Debe decir `"verificacion":"lista"`.
+
+### e) Topes que ya vienen puestos
 
 Se ajustan en el bloque `OTP` de `apps-script.gs`:
 
