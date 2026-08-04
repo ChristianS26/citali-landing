@@ -10,6 +10,8 @@ citali-landing/
 ├─ empezar.html            ← el alta en 5 pasos (aquí vive el formulario)
 ├─ assets/                 ← logo y las fotos de los giros
 ├─ apps-script.gs          ← código para pegar en Google Sheets (recibe los registros)
+├─ apps-script-whatsapp.gs ← la mitad del código por WhatsApp, sin pegar todavía
+├─ DESPLIEGUE-SCRIPT.md    ← cómo publicar el Apps Script, paso a paso
 ├─ og-image.html           ← plantilla para generar la imagen de redes (og.jpg)
 └─ README.md               ← esto
 ```
@@ -36,6 +38,10 @@ además preseleccionan el giro: `empezar.html?giro=Fisioterapia`.
 7. Copia la **URL de la aplicación web**. Termina en `/exec`.
 8. Pruébala: pégala en el navegador. Debe responder
    `{"ok":true,"mensaje":"Citali: receptor de pre-registros activo"}`.
+
+> Para **actualizar** un script que ya estaba publicado, el procedimiento no es
+> el mismo: hay que republicar la implementación existente, no crear una nueva.
+> Está en [DESPLIEGUE-SCRIPT.md](DESPLIEGUE-SCRIPT.md).
 
 Ahora abre **`empezar.html`** (ahí vive el formulario), busca el bloque
 `const CONFIG` y pega la URL:
