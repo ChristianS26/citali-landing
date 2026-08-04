@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Empieza con Citali — Cuéntanos de tu consultorio</title>
-<meta name="description" content="Seis pasos para dejar lista la configuración de tu negocio. Te escribimos por WhatsApp para conectar tu número.">
+<title>Comenzar con Citali — Agenda tu instalación</title>
+<meta name="description" content="Cuatro pasos para dejar lista la configuración de tu negocio y agendar el día de tu instalación. Te escribimos por WhatsApp para conectar tu número.">
 <meta name="theme-color" content="#17111F">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://citali.mx/empezar.html">
@@ -90,12 +90,12 @@ label,.etq{display:block;font-size:.9rem;font-weight:600;margin-bottom:.5rem;col
 .pista{font-size:.8rem;color:var(--muted);margin-top:.4rem}
 .pista-arriba{margin-top:-.25rem;margin-bottom:.5rem}
 
-input[type=text],input[type=tel]{
+input[type=text],input[type=tel],input[type=date]{
   width:100%;font:inherit;font-size:1rem;padding:.72rem .85rem;color:var(--ink);
   background:var(--paper);border:1.5px solid var(--line);border-radius:10px;
   transition:border-color .18s ease,background .18s ease;
 }
-input[type=text]:focus,input[type=tel]:focus{background:#fff;border-color:var(--violet)}
+input[type=text]:focus,input[type=tel]:focus,input[type=date]:focus{background:#fff;border-color:var(--violet)}
 input::placeholder{color:#A99FBA}
 input[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
 
@@ -153,6 +153,37 @@ input[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
 .giro-otro{margin-top:.9rem;display:none}
 .giro-otro.ver{display:block}
 
+/* ── planes ─────────────────────────────────────────────────────────── */
+/* Tres tarjetas de precio. En una sola columna se leen mejor que en rejilla:
+   el precio queda alineado y la comparacion es vertical, como una lista. */
+.planes{display:grid;gap:.55rem}
+.plan .op-c{
+  display:grid;grid-template-columns:1fr auto;
+  grid-template-areas:"nombre precio" "desc precio";
+  align-items:baseline;column-gap:.9rem;
+}
+.plan-n{grid-area:nombre;font-size:.98rem;font-weight:600;color:var(--ink)}
+.plan .op-d{grid-area:desc;margin-top:.15rem}
+.plan-p{
+  grid-area:precio;align-self:center;
+  font-family:var(--mono);font-size:1.05rem;font-weight:600;color:var(--ink);
+  white-space:nowrap;
+}
+.plan-p small{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--muted)}
+.plan:has(input:checked) .plan-p{color:var(--violet-deep)}
+
+/* ── nota de disponibilidad ─────────────────────────────────────────── */
+.invitacion{
+  font-size:.83rem;line-height:1.5;color:var(--ink-2);
+  background:var(--wash);border-radius:10px;padding:.7rem .85rem;margin-bottom:1.4rem;
+}
+
+/* ── fecha de instalación ───────────────────────────────────────────── */
+input[type=date]{
+  -webkit-appearance:none;appearance:none;
+  min-height:2.9rem;                 /* Safari iOS lo encoge si no se fija */
+}
+
 /* ── botones ────────────────────────────────────────────────────────── */
 .pie-form{
   display:flex;align-items:center;gap:.7rem;margin-top:1.6rem;
@@ -201,7 +232,7 @@ input[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
 }
 @media(max-width:60rem){
   .vista{position:static;order:2}
-  body:not([data-paso="5"]) .vista{display:none}
+  body:not([data-paso="4"]) .vista{display:none}
 }
 .vista h3{
   font-family:var(--sans);font-size:.78rem;font-weight:600;letter-spacing:.1em;
@@ -267,15 +298,6 @@ input[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
 .rp-probar svg{width:1rem;height:1rem;color:#25D366;flex:0 0 auto}
 .rp-probar:hover{border-color:#C9BCE6;color:var(--ink)}
 
-.rp-datos{display:grid;gap:.1rem;margin-top:1.3rem}
-.rp-fila{
-  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.9rem;
-  padding:.5rem 0;border-bottom:1px solid var(--line);
-}
-.rp-fila:last-child{border-bottom:0}
-.rp-fila dt{font-size:.85rem;color:var(--muted)}
-.rp-fila dd{font-size:.88rem;text-align:right;color:var(--ink);font-weight:500}
-
 .acepto{
   display:flex;align-items:flex-start;gap:.6rem;cursor:pointer;font-weight:400;
   font-size:.92rem;color:var(--ink-2);margin-top:1.5rem;
@@ -338,10 +360,15 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
         <button type="button" id="limpia">Empezar de nuevo</button>
       </div>
 
+      <p class="invitacion">
+        Citali está disponible por invitación. Estamos activando un número limitado de
+        negocios cada semana para acompañar la conexión inicial.
+      </p>
+
       <form id="alta" novalidate>
 
         <fieldset data-paso="1">
-          <h2>Empecemos por ti</h2>
+          <h2>Tu cuenta</h2>
           <p class="sub">Te escribimos por WhatsApp para conectar tu número. No mandamos correos.</p>
 
           <div class="campo">
@@ -363,6 +390,13 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
           </div>
 
           <div class="campo">
+            <label for="negocio">¿Cómo se llama tu negocio?</label>
+            <input type="text" id="negocio" name="negocio" placeholder="Barbería Central" enterkeyhint="next">
+            <p class="err" id="err-negocio" role="alert">Escribe el nombre de tu negocio.</p>
+            <p class="pista">Es el nombre con el que Citali se va a presentar.</p>
+          </div>
+
+          <div class="campo">
             <label for="ciudad">¿En qué ciudad atiendes?</label>
             <input type="text" id="ciudad" name="ciudad" autocomplete="address-level2"
                    placeholder="Guadalajara" enterkeyhint="next">
@@ -371,8 +405,8 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
         </fieldset>
 
         <fieldset data-paso="2" hidden>
-          <h2>¿A qué se dedica tu negocio?</h2>
-          <p class="sub">Define los servicios que Citali va a ofrecer cuando alguien escriba.</p>
+          <h2>Tu configuración</h2>
+          <p class="sub">Con esto dejamos tus servicios y tus agendas listos antes de conectar tu número.</p>
 
           <div class="campo">
             <span class="etq" id="lbl-giro">Elige el que más se acerque</span>
@@ -400,17 +434,6 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
           </div>
 
           <div class="campo">
-            <label for="negocio">¿Cómo se llama? <span class="opt">opcional</span></label>
-            <input type="text" id="negocio" name="negocio" placeholder="Barbería Central" enterkeyhint="next">
-            <p class="pista">Es el nombre con el que Citali se va a presentar.</p>
-          </div>
-        </fieldset>
-
-        <fieldset data-paso="3" hidden>
-          <h2>Tu equipo y tu ritmo</h2>
-          <p class="sub">Con esto armamos las columnas de tu agenda y calculamos tus horarios libres.</p>
-
-          <div class="campo">
             <span class="etq" id="lbl-tamano">¿Cuántas personas atienden pacientes?</span>
             <div class="ops c2" role="radiogroup" aria-labelledby="lbl-tamano"><label class="op"><input type="radio" name="tamano" value="Solo yo"><span class="op-c"><span class="op-t">Solo yo</span><span class="op-d">Una sola agenda</span></span></label><label class="op"><input type="radio" name="tamano" value="2 a 3"><span class="op-c"><span class="op-t">2 a 3</span><span class="op-d">Una columna por persona</span></span></label><label class="op"><input type="radio" name="tamano" value="4 a 10"><span class="op-c"><span class="op-t">4 a 10</span><span class="op-d">Agenda por consultorio</span></span></label><label class="op"><input type="radio" name="tamano" value="Más de 10"><span class="op-c"><span class="op-t">Más de 10</span><span class="op-d">Varias sedes o turnos</span></span></label></div>
             <p class="err" id="err-tamano" role="alert">Elige una opción.</p>
@@ -421,45 +444,67 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
             <div class="ops c2" role="radiogroup" aria-labelledby="lbl-volumen"><label class="op"><input type="radio" name="volumen" value="Menos de 10"><span class="op-c"><span class="op-t">Menos de 10</span></span></label><label class="op"><input type="radio" name="volumen" value="10 a 25"><span class="op-c"><span class="op-t">10 a 25</span></span></label><label class="op"><input type="radio" name="volumen" value="25 a 50"><span class="op-c"><span class="op-t">25 a 50</span></span></label><label class="op"><input type="radio" name="volumen" value="Más de 50"><span class="op-c"><span class="op-t">Más de 50</span></span></label></div>
             <p class="err" id="err-volumen" role="alert">Elige un rango, aunque sea aproximado.</p>
           </div>
-        </fieldset>
-
-        <fieldset data-paso="4" hidden>
-          <h2>Cómo trabajas hoy</h2>
-          <p class="sub">Nos dice de dónde tenemos que traer tus citas el día que conectes.</p>
 
           <div class="campo">
             <span class="etq" id="lbl-herramienta">¿Con qué llevas tus citas ahora?</span>
             <div class="ops c1" role="radiogroup" aria-labelledby="lbl-herramienta"><label class="op"><input type="radio" name="herramienta" value="Libreta o agenda de papel"><span class="op-c"><span class="op-t">Libreta o agenda de papel</span></span></label><label class="op"><input type="radio" name="herramienta" value="WhatsApp, a mano"><span class="op-c"><span class="op-t">WhatsApp, a mano</span></span></label><label class="op"><input type="radio" name="herramienta" value="Google Calendar"><span class="op-c"><span class="op-t">Google Calendar</span></span></label><label class="op"><input type="radio" name="herramienta" value="Excel o Google Sheets"><span class="op-c"><span class="op-t">Excel o Google Sheets</span></span></label><label class="op"><input type="radio" name="herramienta" value="Un software de agenda"><span class="op-c"><span class="op-t">Un software de agenda</span></span></label><label class="op"><input type="radio" name="herramienta" value="Una recepcionista"><span class="op-c"><span class="op-t">Una recepcionista</span></span></label></div>
             <p class="err" id="err-herramienta" role="alert">Elige una opción.</p>
           </div>
+        </fieldset>
+
+        <fieldset data-paso="3" hidden>
+          <h2>Tu plan</h2>
+          <p class="sub">El primer mes lo configuramos contigo. Puedes cambiar de plan o cancelar cuando quieras.</p>
 
           <div class="campo">
-            <span class="etq" id="lbl-precio">¿Cuánto cobras por sesión?</span>
-            <div class="ops c2" role="radiogroup" aria-labelledby="lbl-precio"><label class="op"><input type="radio" name="precio" value="Menos de $300"><span class="op-c"><span class="op-t">Menos de $300</span></span></label><label class="op"><input type="radio" name="precio" value="$300 a $500"><span class="op-c"><span class="op-t">$300 a $500</span></span></label><label class="op"><input type="radio" name="precio" value="$500 a $800"><span class="op-c"><span class="op-t">$500 a $800</span></span></label><label class="op"><input type="radio" name="precio" value="Más de $800"><span class="op-c"><span class="op-t">Más de $800</span></span></label></div>
-            <p class="err" id="err-precio" role="alert">Elige un rango.</p>
+            <span class="etq" id="lbl-plan">¿Con qué plan quieres comenzar?</span>
+            <div class="planes" role="radiogroup" aria-labelledby="lbl-plan">
+              <label class="op plan">
+                <input type="radio" name="plan" value="Individual ($399)">
+                <span class="op-c">
+                  <span class="plan-n">Individual</span>
+                  <span class="plan-p">$399 <small>MXN/mes</small></span>
+                  <span class="op-d">Una sola persona atendiendo</span>
+                </span>
+              </label>
+              <label class="op plan">
+                <input type="radio" name="plan" value="Negocio ($699)">
+                <span class="op-c">
+                  <span class="plan-n">Negocio</span>
+                  <span class="plan-p">$699 <small>MXN/mes</small></span>
+                  <span class="op-d">De 2 a 10 personas, una agenda por cada una</span>
+                </span>
+              </label>
+              <label class="op plan">
+                <input type="radio" name="plan" value="Clínica ($1,299)">
+                <span class="op-c">
+                  <span class="plan-n">Clínica</span>
+                  <span class="plan-p">$1,299 <small>MXN/mes</small></span>
+                  <span class="op-d">Más de 10 personas o varias sedes</span>
+                </span>
+              </label>
+            </div>
+            <p class="err" id="err-plan" role="alert">Elige el plan con el que quieres comenzar.</p>
+            <p class="pista" id="planSugerido" hidden></p>
           </div>
         </fieldset>
 
-        <fieldset data-paso="5" hidden>
-          <h2>Las citas que no llegan</h2>
-          <p class="sub">La última, y es la que más nos importa.</p>
+        <fieldset data-paso="4" hidden>
+          <h2>Tu instalación</h2>
+          <p class="sub">Conectamos tu número contigo, en una llamada corta. Dinos cuándo te acomoda.</p>
 
           <div class="campo">
-            <span class="etq" id="lbl-fantasma">El mes pasado, ¿cuántos pacientes no llegaron?</span>
-            <div class="ops c2" role="radiogroup" aria-labelledby="lbl-fantasma"><label class="op"><input type="radio" name="fantasma" value="Ninguno"><span class="op-c"><span class="op-t">Ninguno</span></span></label><label class="op"><input type="radio" name="fantasma" value="1 a 3"><span class="op-c"><span class="op-t">1 a 3</span></span></label><label class="op"><input type="radio" name="fantasma" value="4 a 10"><span class="op-c"><span class="op-t">4 a 10</span></span></label><label class="op"><input type="radio" name="fantasma" value="Más de 10"><span class="op-c"><span class="op-t">Más de 10</span></span></label><label class="op"><input type="radio" name="fantasma" value="No lo sé"><span class="op-c"><span class="op-t">No lo sé</span></span></label></div>
-            <p class="err" id="err-fantasma" role="alert">Elige una opción, aunque sea un aproximado.</p>
+            <label for="fecha">¿Qué día quieres dejarlo instalado?</label>
+            <input type="date" id="fecha" name="fecha">
+            <p class="err" id="err-fecha" role="alert">Elige un día a partir de mañana.</p>
+            <p class="pista">Trabajamos de lunes a viernes. Si eliges fin de semana, lo movemos al lunes siguiente.</p>
           </div>
 
           <div class="campo">
-            <span class="etq" id="lbl-anticipo">¿Cobras anticipo hoy?</span>
-            <div class="ops c1" role="radiogroup" aria-labelledby="lbl-anticipo"><label class="op"><input type="radio" name="anticipo" value="Sí, siempre"><span class="op-c"><span class="op-t">Sí, siempre</span></span></label><label class="op"><input type="radio" name="anticipo" value="A veces"><span class="op-c"><span class="op-t">A veces</span></span></label><label class="op"><input type="radio" name="anticipo" value="Nunca"><span class="op-c"><span class="op-t">Nunca</span></span></label></div>
-            <p class="err" id="err-anticipo" role="alert">Elige una opción.</p>
+            <span class="etq" id="lbl-horario">¿A qué hora te acomoda la configuración?</span>
+            <div class="ops c1" role="radiogroup" aria-labelledby="lbl-horario"><label class="op"><input type="radio" name="horario" value="Mañana (9:00 a 13:00)"><span class="op-c"><span class="op-t">Mañana</span><span class="op-d">9:00 a 13:00</span></span></label><label class="op"><input type="radio" name="horario" value="Mediodía (13:00 a 16:00)"><span class="op-c"><span class="op-t">Mediodía</span><span class="op-d">13:00 a 16:00</span></span></label><label class="op"><input type="radio" name="horario" value="Tarde (16:00 a 19:00)"><span class="op-c"><span class="op-t">Tarde</span><span class="op-d">16:00 a 19:00</span></span></label></div>
+            <p class="err" id="err-horario" role="alert">Elige un horario.</p>
           </div>
-        </fieldset>
-
-        <fieldset data-paso="6" hidden>
-          <h2>Revisa que todo esté bien</h2>
-          <p class="sub">Sobre todo tu WhatsApp: es por donde te vamos a escribir.</p>
 
           <div class="repaso">
             <p class="rp-etq">Te escribimos a</p>
@@ -471,8 +516,6 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
               <span>Ábrelo en WhatsApp y comprueba que es tu chat</span>
             </a>
           </div>
-
-          <dl class="rp-datos" id="repDatos"></dl>
 
           <div class="campo">
             <label class="acepto">
@@ -495,15 +538,16 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <button type="submit" class="btn btn-p" id="manda" hidden>
-            <span class="btn-txt">Crear mi cuenta</span>
+            <span class="btn-txt">Solicitar instalación</span>
           </button>
         </div>
 
         <div class="aviso" id="aviso"></div>
 
         <p class="legal">
-          Gratis y sin compromiso. Usamos tus datos solo para contactarte sobre Citali.
-          <a href="#" id="verAviso">Aviso de privacidad</a>.
+          No se cobra nada ahora. Confirmamos tu instalación por WhatsApp antes de cualquier pago.
+          Usamos tus datos solo para contactarte sobre Citali.
+          <a href="/aviso-privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a>.
         </p>
       </form>
     </div>
@@ -517,8 +561,8 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
       <div class="reng" data-k="ciudad"><dt>Ciudad</dt><dd>—</dd></div>
       <div class="reng" data-k="giro"><dt>Servicios de</dt><dd>—</dd></div>
       <div class="reng" data-k="tamano"><dt>Agendas</dt><dd>—</dd></div>
-      <div class="reng" data-k="precio"><dt>Precio por sesión</dt><dd>—</dd></div>
-      <div class="reng" data-k="anticipo"><dt>Anticipo</dt><dd>—</dd></div>
+      <div class="reng" data-k="plan"><dt>Plan</dt><dd>—</dd></div>
+      <div class="reng" data-k="instalacion"><dt>Instalación</dt><dd>—</dd></div>
     </dl>
     <p class="nota">Con esto dejamos tu agenda, tus servicios y tus precios cargados antes de que conectes tu número.</p>
   </aside>
@@ -527,36 +571,21 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
     <div class="paloma">
       <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
-    <h1 id="listoTit">Quedaste en la lista.</h1>
-    <p>Guardamos la configuración de tu consultorio. Te escribimos por WhatsApp
-       a <b id="listoTel">tu número</b> para conectarlo y dejarla andando.</p>
+    <h1 id="listoTit">Instalación solicitada.</h1>
+    <p>Pediste el <b id="listoFecha">día que elegiste</b> por la <b id="listoHorario">mañana</b>.
+       Te confirmamos por WhatsApp a <b id="listoTel">tu número</b> en menos de 24 horas.</p>
 
     <ol class="pasos-sig">
-      <li><span class="k">1</span><span>Preparamos tu agenda, tus servicios y tus precios con lo que nos contaste.</span></li>
-      <li><span class="k">2</span><span>Te escribimos por WhatsApp desde el número de Citali para conectar el tuyo.</span></li>
-      <li><span class="k">3</span><span>Conectamos tu número contigo, en una llamada corta. No te dejamos solo frente a un panel.</span></li>
+      <li><span class="k">1</span><span>Te escribimos desde el número de Citali para confirmar el día y la hora.</span></li>
+      <li><span class="k">2</span><span>Dejamos tu agenda, tus servicios y tus precios cargados con lo que nos contaste.</span></li>
+      <li><span class="k">3</span><span>El día acordado conectamos tu número contigo, en una llamada corta. No te dejamos solo frente a un panel.</span></li>
     </ol>
 
-    <p style="font-size:.9rem;color:#9C8DB4;margin-bottom:.9rem">¿Conoces a otro terapeuta al que le sirva?</p>
+    <p style="font-size:.9rem;color:#9C8DB4;margin-bottom:.9rem">¿Conoces a otro negocio al que le sirva?</p>
     <a class="btn btn-f" id="comparte" href="#" target="_blank" rel="noopener">Pasar la voz por WhatsApp</a>
   </div>
 
 </main>
-
-<dialog id="dlgAviso" aria-labelledby="dlgTit">
-  <div class="dlg-in">
-    <h3 id="dlgTit">Aviso de privacidad</h3>
-    <h4>Quién es responsable</h4>
-    <p>Citali (proyecto en formación, México) es responsable de los datos que nos compartes en este formulario.</p>
-    <h4>Qué recabamos y para qué</h4>
-    <p>Tu nombre, número de WhatsApp, ciudad y las respuestas sobre tu consultorio. Los usamos únicamente para contactarte, activar tu cuenta y preparar tu configuración.</p>
-    <h4>Qué no hacemos</h4>
-    <p>No vendemos, rentamos ni compartimos tus datos con terceros para fines publicitarios.</p>
-    <h4>Tus derechos</h4>
-    <p>Puedes pedirnos acceder, rectificar, cancelar u oponerte al uso de tus datos (derechos ARCO) cuando quieras: responde «BAJA» a cualquier mensaje o escríbenos a hola@citali.mx.</p>
-    <p style="margin-top:1.4rem"><button class="btn btn-p" id="cierraDlg" type="button">Entendido</button></p>
-  </div>
-</dialog>
 
 <script>
 const CONFIG = {
@@ -564,7 +593,7 @@ const CONFIG = {
   WHATSAPP: "526221254659",
   META_PIXEL_ID: "",
   GA4_ID: "",
-  SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del consultorio, agenda y cobra el anticipo sola. Estamos activando cuentas por grupos: https://citali.mx"
+  SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del negocio, agenda y cobra el anticipo sola. Está por invitación y activan pocos negocios por semana: https://citali.mx"
 };
 
 /* ── medición (sólo si hay identificadores configurados) ─────────────── */
@@ -593,8 +622,10 @@ function track(evento, datos){
 }
 
 (function(){
-  const TITULOS = ['Quién eres', 'Tu consultorio', 'Tu equipo', 'Cómo trabajas', 'Las faltas', 'Revisa y confirma'];
-  const LLAVE   = 'citali_borrador_v1';
+  const TITULOS = ['Tu cuenta', 'Tu configuración', 'Tu plan', 'Tu instalación'];
+  // v2: el formulario cambió de preguntas. Un borrador v1 traería campos que
+  // ya no existen y un paso que se salía del rango, así que se descarta solo.
+  const LLAVE   = 'citali_borrador_v2';
 
   const form   = document.getElementById('alta');
   const pasos  = Array.prototype.slice.call(form.querySelectorAll('fieldset'));
@@ -643,6 +674,24 @@ function track(evento, datos){
     return ver;
   };
 
+  /* ── fecha de instalación ─────────────────────────────────────────── */
+  const hoyISO = function(){
+    // En ISO local, no UTC: en México toUTCString() adelanta el día por la tarde.
+    const d = new Date();
+    return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  };
+  const masDias = function(iso, n){
+    const d = new Date(iso + 'T00:00:00');
+    d.setDate(d.getDate() + n);
+    return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  };
+  const fechaBonita = function(iso){
+    if (!iso) return '';
+    const d = new Date(iso + 'T00:00:00');
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('es-MX', { weekday: 'short', day: 'numeric', month: 'long' });
+  };
+
   const digitos   = function(){ return tel.value.replace(/\D/g, ''); };
   const telE164   = function(){ return '+52' + digitos(); };
   const telBonito = function(){ return '+52 ' + tel.value; };
@@ -660,10 +709,13 @@ function track(evento, datos){
     ['tamano',   function(){
         const t = sel('tamano');
         return t === 'Solo yo' ? 'Una agenda' : t ? t + ' agendas' : ''; }],
-    ['precio',   function(){ return sel('precio'); }],
-    ['anticipo', function(){
-        const a = sel('anticipo');
-        return a === 'Nunca' ? 'Lo activamos contigo' : a ? 'Sí, en cada cita' : ''; }]
+    ['plan',     function(){ return sel('plan'); }],
+    ['instalacion', function(){
+        const f = fechaBonita(val('fecha'));
+        const h = sel('horario');
+        if (!f) return '';
+        // "vie, 8 de agosto · Mañana": la franja sin el rango, que ya va en el paso
+        return h ? f + ' · ' + h.replace(/\s*\(.*\)$/, '') : f; }]
   ];
 
   const pintaVista = function(){
@@ -729,42 +781,51 @@ function track(evento, datos){
     return falla('whatsapp', !!queja);
   };
 
+  /** Vacía, en el pasado, o a más de un año: la fecha no sirve para agendar. */
+  const quejaFecha = function(f){
+    if (!f) return 'Elige un día a partir de mañana.';
+    if (f < masDias(hoyISO(), 1)) return 'Elige un día a partir de mañana.';
+    if (f > masDias(hoyISO(), 365)) return 'Elige un día dentro del próximo año.';
+    return '';
+  };
+  const revisaFecha = function(){
+    const queja = quejaFecha(val('fecha'));
+    document.getElementById('err-fecha').textContent = queja || 'Elige un día a partir de mañana.';
+    return falla('fecha', !!queja);
+  };
+
   const REGLAS = [
     function(){
       let ok = true, foco = null;
-      if (!falla('nombre', val('nombre').length < 2)) { ok = false; foco = foco || document.getElementById('nombre'); }
-      if (!revisaTel())                               { ok = false; foco = foco || tel; }
-      if (!falla('ciudad', val('ciudad').length < 2)) { ok = false; foco = foco || document.getElementById('ciudad'); }
+      if (!falla('nombre', val('nombre').length < 2))   { ok = false; foco = foco || document.getElementById('nombre'); }
+      if (!revisaTel())                                 { ok = false; foco = foco || tel; }
+      if (!falla('negocio', val('negocio').length < 2)) { ok = false; foco = foco || document.getElementById('negocio'); }
+      if (!falla('ciudad', val('ciudad').length < 2))   { ok = false; foco = foco || document.getElementById('ciudad'); }
       if (foco) foco.focus();
       return ok;
     },
     function(){
       const a = fallaGrupo('giro', !sel('giro'));
       const b = falla('giroOtro', pintaGiroOtro() && val('giroOtro').length < 2);
+      const c = fallaGrupo('tamano',      !sel('tamano'));
+      const d = fallaGrupo('volumen',     !sel('volumen'));
+      const e = fallaGrupo('herramienta', !sel('herramienta'));
       if (a && !b) document.getElementById('giroOtro').focus();
-      return a && b;
+      return a && b && c && d && e;
     },
     function(){
-      const a = fallaGrupo('tamano',  !sel('tamano'));
-      const b = fallaGrupo('volumen', !sel('volumen'));
-      return a && b;
+      return fallaGrupo('plan', !sel('plan'));
     },
     function(){
-      const a = fallaGrupo('herramienta', !sel('herramienta'));
-      const b = fallaGrupo('precio',      !sel('precio'));
-      return a && b;
-    },
-    function(){
-      const a = fallaGrupo('fantasma', !sel('fantasma'));
-      const b = fallaGrupo('anticipo', !sel('anticipo'));
-      return a && b;
-    },
-    function(){
+      const a = revisaFecha();
+      const b = fallaGrupo('horario', !sel('horario'));
       const caja = document.getElementById('confirmo');
       const mal = !caja.checked;
       caja.setAttribute('aria-invalid', mal ? 'true' : 'false');
-      if (mal) caja.focus();
-      return fallaGrupo('confirmo', mal);
+      const c = fallaGrupo('confirmo', mal);
+      if (!a) document.getElementById('fecha').focus();
+      else if (c === false && b) caja.focus();
+      return a && b && c;
     }
   ];
 
@@ -774,12 +835,12 @@ function track(evento, datos){
    * entrar directo a #paso-6 y ver un repaso en blanco.
    */
   const COMPLETO = [
-    function(){ return val('nombre').length >= 2 && !quejaTel(digitos()) && val('ciudad').length >= 2; },
-    function(){ return !!sel('giro') && (sel('giro') !== 'Otro' || val('giroOtro').length >= 2); },
-    function(){ return !!sel('tamano') && !!sel('volumen'); },
-    function(){ return !!sel('herramienta') && !!sel('precio'); },
-    function(){ return !!sel('fantasma') && !!sel('anticipo'); },
-    function(){ return true; }          // el repaso no pide datos nuevos
+    function(){ return val('nombre').length >= 2 && !quejaTel(digitos())
+                    && val('negocio').length >= 2 && val('ciudad').length >= 2; },
+    function(){ return !!sel('giro') && (sel('giro') !== 'Otro' || val('giroOtro').length >= 2)
+                    && !!sel('tamano') && !!sel('volumen') && !!sel('herramienta'); },
+    function(){ return !!sel('plan'); },
+    function(){ return true; }          // la instalación es el último paso
   ];
 
   const hastaDonde = function(){
@@ -787,32 +848,27 @@ function track(evento, datos){
     return COMPLETO.length - 1;
   };
 
-  /* ── el repaso final ──────────────────────────────────────────────── */
-  const REPASO = [
-    ['Tu nombre',     function(){ return val('nombre'); }],
-    ['Negocio',       function(){ return val('negocio'); }],
-    ['Ciudad',        function(){ return val('ciudad'); }],
-    ['Se dedica a',   function(){ return giroFinal(); }],
-    ['Quién atiende', function(){ return sel('tamano'); }],
-    ['Por sesión',    function(){ return sel('precio'); }]
-  ];
-
+  /* ── confirmación del número, en el último paso ───────────────────── */
   const pintaRepaso = function(){
     document.getElementById('repTel').textContent = telBonito();
     document.getElementById('pruebaWA').href = 'https://wa.me/52' + digitos();
+  };
 
-    const dl = document.getElementById('repDatos');
-    dl.textContent = '';
-    REPASO.forEach(function(par){
-      const v = par[1]();
-      if (!v) return;
-      const fila = document.createElement('div');
-      fila.className = 'rp-fila';
-      const dt = document.createElement('dt'); dt.textContent = par[0];
-      const dd = document.createElement('dd'); dd.textContent = v;
-      fila.appendChild(dt); fila.appendChild(dd);
-      dl.appendChild(fila);
-    });
+  /**
+   * El plan lo elige la persona, siempre. Esto solo apunta cuál le toca por el
+   * tamaño que ya declaró, para que no tenga que deducirlo de los rangos.
+   */
+  const PLAN_POR_TAMANO = {
+    'Solo yo':     'Individual',
+    '2 a 3':       'Negocio',
+    '4 a 10':      'Negocio',
+    'Más de 10':   'Clínica'
+  };
+  const pintaSugerencia = function(){
+    const nota = document.getElementById('planSugerido');
+    const s = PLAN_POR_TAMANO[sel('tamano')];
+    nota.hidden = !s;
+    if (s) nota.textContent = 'Por el tamaño que nos dijiste, el plan ' + s + ' es el que te queda.';
   };
 
   // Cambiar el número regresa al paso 1, que es donde se escribe
@@ -838,6 +894,7 @@ function track(evento, datos){
     document.body.dataset.paso = String(actual + 1);
 
     if (actual === pasos.length - 1) pintaRepaso();
+    if (actual === 2) pintaSugerencia();
 
     if (mueveFoco) {
       const primero = pasos[actual].querySelector('input:not([type=radio]):not([type=hidden]), input[type=radio]');
@@ -876,7 +933,9 @@ function track(evento, datos){
     // de texto siempre devuelve vacio y encenderia su error con el campo lleno.
     const opcion = e.target.type === 'radio' || e.target.type === 'checkbox';
     if (n && opcion && document.getElementById('err-' + n)) fallaGrupo(n, !sel(n));
-    if (n === 'giro') pintaGiroOtro();
+    if (n === 'giro')   pintaGiroOtro();
+    if (n === 'tamano') pintaSugerencia();
+    if (n === 'fecha' && val('fecha')) revisaFecha();
     pintaVista(); guarda();
   });
   form.addEventListener('input', function(e){
@@ -886,14 +945,16 @@ function track(evento, datos){
   });
   form.addEventListener('blur', function(e){
     const id = e.target.id;
-    if (id === 'nombre') falla('nombre', val('nombre').length > 0 && val('nombre').length < 2);
-    if (id === 'ciudad') falla('ciudad', val('ciudad').length > 0 && val('ciudad').length < 2);
+    if (id === 'nombre')  falla('nombre',  val('nombre').length > 0 && val('nombre').length < 2);
+    if (id === 'negocio') falla('negocio', val('negocio').length > 0 && val('negocio').length < 2);
+    if (id === 'ciudad')  falla('ciudad',  val('ciudad').length > 0 && val('ciudad').length < 2);
     if (id === 'whatsapp' && digitos().length > 0) revisaTel();
+    if (id === 'fecha' && val('fecha')) revisaFecha();
   }, true);
 
   /* ── borrador en el navegador ─────────────────────────────────────── */
-  const CAMPOS_TXT = ['nombre','whatsapp','ciudad','negocio','giroOtro'];
-  const CAMPOS_OPC = ['giro','tamano','volumen','herramienta','precio','fantasma','anticipo'];
+  const CAMPOS_TXT = ['nombre','whatsapp','ciudad','negocio','giroOtro','fecha'];
+  const CAMPOS_OPC = ['giro','tamano','volumen','herramienta','plan','horario'];
 
   const guarda = function(){
     try {
@@ -962,9 +1023,9 @@ function track(evento, datos){
       tamano:      sel('tamano'),
       herramienta: sel('herramienta'),
       volumen:     sel('volumen'),
-      precio:      sel('precio'),
-      fantasma:    sel('fantasma'),
-      anticipo:    sel('anticipo'),
+      plan:        sel('plan'),
+      fecha_instalacion: val('fecha'),
+      horario:     sel('horario'),
       utm_source:   utm('utm_source'),
       utm_medium:   utm('utm_medium'),
       utm_campaign: utm('utm_campaign'),
@@ -977,15 +1038,18 @@ function track(evento, datos){
 
     try {
       await envia(datos);
-      track('Lead', { content_name: 'Alta Citali', content_category: datos.giro });
+      track('Lead', { content_name: 'Solicitud de instalación', content_category: datos.giro });
       try { localStorage.removeItem(LLAVE); localStorage.setItem('citali_registrado', '1'); } catch(err){}
 
       marco.hidden = true;
       document.getElementById('vista').hidden = true;
       listo.classList.add('ver');
       document.getElementById('listoTit').textContent =
-        'Quedaste en la lista, ' + datos.nombre.split(' ')[0] + '.';
+        'Instalación solicitada, ' + datos.nombre.split(' ')[0] + '.';
       document.getElementById('listoTel').textContent = telBonito();
+      document.getElementById('listoFecha').textContent = fechaBonita(datos.fecha_instalacion);
+      document.getElementById('listoHorario').textContent =
+        datos.horario.replace(/\s*\(.*\)$/, '').toLowerCase();
       document.getElementById('comparte').href =
         'https://wa.me/?text=' + encodeURIComponent(CONFIG.SHARE_TEXT);
       window.scrollTo({ top: 0, behavior: 'auto' });
@@ -1003,12 +1067,6 @@ function track(evento, datos){
   });
 
   /* ── arranque ─────────────────────────────────────────────────────── */
-  const dlg = document.getElementById('dlgAviso');
-  document.getElementById('verAviso').addEventListener('click', function(ev){
-    ev.preventDefault(); if (dlg.showModal) dlg.showModal();
-  });
-  document.getElementById('cierraDlg').addEventListener('click', function(){ dlg.close(); });
-
   // El giro puede venir preseleccionado desde las tarjetas del landing.
   // Si llega uno que no está en la lista (una campaña a un rubro suelto),
   // cae en "Otro" con el texto ya puesto en vez de perderse.
@@ -1017,8 +1075,14 @@ function track(evento, datos){
     document.getElementById('giroOtro').value = giroUrl;
   }
 
+  // El selector de fecha no ofrece días que no podemos instalar.
+  const campoFecha = document.getElementById('fecha');
+  campoFecha.min = masDias(hoyISO(), 1);
+  campoFecha.max = masDias(hoyISO(), 365);
+
   if (restaura()) retoma.classList.add('ver');
   pintaGiroOtro();
+  pintaSugerencia();
 
   const hash = (location.hash.match(/^#paso-(\d)$/) || [])[1];
   if (hash) actual = Math.min(Math.max(parseInt(hash, 10) - 1, 0), pasos.length - 1);

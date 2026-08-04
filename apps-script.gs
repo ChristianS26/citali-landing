@@ -20,10 +20,16 @@ const ZONA = 'America/Mexico_City';
 const COLUMNAS = [
   // 'Verificado' queda vacía mientras VERIFICAR esté apagado. Se deja puesta
   // para no volver a mover los encabezados cuando se encienda.
+  //
+  // 'Precio sesión', 'Citas fantasma' y 'Cobra anticipo' salieron del formulario
+  // cuando pasó a ser onboarding. Se dejan en su posición —vacías de aquí en
+  // adelante— para no recorrer las columnas y desalinear los registros viejos.
+  // Los campos nuevos van al final por la misma razón.
   'Fecha', 'Nombre', 'Negocio', 'WhatsApp', 'Verificado', 'Ciudad', 'Giro', 'Tamaño',
   'Agenda hoy', 'Citas/semana', 'Precio sesión', 'Citas fantasma', 'Cobra anticipo',
   'Repetido', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
-  'Referencia', 'Página', 'Dispositivo'
+  'Referencia', 'Página', 'Dispositivo',
+  'Plan', 'Fecha instalación', 'Horario instalación'
 ];
 
 const COL_WHATSAPP = 4;              // Posición de la columna WhatsApp en COLUMNAS
@@ -85,9 +91,9 @@ function guardar_(datos, verificado) {
       datos.tamano || '',
       datos.herramienta || '',
       datos.volumen || '',
-      datos.precio || '',
-      datos.fantasma || '',
-      datos.anticipo || '',
+      '',                             // Precio sesión — retirada del formulario
+      '',                             // Citas fantasma — retirada del formulario
+      '',                             // Cobra anticipo — retirada del formulario
       repetido,
       datos.utm_source || '',
       datos.utm_medium || '',
@@ -96,7 +102,10 @@ function guardar_(datos, verificado) {
       datos.utm_term || '',
       datos.referencia || '',
       datos.pagina || '',
-      datos.dispositivo || ''
+      datos.dispositivo || '',
+      datos.plan || '',
+      datos.fecha_instalacion || '',
+      datos.horario || ''
     ]);
 
     return { ok: true };
