@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Empieza con Citali — Cuéntanos de tu consultorio</title>
-<meta name="description" content="Seis pasos para dejar lista la configuración de tu consultorio. Te escribimos por WhatsApp para conectar tu número.">
+<meta name="description" content="Seis pasos para dejar lista la configuración de tu negocio. Te escribimos por WhatsApp para conectar tu número.">
 <meta name="theme-color" content="#17111F">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://citali.mx/empezar.html">
@@ -142,6 +142,16 @@ input[aria-invalid=true]{border-color:var(--ghost);background:#FDF3F0}
 .chip:hover span{border-color:#C9BCE6;background:#fff}
 .chip:has(input:checked) span{border-color:var(--violet);background:var(--violet);color:#fff;font-weight:500}
 .chip:has(input:focus-visible) span{outline:2.5px solid var(--violet-lift);outline-offset:2px}
+
+/* Con giros de rubros muy distintos la lista plana se vuelve un muro:
+   las categorias dejan encontrar el propio de un vistazo */
+.giro-cat{
+  font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);margin:1rem 0 .5rem;
+}
+.giro-cat:first-child{margin-top:0}
+.giro-otro{margin-top:.9rem;display:none}
+.giro-otro.ver{display:block}
 
 /* ── botones ────────────────────────────────────────────────────────── */
 .pie-form{
@@ -361,18 +371,37 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
         </fieldset>
 
         <fieldset data-paso="2" hidden>
-          <h2>¿A qué se dedica tu consultorio?</h2>
+          <h2>¿A qué se dedica tu negocio?</h2>
           <p class="sub">Define los servicios que Citali va a ofrecer cuando alguien escriba.</p>
 
           <div class="campo">
             <span class="etq" id="lbl-giro">Elige el que más se acerque</span>
-            <div class="chips" role="radiogroup" aria-labelledby="lbl-giro"><label class="chip"><input type="radio" name="giro" value="Fisioterapia"><span>Fisioterapia</span></label><label class="chip"><input type="radio" name="giro" value="Rehabilitación física"><span>Rehabilitación física</span></label><label class="chip"><input type="radio" name="giro" value="Quiropráctica"><span>Quiropráctica</span></label><label class="chip"><input type="radio" name="giro" value="Masaje terapéutico"><span>Masaje terapéutico</span></label><label class="chip"><input type="radio" name="giro" value="Acupuntura"><span>Acupuntura</span></label><label class="chip"><input type="radio" name="giro" value="Medicina alternativa"><span>Medicina alternativa</span></label><label class="chip"><input type="radio" name="giro" value="Psicología"><span>Psicología</span></label><label class="chip"><input type="radio" name="giro" value="Terapia de lenguaje"><span>Terapia de lenguaje</span></label><label class="chip"><input type="radio" name="giro" value="Terapia ocupacional"><span>Terapia ocupacional</span></label><label class="chip"><input type="radio" name="giro" value="Nutrición"><span>Nutrición</span></label><label class="chip"><input type="radio" name="giro" value="Odontología"><span>Odontología</span></label><label class="chip"><input type="radio" name="giro" value="Medicina general"><span>Medicina general</span></label><label class="chip"><input type="radio" name="giro" value="Dermatología"><span>Dermatología</span></label><label class="chip"><input type="radio" name="giro" value="Medicina estética"><span>Medicina estética</span></label><label class="chip"><input type="radio" name="giro" value="Podología"><span>Podología</span></label><label class="chip"><input type="radio" name="giro" value="Optometría"><span>Optometría</span></label><label class="chip"><input type="radio" name="giro" value="Veterinaria"><span>Veterinaria</span></label><label class="chip"><input type="radio" name="giro" value="Clínica con varias especialidades"><span>Clínica con varias especialidades</span></label></div>
-            <p class="err" id="err-giro" role="alert">Elige a qué se dedica tu consultorio.</p>
+            <div role="radiogroup" aria-labelledby="lbl-giro">
+              <p class="giro-cat">Salud</p>
+              <div class="chips"><label class="chip"><input type="radio" name="giro" value="Fisioterapia"><span>Fisioterapia</span></label><label class="chip"><input type="radio" name="giro" value="Rehabilitación física"><span>Rehabilitación física</span></label><label class="chip"><input type="radio" name="giro" value="Quiropráctica"><span>Quiropráctica</span></label><label class="chip"><input type="radio" name="giro" value="Acupuntura"><span>Acupuntura</span></label><label class="chip"><input type="radio" name="giro" value="Medicina alternativa"><span>Medicina alternativa</span></label><label class="chip"><input type="radio" name="giro" value="Psicología"><span>Psicología</span></label><label class="chip"><input type="radio" name="giro" value="Terapia de lenguaje"><span>Terapia de lenguaje</span></label><label class="chip"><input type="radio" name="giro" value="Terapia ocupacional"><span>Terapia ocupacional</span></label><label class="chip"><input type="radio" name="giro" value="Nutrición"><span>Nutrición</span></label><label class="chip"><input type="radio" name="giro" value="Odontología"><span>Odontología</span></label><label class="chip"><input type="radio" name="giro" value="Medicina general"><span>Medicina general</span></label><label class="chip"><input type="radio" name="giro" value="Dermatología"><span>Dermatología</span></label><label class="chip"><input type="radio" name="giro" value="Podología"><span>Podología</span></label><label class="chip"><input type="radio" name="giro" value="Optometría"><span>Optometría</span></label><label class="chip"><input type="radio" name="giro" value="Veterinaria"><span>Veterinaria</span></label><label class="chip"><input type="radio" name="giro" value="Clínica con varias especialidades"><span>Clínica con varias especialidades</span></label></div>
+
+              <p class="giro-cat">Belleza y bienestar</p>
+              <div class="chips"><label class="chip"><input type="radio" name="giro" value="Barbería"><span>Barbería</span></label><label class="chip"><input type="radio" name="giro" value="Salón de belleza"><span>Salón de belleza</span></label><label class="chip"><input type="radio" name="giro" value="Uñas"><span>Uñas</span></label><label class="chip"><input type="radio" name="giro" value="Spa"><span>Spa</span></label><label class="chip"><input type="radio" name="giro" value="Masaje terapéutico"><span>Masaje terapéutico</span></label><label class="chip"><input type="radio" name="giro" value="Medicina estética"><span>Medicina estética</span></label><label class="chip"><input type="radio" name="giro" value="Tatuajes y perforaciones"><span>Tatuajes y perforaciones</span></label></div>
+
+              <p class="giro-cat">Comida</p>
+              <div class="chips"><label class="chip"><input type="radio" name="giro" value="Restaurante"><span>Restaurante</span></label><label class="chip"><input type="radio" name="giro" value="Cafetería"><span>Cafetería</span></label><label class="chip"><input type="radio" name="giro" value="Bar"><span>Bar</span></label></div>
+
+              <p class="giro-cat">Otros servicios</p>
+              <div class="chips"><label class="chip"><input type="radio" name="giro" value="Gimnasio o entrenador"><span>Gimnasio o entrenador</span></label><label class="chip"><input type="radio" name="giro" value="Taller mecánico"><span>Taller mecánico</span></label><label class="chip"><input type="radio" name="giro" value="Otro"><span>Otro</span></label></div>
+            </div>
+            <p class="err" id="err-giro" role="alert">Elige a qué se dedica tu negocio.</p>
+
+            <div class="giro-otro" id="giroOtroCampo">
+              <label for="giroOtro">¿A qué se dedica?</label>
+              <input type="text" id="giroOtro" name="giroOtro" placeholder="Lavandería" enterkeyhint="next" autocomplete="off">
+              <p class="err" id="err-giroOtro" role="alert">Dinos a qué se dedica.</p>
+              <p class="pista">Escríbelo como se lo dirías a un cliente.</p>
+            </div>
           </div>
 
           <div class="campo">
             <label for="negocio">¿Cómo se llama? <span class="opt">opcional</span></label>
-            <input type="text" id="negocio" name="negocio" placeholder="Fisio Balance" enterkeyhint="next">
+            <input type="text" id="negocio" name="negocio" placeholder="Barbería Central" enterkeyhint="next">
             <p class="pista">Es el nombre con el que Citali se va a presentar.</p>
           </div>
         </fieldset>
@@ -597,6 +626,23 @@ function track(evento, datos){
     }
     return false;
   };
+  /**
+   * El giro que viaja a la hoja. Con "Otro" mandamos lo que la persona
+   * escribió, no la palabra "Otro": si no, todo rubro fuera de la lista
+   * llega indistinguible y no sirve para nada.
+   */
+  const giroFinal = function(){
+    const g = sel('giro');
+    if (g !== 'Otro') return g;
+    return val('giroOtro') || 'Otro';
+  };
+  // Devuelve si "Otro" está elegido, y de paso muestra u oculta su campo
+  const pintaGiroOtro = function(){
+    const ver = sel('giro') === 'Otro';
+    document.getElementById('giroOtroCampo').classList.toggle('ver', ver);
+    return ver;
+  };
+
   const digitos   = function(){ return tel.value.replace(/\D/g, ''); };
   const telE164   = function(){ return '+52' + digitos(); };
   const telBonito = function(){ return '+52 ' + tel.value; };
@@ -606,11 +652,11 @@ function track(evento, datos){
     ['negocio',  function(){
         if (val('negocio')) return val('negocio');
         const pila = val('nombre').split(' ')[0];
-        return pila ? 'Consultorio de ' + pila : '';
+        return pila ? 'Negocio de ' + pila : '';
       }],
     ['whatsapp', function(){ return digitos().length === 10 ? telBonito() : ''; }],
     ['ciudad',   function(){ return val('ciudad'); }],
-    ['giro',     function(){ return sel('giro'); }],
+    ['giro',     function(){ return giroFinal(); }],
     ['tamano',   function(){
         const t = sel('tamano');
         return t === 'Solo yo' ? 'Una agenda' : t ? t + ' agendas' : ''; }],
@@ -692,7 +738,12 @@ function track(evento, datos){
       if (foco) foco.focus();
       return ok;
     },
-    function(){ return fallaGrupo('giro', !sel('giro')); },
+    function(){
+      const a = fallaGrupo('giro', !sel('giro'));
+      const b = falla('giroOtro', pintaGiroOtro() && val('giroOtro').length < 2);
+      if (a && !b) document.getElementById('giroOtro').focus();
+      return a && b;
+    },
     function(){
       const a = fallaGrupo('tamano',  !sel('tamano'));
       const b = fallaGrupo('volumen', !sel('volumen'));
@@ -724,7 +775,7 @@ function track(evento, datos){
    */
   const COMPLETO = [
     function(){ return val('nombre').length >= 2 && !quejaTel(digitos()) && val('ciudad').length >= 2; },
-    function(){ return !!sel('giro'); },
+    function(){ return !!sel('giro') && (sel('giro') !== 'Otro' || val('giroOtro').length >= 2); },
     function(){ return !!sel('tamano') && !!sel('volumen'); },
     function(){ return !!sel('herramienta') && !!sel('precio'); },
     function(){ return !!sel('fantasma') && !!sel('anticipo'); },
@@ -739,9 +790,9 @@ function track(evento, datos){
   /* ── el repaso final ──────────────────────────────────────────────── */
   const REPASO = [
     ['Tu nombre',     function(){ return val('nombre'); }],
-    ['Consultorio',   function(){ return val('negocio'); }],
+    ['Negocio',       function(){ return val('negocio'); }],
     ['Ciudad',        function(){ return val('ciudad'); }],
-    ['Se dedica a',   function(){ return sel('giro'); }],
+    ['Se dedica a',   function(){ return giroFinal(); }],
     ['Quién atiende', function(){ return sel('tamano'); }],
     ['Por sesión',    function(){ return sel('precio'); }]
   ];
@@ -821,7 +872,11 @@ function track(evento, datos){
   /* ── revalida en vivo y guarda ────────────────────────────────────── */
   form.addEventListener('change', function(e){
     const n = e.target.name;
-    if (n && document.getElementById('err-' + n)) fallaGrupo(n, !sel(n));
+    // Solo grupos de opciones: sel() lee input:checked, asi que sobre un campo
+    // de texto siempre devuelve vacio y encenderia su error con el campo lleno.
+    const opcion = e.target.type === 'radio' || e.target.type === 'checkbox';
+    if (n && opcion && document.getElementById('err-' + n)) fallaGrupo(n, !sel(n));
+    if (n === 'giro') pintaGiroOtro();
     pintaVista(); guarda();
   });
   form.addEventListener('input', function(e){
@@ -837,7 +892,7 @@ function track(evento, datos){
   }, true);
 
   /* ── borrador en el navegador ─────────────────────────────────────── */
-  const CAMPOS_TXT = ['nombre','whatsapp','ciudad','negocio'];
+  const CAMPOS_TXT = ['nombre','whatsapp','ciudad','negocio','giroOtro'];
   const CAMPOS_OPC = ['giro','tamano','volumen','herramienta','precio','fantasma','anticipo'];
 
   const guarda = function(){
@@ -902,7 +957,7 @@ function track(evento, datos){
       nombre:      val('nombre'),
       whatsapp:    telE164(),
       ciudad:      val('ciudad'),
-      giro:        sel('giro'),
+      giro:        giroFinal(),
       negocio:     val('negocio'),
       tamano:      sel('tamano'),
       herramienta: sel('herramienta'),
@@ -954,11 +1009,16 @@ function track(evento, datos){
   });
   document.getElementById('cierraDlg').addEventListener('click', function(){ dlg.close(); });
 
-  // El giro puede venir preseleccionado desde las tarjetas del landing
+  // El giro puede venir preseleccionado desde las tarjetas del landing.
+  // Si llega uno que no está en la lista (una campaña a un rubro suelto),
+  // cae en "Otro" con el texto ya puesto en vez de perderse.
   const giroUrl = par.get('giro');
-  if (giroUrl) marcaOpcion('giro', giroUrl);
+  if (giroUrl && !marcaOpcion('giro', giroUrl) && marcaOpcion('giro', 'Otro')) {
+    document.getElementById('giroOtro').value = giroUrl;
+  }
 
   if (restaura()) retoma.classList.add('ver');
+  pintaGiroOtro();
 
   const hash = (location.hash.match(/^#paso-(\d)$/) || [])[1];
   if (hash) actual = Math.min(Math.max(parseInt(hash, 10) - 1, 0), pasos.length - 1);
