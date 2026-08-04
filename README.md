@@ -49,7 +49,6 @@ Aprovecha y llena también:
 | Campo | Dónde | Para qué sirve |
 |---|---|---|
 | `SHEETS_ENDPOINT` | `empezar.html` | La URL del Apps Script. Solo se configura aquí. |
-| `VERIFICAR_WHATSAPP` | `empezar.html` | `true` pide un código antes de dar de alta (paso 2). `false` quita el paso 6. |
 | `WHATSAPP` | ambos | Plan B si falla el envío. Formato `52` + 10 dígitos, sin `+` ni espacios. |
 | `EMAIL` | `index.html` | Aparece en el aviso de privacidad y en el pie. |
 | `META_PIXEL_ID` | ambos | Píxel de Meta (paso 4). Déjalo vacío mientras no lo tengas. |
@@ -65,75 +64,43 @@ Aprovecha y llena también:
 
 ---
 
-## Paso 1.5 · Verificación del número por WhatsApp
+## Paso 1.5 · El número de WhatsApp
 
-El último paso del alta manda un código de 6 dígitos y solo escribe la fila en
-la hoja cuando el código coincide. Para que funcione necesitas WhatsApp Business
-API (Meta Cloud API).
+Citali todavía no tiene WhatsApp Business API, así que **no se puede comprobar
+que un número exista**. Lo que sí hace la página:
 
-> Si todavía no la tienes: pon `VERIFICAR_WHATSAPP: false` en `empezar.html` y
-> `VERIFICAR = false` en `apps-script.gs`. El paso 6 desaparece y el alta guarda
-> directo. **No hay modo intermedio a propósito**: una verificación que deja
-> pasar a todos sin comprobar nada no es una verificación.
-
-### a) Lo que necesitas de Meta
-
-Antes de tocar el Apps Script, junta tres cosas en
-**developers.facebook.com → tu app → WhatsApp → Configuración de la API**:
-
-| Dato | Dónde sale |
+| Qué | Cómo |
 |---|---|
-| **Phone Number ID** | En la misma pantalla, debajo del número emisor |
-| **WhatsApp Business Account ID** | Ahí mismo, un renglón abajo |
-| **Token permanente** | Business Settings → Usuarios del sistema |
+| Descarta lo imposible | 10 dígitos, la lada no empieza con 0 ni 1, ni todos los dígitos iguales, ni secuencias tipo `1234567890` |
+| Lo pone a la vista | El número aparece en el panel lateral desde que se escribe, y otra vez en el paso 6 en grande |
+| Deja comprobarlo | Un enlace `wa.me` abre el chat: si el número no está en WhatsApp, WhatsApp mismo lo dice |
+| Pide confirmarlo | Una casilla que hay que marcar antes de poder enviar |
 
-Para el token: crea un usuario del sistema con rol de administrador sobre la
-app y dale los permisos `whatsapp_business_messaging` y
-`whatsapp_business_management`. **El token de prueba de 24 horas no sirve** para
-producción: deja de funcionar al día siguiente y los códigos dejan de salir.
+Esto atrapa dedazos, que es de donde salen casi todos los números malos. **No
+atrapa a quien pone un número real ajeno a propósito**, y por eso en ningún
+lado de la página dice «verificado».
 
-### b) Ponlos en el Apps Script
+### Cuando ya tengas WhatsApp Business API
 
-En `apps-script.gs` llena `WABA.PHONE_ID` y `WABA.CUENTA_ID`.
+El código de verificación por SMS de WhatsApp ya está escrito y probado en
+`apps-script.gs` (`enviarCodigo_`, `validarCodigo_`, `crearPlantilla`,
+`revisarPlantilla`, `probarEnvio`, `diagnostico`). Para encenderlo:
 
-**El token no va en el código.** Abre la función `guardaToken()`, pega el token,
-ejecútala una vez y luego borra el valor. Queda guardado en Propiedades del
-script, fuera del repositorio.
+1. Consigue **Phone Number ID**, **WhatsApp Business Account ID** y un **token
+   permanente** de usuario del sistema con permisos
+   `whatsapp_business_messaging` y `whatsapp_business_management`.
+   El token de prueba de 24 horas no sirve.
+2. Llena `WABA.PHONE_ID` y `WABA.CUENTA_ID`; guarda el token con `guardaToken()`.
+3. Ejecuta `crearPlantilla()` y luego `revisarPlantilla()` hasta que diga
+   `APPROVED`. Comprueba con `diagnostico()` y `probarEnvio()`.
+4. Pon `VERIFICAR = true` en `apps-script.gs`.
+5. Vuelve a poner el paso 6 del código en `empezar.html`: está completo en el
+   historial de git, commit `0b99f66`.
 
-### c) Crea la plantilla
-
-Puedes armarla a mano en WhatsApp Manager, pero es más rápido desde el editor:
-ejecuta **`crearPlantilla()`**. Crea `citali_codigo` en `es_MX`, categoría
-Autenticación, con botón *Copiar código* y aviso de vencimiento a los 10
-minutos.
-
-> En las plantillas de autenticación el texto del cuerpo **no se escribe**: lo
-> pone Meta y lo traduce solo. Lo único que se elige es qué partes lleva.
-
-Luego ejecuta **`revisarPlantilla()`** hasta que diga `APPROVED`. Las de
-autenticación suelen tardar minutos. Si sale `REJECTED`, la consola te dice el
-motivo.
-
-### d) Compruébalo de punta a punta
-
-1. **`diagnostico()`** — revisa que no falte token, IDs ni la plantilla.
-2. **`probarEnvio()`** — pon tu número y ejecuta: debe llegarte un código real
-   por WhatsApp. Ojo, es un mensaje real y se cobra.
-3. Abre la URL `/exec` en el navegador. Debe decir `"verificacion":"lista"`.
-
-### e) Topes que ya vienen puestos
-
-Se ajustan en el bloque `OTP` de `apps-script.gs`:
-
-| Tope | Valor | Para qué |
-|---|---|---|
-| Vigencia | 10 min | El código deja de servir |
-| Intentos | 5 por código | Después hay que pedir otro |
-| Reenvío | 45 s | Espera entre un envío y el siguiente |
-| Códigos por hora | 4 por número | Evita que quemen tu saldo de plantillas |
+Los topes ya vienen puestos en el bloque `OTP`: vigencia de 10 min, 5 intentos
+por código, 45 s entre envíos y 4 códigos por número por hora.
 
 > Cada código enviado es una conversación de autenticación y **se cobra**.
-> Revisa el precio vigente en México antes de abrir campañas grandes.
 
 ---
 

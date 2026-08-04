@@ -16,8 +16,20 @@ const NOTIFICAR = false;             // Ponlo en true para recibir un correo por
 const CORREO_AVISO = 'tu-correo@ejemplo.com';
 const ZONA = 'America/Mexico_City';
 
-// Verificación del número por WhatsApp
-const VERIFICAR = true;              // false = se guarda sin pedir código
+/**
+ * Verificación del número por WhatsApp.
+ *
+ * Apagada: Citali todavía no tiene WhatsApp Business API, así que empezar.html
+ * no tiene el paso del código. Todo lo de abajo (enviarCodigo_, validarCodigo_,
+ * crearPlantilla_...) ya está probado y esperando: el día que exista la cuenta,
+ * pon esto en true, sigue el paso 1.5 del README y vuelve a poner el paso 6 en
+ * la página — está en el historial de git, commit 0b99f66.
+ *
+ * Mientras tanto la página filtra números imposibles (largo, lada, dígitos
+ * repetidos, secuencias) y hace que la persona confirme el suyo antes de
+ * enviar. No es verificar, y por eso no se llama así en ningún lado.
+ */
+const VERIFICAR = false;
 
 const WABA = {
   VERSION:   'v21.0',
@@ -38,6 +50,8 @@ const OTP = {
 };
 
 const COLUMNAS = [
+  // 'Verificado' queda vacía mientras VERIFICAR esté apagado. Se deja puesta
+  // para no volver a mover los encabezados cuando se encienda.
   'Fecha', 'Nombre', 'Negocio', 'WhatsApp', 'Verificado', 'Ciudad', 'Giro', 'Tamaño',
   'Agenda hoy', 'Citas/semana', 'Precio sesión', 'Citas fantasma', 'Cobra anticipo',
   'Repetido', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
