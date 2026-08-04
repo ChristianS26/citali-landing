@@ -1,0 +1,146 @@
+[
+ {
+  "giro": "fisioterapia",
+  "autor": "Juan Manuel Montejano Lopez",
+  "autor_url": "https://www.pexels.com/@pandaa",
+  "pagina": "https://www.pexels.com/photo/physiotherapist-standing-over-patient-lying-down-13538710/",
+  "peso": 29238,
+  "calidad": 82
+ },
+ {
+  "giro": "rehabilitacion",
+  "autor": "Karl Solano",
+  "autor_url": "https://www.pexels.com/@karlsolano",
+  "pagina": "https://www.pexels.com/photo/brown-and-black-gym-equipments-11036674/",
+  "peso": 77646,
+  "calidad": 82
+ },
+ {
+  "giro": "quiropractica",
+  "autor": "Basil Otshudi",
+  "autor_url": "https://www.pexels.com/@basil-otshudi-1649859",
+  "pagina": "https://www.pexels.com/photo/physiotherapist-in-examination-room-7942574/",
+  "peso": 35824,
+  "calidad": 82
+ },
+ {
+  "giro": "masaje",
+  "autor": "Ron Lach",
+  "autor_url": "https://www.pexels.com/@ron-lach",
+  "pagina": "https://www.pexels.com/photo/person-getting-a-massage-9146381/",
+  "peso": 24064,
+  "calidad": 82
+ },
+ {
+  "giro": "acupuntura",
+  "autor": "RDNE Stock project",
+  "autor_url": "https://www.pexels.com/@rdne",
+  "pagina": "https://www.pexels.com/photo/close-up-shot-of-an-acupuncturist-holding-needles-8313210/",
+  "peso": 14622,
+  "calidad": 82
+ },
+ {
+  "giro": "alternativa",
+  "autor": "Tara Winstead",
+  "autor_url": "https://www.pexels.com/@tara-winstead",
+  "pagina": "https://www.pexels.com/photo/essential-oil-bottles-and-herbal-medicine-on-white-surface-6694179/",
+  "peso": 37454,
+  "calidad": 82
+ },
+ {
+  "giro": "psicologia",
+  "autor": "Nicholas Derio Palacios",
+  "autor_url": "https://www.pexels.com/@derio",
+  "pagina": "https://www.pexels.com/photo/modern-hotel-room-design-13806257/",
+  "peso": 14970,
+  "calidad": 82
+ },
+ {
+  "giro": "lenguaje",
+  "autor": "Brett Jordan",
+  "autor_url": "https://www.pexels.com/@brettjordan",
+  "pagina": "https://www.pexels.com/photo/message-on-dice-17141798/",
+  "peso": 19834,
+  "calidad": 82
+ },
+ {
+  "giro": "ocupacional",
+  "autor": "Tara Winstead",
+  "autor_url": "https://www.pexels.com/@tara-winstead",
+  "pagina": "https://www.pexels.com/photo/autism-spelled-using-wooden-blocks-on-a-white-surface-8385985/",
+  "peso": 22034,
+  "calidad": 82
+ },
+ {
+  "giro": "nutricion",
+  "autor": "https://kaboompics.com/",
+  "autor_url": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/person-holding-white-and-black-plate-with-sliced-avocado-and-green-vegetable-4963568/",
+  "peso": 36648,
+  "calidad": 82
+ },
+ {
+  "giro": "odontologia",
+  "autor": "Tima Miroshnichenko",
+  "autor_url": "https://www.pexels.com/@tima-miroshnichenko",
+  "pagina": "https://www.pexels.com/photo/dental-facility-5355863/",
+  "peso": 25822,
+  "calidad": 82
+ },
+ {
+  "giro": "general",
+  "autor": "Ivan Babydov",
+  "autor_url": "https://www.pexels.com/@babydov",
+  "pagina": "https://www.pexels.com/photo/special-medical-bed-desk-and-chairs-in-medical-cabinet-7789616/",
+  "peso": 22902,
+  "calidad": 82
+ },
+ {
+  "giro": "dermatologia",
+  "autor": "Polina ⠀",
+  "autor_url": "https://www.pexels.com/@polina-kovaleva",
+  "pagina": "https://www.pexels.com/photo/white-and-brown-bottles-on-white-textile-8100691/",
+  "peso": 20622,
+  "calidad": 82
+ },
+ {
+  "giro": "estetica",
+  "autor": "Deane Bayas",
+  "autor_url": "https://www.pexels.com/@dbaler",
+  "pagina": "https://www.pexels.com/photo/interior-of-an-aesthetic-clinic-10521230/",
+  "peso": 34662,
+  "calidad": 82
+ },
+ {
+  "giro": "podologia",
+  "autor": "José Antonio Otegui Auzmendi",
+  "autor_url": "https://www.pexels.com/@jose-antonio-otegui-auzmendi-2150489988",
+  "pagina": "https://www.pexels.com/photo/close-up-of-manicure-tools-in-a-wooden-box-34930156/",
+  "peso": 32404,
+  "calidad": 82
+ },
+ {
+  "giro": "optometria",
+  "autor": "https://kaboompics.com/",
+  "autor_url": "https://www.pexels.com/@karola-g",
+  "pagina": "https://www.pexels.com/photo/red-framed-eyeglasses-on-clear-glass-table-5202049/",
+  "peso": 22796,
+  "calidad": 82
+ },
+ {
+  "giro": "veterinaria",
+  "autor": "Tima Miroshnichenko",
+  "autor_url": "https://www.pexels.com/@tima-miroshnichenko",
+  "pagina": "https://www.pexels.com/photo/man-in-blue-scrub-suit-checking-up-a-dog-6235114/",
+  "peso": 26020,
+  "calidad": 82
+ },
+ {
+  "giro": "clinicas",
+  "autor": "Tetrakis  Sphericon",
+  "autor_url": "https://www.pexels.com/@tristo",
+  "pagina": "https://www.pexels.com/photo/quiet-hospital-waiting-area-in-tokyo-31377751/",
+  "peso": 44734,
+  "calidad": 82
+ }
+]

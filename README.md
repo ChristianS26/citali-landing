@@ -1,16 +1,21 @@
 # Citali — Landing de pre-registro
 
-Página de una sola pantalla para captar pre-registros de la beta y medir el alcance
-de la publicidad en redes. Todo el sitio es **un solo archivo** (`index.html`): no
-necesita servidor, base de datos ni proceso de construcción.
+Sitio de dos páginas para captar registros y medir el alcance de la publicidad
+en redes. No necesita servidor, base de datos ni proceso de construcción: son
+archivos HTML sueltos.
 
 ```
 citali-landing/
-├─ index.html              ← la página (lo único que se publica, junto con og.png)
+├─ index.html              ← el landing (secciones, carrusel, giros, precios, FAQ)
+├─ empezar.html            ← el alta en 5 pasos (aquí vive el formulario)
+├─ assets/                 ← logo y las fotos de los giros
 ├─ apps-script.gs          ← código para pegar en Google Sheets (recibe los registros)
-├─ og-image.html           ← plantilla para generar la imagen de redes (og.png)
-└─ README-despliegue.md    ← esto
+├─ og-image.html           ← plantilla para generar la imagen de redes (og.jpg)
+└─ README.md               ← esto
 ```
+
+Todos los botones del landing llevan a `empezar.html`. Las tarjetas de giros
+además preseleccionan el giro: `empezar.html?giro=Fisioterapia`.
 
 ---
 
@@ -32,7 +37,8 @@ citali-landing/
 8. Pruébala: pégala en el navegador. Debe responder
    `{"ok":true,"mensaje":"Citali: receptor de pre-registros activo"}`.
 
-Ahora abre `index.html`, busca el bloque `const CONFIG` (casi al final) y pega la URL:
+Ahora abre **`empezar.html`** (ahí vive el formulario), busca el bloque
+`const CONFIG` y pega la URL:
 
 ```js
 SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfy..../exec",
@@ -40,17 +46,61 @@ SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfy..../exec",
 
 Aprovecha y llena también:
 
-| Campo | Para qué sirve |
-|---|---|
-| `WHATSAPP` | Plan B si falla el envío del formulario. Formato `521` + 10 dígitos, sin `+` ni espacios. |
-| `EMAIL` | Aparece en el aviso de privacidad y en el pie. |
-| `META_PIXEL_ID` | Píxel de Meta (paso 4). Déjalo vacío mientras no lo tengas. |
-| `GA4_ID` | Google Analytics, opcional. |
-| `SHARE_TEXT` | Texto que se comparte por WhatsApp desde la pantalla de "gracias". |
+| Campo | Dónde | Para qué sirve |
+|---|---|---|
+| `SHEETS_ENDPOINT` | `empezar.html` | La URL del Apps Script. Solo se configura aquí. |
+| `WHATSAPP` | ambos | Plan B si falla el envío. Formato `52` + 10 dígitos, sin `+` ni espacios. |
+| `EMAIL` | `index.html` | Aparece en el aviso de privacidad y en el pie. |
+| `META_PIXEL_ID` | ambos | Píxel de Meta (paso 4). Déjalo vacío mientras no lo tengas. |
+| `GA4_ID` | ambos | Google Analytics, opcional. |
+| `SHARE_TEXT` | `empezar.html` | Texto que se comparte por WhatsApp desde la pantalla final. |
+
+> Los identificadores de medición van en las dos páginas para que el píxel
+> cuente la visita al landing **y** la del alta.
 
 > **Cada vez que edites el código del Apps Script**, tienes que hacer
 > *Implementar → Administrar implementaciones → ✏️ → Versión: Nueva → Implementar*.
 > Si solo guardas, sigue corriendo la versión vieja.
+
+---
+
+## Paso 1.5 · El número de WhatsApp
+
+Citali todavía no tiene WhatsApp Business API, así que **no se puede comprobar
+que un número exista**. Lo que sí hace la página:
+
+| Qué | Cómo |
+|---|---|
+| Descarta lo imposible | 10 dígitos, la lada no empieza con 0 ni 1, ni todos los dígitos iguales, ni secuencias tipo `1234567890` |
+| Lo pone a la vista | El número aparece en el panel lateral desde que se escribe, y otra vez en el paso 6 en grande |
+| Deja comprobarlo | Un enlace `wa.me` abre el chat: si el número no está en WhatsApp, WhatsApp mismo lo dice |
+| Pide confirmarlo | Una casilla que hay que marcar antes de poder enviar |
+
+Esto atrapa dedazos, que es de donde salen casi todos los números malos. **No
+atrapa a quien pone un número real ajeno a propósito**, y por eso en ningún
+lado de la página dice «verificado».
+
+### Cuando ya tengas WhatsApp Business API
+
+El código de verificación por SMS de WhatsApp ya está escrito y probado en
+`apps-script.gs` (`enviarCodigo_`, `validarCodigo_`, `crearPlantilla`,
+`revisarPlantilla`, `probarEnvio`, `diagnostico`). Para encenderlo:
+
+1. Consigue **Phone Number ID**, **WhatsApp Business Account ID** y un **token
+   permanente** de usuario del sistema con permisos
+   `whatsapp_business_messaging` y `whatsapp_business_management`.
+   El token de prueba de 24 horas no sirve.
+2. Llena `WABA.PHONE_ID` y `WABA.CUENTA_ID`; guarda el token con `guardaToken()`.
+3. Ejecuta `crearPlantilla()` y luego `revisarPlantilla()` hasta que diga
+   `APPROVED`. Comprueba con `diagnostico()` y `probarEnvio()`.
+4. Pon `VERIFICAR = true` en `apps-script.gs`.
+5. Vuelve a poner el paso 6 del código en `empezar.html`: está completo en el
+   historial de git, commit `0b99f66`.
+
+Los topes ya vienen puestos en el bloque `OTP`: vigencia de 10 min, 5 intentos
+por código, 45 s entre envíos y 4 códigos por número por hora.
+
+> Cada código enviado es una conversación de autenticación y **se cobra**.
 
 ---
 
@@ -169,3 +219,26 @@ Números que de verdad importan durante la prueba:
 - **Correo de contacto**: hoy dice `hola@citali.mx`; hay que crearlo o cambiarlo.
 - Revisar el aviso de privacidad con quien lleve lo legal antes de meterle dinero
   a los anuncios, y decidir si registras la marca ante el IMPI (la propuesta lo tenía pendiente).
+
+---
+
+## El logo
+
+Vive en `assets/`. El SVG es la fuente de verdad: escala a cualquier tamaño,
+pesa 1.4 KB y no necesita versiones @2x.
+
+| Archivo | Cuándo usarlo |
+|---|---|
+| `logo.svg` | Uso general. Gradiente cian → morado, fondo transparente. Es también el favicon. |
+| `logo-mono.svg` | Cuando el gradiente no cabe: hereda el color del texto con `currentColor`, así que se pinta con CSS (`color: #fff`). Útil sobre fondos de color, en impresión o en un solo tono. |
+| `apple-touch-icon.png` | Icono al guardar el sitio en la pantalla de inicio de iOS. 180×180 sobre el morado oscuro de marca. |
+| `logo-original.png` | El PNG original tal cual llegó, 1254×1254. No se usa en el sitio; queda como respaldo. |
+
+En `index.html` el logo va **incrustado** en la barra superior, no como `<img>`:
+así se pinta al instante y se puede animar o recolorear desde CSS.
+
+Si cambias el SVG, acuérdate de regenerar `apple-touch-icon.png`.
+
+> El gradiente del logo (cian → morado) y el violeta de la interfaz
+> (`--violet: #6D4AE0`) conviven pero no son el mismo color. Si en algún
+> momento quieren unificar la identidad, ese es el punto a decidir.
