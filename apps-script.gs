@@ -33,6 +33,7 @@ const COLUMNAS = [
 ];
 
 const COL_WHATSAPP = 4;              // Posición de la columna WhatsApp en COLUMNAS
+const COL_PLAN     = 23;             // Plan / Fecha instalación / Horario van juntas al final
 
 // ─── Entrada ────────────────────────────────────────────────────────────────
 function doPost(e) {
@@ -78,6 +79,22 @@ function guardar_(datos, verificado) {
     }
 
     const hoja = obtenerHoja_();
+
+    // Segunda fase del formulario: la persona ya mandó su solicitud y ahora
+    // agenda plan e instalación. Se completa su fila en vez de duplicarla.
+    // Si no hay fila previa (otro navegador, hoja limpiada), cae al alta normal.
+    if (String(datos.etapa || '') === 'instalacion') {
+      const fila = filaPorWhatsapp_(hoja, datos.whatsapp);
+      if (fila) {
+        hoja.getRange(fila, COL_PLAN, 1, 3).setValues([[
+          datos.plan || '',
+          datos.fecha_instalacion || '',
+          datos.horario || ''
+        ]]);
+        return { ok: true, actualizado: true };
+      }
+    }
+
     const repetido = yaExiste_(hoja, datos.whatsapp) ? 'sí' : '';
 
     hoja.appendRow([
@@ -166,6 +183,18 @@ function avisaEncabezado_(hoja) {
     'Renombra la pestaña "' + HOJA + '" (o borra la fila 1 y sus datos) ' +
     'para que se generen de nuevo. Encabezados actuales: ' + actual.join(' | ')
   );
+}
+
+/** Última fila cuyo WhatsApp coincide: de abajo hacia arriba, la más reciente. */
+function filaPorWhatsapp_(hoja, whatsapp) {
+  const filas = hoja.getLastRow();
+  if (filas < 2) return 0;
+  const columna = hoja.getRange(2, COL_WHATSAPP, filas - 1, 1).getValues();
+  const buscado = String(whatsapp).replace(/\D/g, '');
+  for (let i = columna.length - 1; i >= 0; i--) {
+    if (String(columna[i][0]).replace(/\D/g, '') === buscado) return i + 2;
+  }
+  return 0;
 }
 
 function yaExiste_(hoja, whatsapp) {

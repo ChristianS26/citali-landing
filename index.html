@@ -28,6 +28,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Instrument+Sans:wght@400..600&display=swap" rel="stylesheet">
 
+<!-- Píxel de Meta: mide visitas y deja optimizar la pauta por registros -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','4495075780764827');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=4495075780764827&ev=PageView&noscript=1"></noscript>
+
 <style>
 :root{
   --void:#17111F;
@@ -1882,6 +1894,20 @@ document.getElementById('heroCta').addEventListener('click', function(){
 
   coloca(false);
   arranca();
+})();
+
+/* Los UTM de la pauta llegan al home; se reenvían a los enlaces del formulario
+   para que el registro no pierda su fuente en la hoja. */
+(function(){
+  const par = new URLSearchParams(location.search);
+  const llaves = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term']
+    .filter(function(k){ return par.get(k); });
+  if (!llaves.length) return;
+  document.querySelectorAll('a[href^="empezar.html"]').forEach(function(a){
+    const u = new URL(a.getAttribute('href'), location.href);
+    llaves.forEach(function(k){ u.searchParams.set(k, par.get(k)); });
+    a.setAttribute('href', 'empezar.html' + u.search);
+  });
 })();
 
 </script>

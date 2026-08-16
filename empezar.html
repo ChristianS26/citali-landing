@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Comenzar con Citali — Agenda tu instalación</title>
-<meta name="description" content="Cuatro pasos para dejar lista la configuración de tu negocio y agendar el día de tu instalación. Te escribimos por WhatsApp para conectar tu número.">
+<title>Comenzar con Citali — Solicita tu invitación</title>
+<meta name="description" content="Dos pasos para solicitar tu invitación. Te escribimos por WhatsApp para darte de alta, y si quieres dejas tu instalación agendada desde ahora.">
 <meta name="theme-color" content="#17111F">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://citali.mx/empezar.html">
@@ -268,6 +268,15 @@ input[type=date]{
   flex:0 0 auto;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--violet);
   color:#fff;display:grid;place-items:center;font-size:.78rem;font-weight:600;
 }
+
+/* ── oferta opcional tras la solicitud ──────────────────────────────── */
+.ofrece{
+  text-align:left;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);
+  border-radius:13px;padding:1.1rem 1.2rem;margin-bottom:1.8rem;
+}
+.of-t{font-weight:600;color:#fff;font-size:.98rem}
+.of-d{font-size:.86rem;color:#B6A9CB;margin-top:.25rem}
+.of-botones{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}
 .listo .btn-f{color:#D3C9E2;border-color:var(--line-dark)}
 .listo .btn-f:hover{color:#fff;border-color:#4C3F66}
 
@@ -348,10 +357,10 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
   <div id="marco">
     <div class="avance">
       <div class="avance-fila">
-        <span><b id="cuenta">Paso 1 de 4</b> · <span id="rotulo">Tu cuenta</span></span>
-        <span class="mins">≈ 2 min</span>
+        <span><b id="cuenta">Paso 1 de 2</b> · <span id="rotulo">Tu cuenta</span></span>
+        <span class="mins">≈ 1 min</span>
       </div>
-      <div class="riel"><i class="lleno-riel" id="barra" style="width:25%"></i></div>
+      <div class="riel"><i class="lleno-riel" id="barra" style="width:50%"></i></div>
     </div>
 
     <div class="tarjeta">
@@ -450,6 +459,25 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
             <div class="ops c1" role="radiogroup" aria-labelledby="lbl-herramienta"><label class="op"><input type="radio" name="herramienta" value="Libreta o agenda de papel"><span class="op-c"><span class="op-t">Libreta o agenda de papel</span></span></label><label class="op"><input type="radio" name="herramienta" value="WhatsApp, a mano"><span class="op-c"><span class="op-t">WhatsApp, a mano</span></span></label><label class="op"><input type="radio" name="herramienta" value="Google Calendar"><span class="op-c"><span class="op-t">Google Calendar</span></span></label><label class="op"><input type="radio" name="herramienta" value="Excel o Google Sheets"><span class="op-c"><span class="op-t">Excel o Google Sheets</span></span></label><label class="op"><input type="radio" name="herramienta" value="Un software de agenda"><span class="op-c"><span class="op-t">Un software de agenda</span></span></label><label class="op"><input type="radio" name="herramienta" value="Una recepcionista"><span class="op-c"><span class="op-t">Una recepcionista</span></span></label></div>
             <p class="err" id="err-herramienta" role="alert">Elige una opción.</p>
           </div>
+
+          <div class="repaso">
+            <p class="rp-etq">Te escribimos a</p>
+            <p class="rp-tel"><b id="repTel">+52 55 1234 5678</b>
+              <button type="button" class="enlace" id="cambiaTel">Cambiar</button></p>
+            <a class="rp-probar" id="pruebaWA" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16.4A8.4 8.4 0 1 1 8.2 19.6l-4.7.9Z"/></svg>
+              <span>Ábrelo en WhatsApp y comprueba que es tu chat</span>
+            </a>
+          </div>
+
+          <div class="campo">
+            <label class="acepto">
+              <input type="checkbox" id="confirmo" name="confirmo">
+              <span>Sí, ese es mi WhatsApp y ahí puedo recibir mensajes.</span>
+            </label>
+            <p class="err" id="err-confirmo" role="alert">Confirma que tu WhatsApp está bien escrito.</p>
+          </div>
         </fieldset>
 
         <fieldset data-paso="3" hidden>
@@ -505,25 +533,6 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
             <div class="ops c1" role="radiogroup" aria-labelledby="lbl-horario"><label class="op"><input type="radio" name="horario" value="Mañana (9:00 a 13:00)"><span class="op-c"><span class="op-t">Mañana</span><span class="op-d">9:00 a 13:00</span></span></label><label class="op"><input type="radio" name="horario" value="Mediodía (13:00 a 16:00)"><span class="op-c"><span class="op-t">Mediodía</span><span class="op-d">13:00 a 16:00</span></span></label><label class="op"><input type="radio" name="horario" value="Tarde (16:00 a 19:00)"><span class="op-c"><span class="op-t">Tarde</span><span class="op-d">16:00 a 19:00</span></span></label></div>
             <p class="err" id="err-horario" role="alert">Elige un horario.</p>
           </div>
-
-          <div class="repaso">
-            <p class="rp-etq">Te escribimos a</p>
-            <p class="rp-tel"><b id="repTel">+52 55 1234 5678</b>
-              <button type="button" class="enlace" id="cambiaTel">Cambiar</button></p>
-            <a class="rp-probar" id="pruebaWA" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16.4A8.4 8.4 0 1 1 8.2 19.6l-4.7.9Z"/></svg>
-              <span>Ábrelo en WhatsApp y comprueba que es tu chat</span>
-            </a>
-          </div>
-
-          <div class="campo">
-            <label class="acepto">
-              <input type="checkbox" id="confirmo" name="confirmo">
-              <span>Sí, ese es mi WhatsApp y ahí puedo recibir mensajes.</span>
-            </label>
-            <p class="err" id="err-confirmo" role="alert">Confirma que tu WhatsApp está bien escrito.</p>
-          </div>
         </fieldset>
 
         <div class="trampa" aria-hidden="true">
@@ -538,7 +547,7 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <button type="submit" class="btn btn-p" id="manda" hidden>
-            <span class="btn-txt">Solicitar instalación</span>
+            <span class="btn-txt">Solicitar invitación</span>
           </button>
         </div>
 
@@ -571,18 +580,30 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
     <div class="paloma">
       <svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" stroke="#3AA37A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
-    <h1 id="listoTit">Instalación solicitada.</h1>
-    <p>Pediste el <b id="listoFecha">día que elegiste</b> por la <b id="listoHorario">mañana</b>.
-       Te confirmamos por WhatsApp a <b id="listoTel">tu número</b> en menos de 24 horas.</p>
+    <h1 id="listoTit">Solicitud recibida.</h1>
+    <p>Te confirmamos por WhatsApp a <b id="listoTel">tu número</b> en menos de 24 horas.</p>
+    <p id="listoDetalle" hidden>Pediste tu instalación el <b id="listoFecha">día que elegiste</b> por la <b id="listoHorario">mañana</b>.</p>
 
-    <ol class="pasos-sig">
-      <li><span class="k">1</span><span>Te escribimos desde el número de Citali para confirmar el día y la hora.</span></li>
-      <li><span class="k">2</span><span>Dejamos tu agenda, tus servicios y tus precios cargados con lo que nos contaste.</span></li>
-      <li><span class="k">3</span><span>El día acordado conectamos tu número contigo, en una llamada corta. No te dejamos solo frente a un panel.</span></li>
-    </ol>
+    <div class="ofrece" id="ofrece">
+      <p class="of-t">¿Quieres dejar tu instalación agendada desde ahora?</p>
+      <p class="of-d">Es opcional. Eliges tu plan y el día que te acomoda, y te lo confirmamos
+         en el mismo mensaje. No se cobra nada hasta que tu instalación quede confirmada.</p>
+      <div class="of-botones">
+        <button type="button" class="btn btn-p" id="agendaAhora">Elegir plan y fecha</button>
+        <button type="button" class="btn btn-f" id="asiEsta">Por ahora así está bien</button>
+      </div>
+    </div>
 
-    <p style="font-size:.9rem;color:#9C8DB4;margin-bottom:.9rem">¿Conoces a otro negocio al que le sirva?</p>
-    <a class="btn btn-f" id="comparte" href="#" target="_blank" rel="noopener">Pasar la voz por WhatsApp</a>
+    <div id="cierre" hidden>
+      <ol class="pasos-sig">
+        <li><span class="k">1</span><span>Te escribimos desde el número de Citali en menos de 24 horas.</span></li>
+        <li><span class="k">2</span><span>Dejamos tu agenda, tus servicios y tus precios cargados con lo que nos contaste.</span></li>
+        <li><span class="k">3</span><span>Conectamos tu número contigo, en una llamada corta. No te dejamos solo frente a un panel.</span></li>
+      </ol>
+
+      <p style="font-size:.9rem;color:#9C8DB4;margin-bottom:.9rem">¿Conoces a otro negocio al que le sirva?</p>
+      <a class="btn btn-f" id="comparte" href="#" target="_blank" rel="noopener">Pasar la voz por WhatsApp</a>
+    </div>
   </div>
 
 </main>
@@ -591,7 +612,7 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
 const CONFIG = {
   SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfycbzV_c_CxlgcGxKRfIQY2PJfdLcVmn_rizf2WepBRLExYqN37bLrPJAMcFDMZdAfSCMx/exec",
   WHATSAPP: "526221254659",
-  META_PIXEL_ID: "",
+  META_PIXEL_ID: "4495075780764827",
   GA4_ID: "",
   SHARE_TEXT: "Mira esto: Citali, una recepcionista con IA que contesta el WhatsApp del negocio, agenda y cobra el anticipo sola. Está por invitación y activan pocos negocios por semana: https://citali.mx"
 };
@@ -623,9 +644,13 @@ function track(evento, datos){
 
 (function(){
   const TITULOS = ['Tu cuenta', 'Tu configuración', 'Tu plan', 'Tu instalación'];
-  // v2: el formulario cambió de preguntas. Un borrador v1 traería campos que
-  // ya no existen y un paso que se salía del rango, así que se descarta solo.
-  const LLAVE   = 'citali_borrador_v2';
+  // v3: la solicitud se parte en dos fases y el plan dejó de ser obligatorio.
+  // Un borrador v2 traería un avance que ya no existe, así que se descarta solo.
+  const LLAVE   = 'citali_borrador_v3';
+
+  // Fase A (pasos 1-2): la solicitud. Se envía como lead al terminar el paso 2.
+  // Fase B (pasos 3-4): opcional. Solo si la persona quiere agendar de una vez.
+  const FIN_A = 1;
 
   const form   = document.getElementById('alta');
   const pasos  = Array.prototype.slice.call(form.querySelectorAll('fieldset'));
@@ -638,11 +663,17 @@ function track(evento, datos){
   const aviso  = document.getElementById('aviso');
   const retoma = document.getElementById('retoma');
   const marco  = document.getElementById('marco');
+  const vista  = document.getElementById('vista');
   const listo  = document.getElementById('listo');
   const tel    = document.getElementById('whatsapp');
   const abierto = Date.now();
 
+  let fase = 0;               // 0 = solicitud, 1 = instalación opcional
   let actual = 0;
+  let leadEnviado = false;
+
+  const base = function(){ return fase === 0 ? 0 : FIN_A + 1; };
+  const tope = function(){ return fase === 0 ? FIN_A : pasos.length - 1; };
 
   /* ── lectura del formulario ───────────────────────────────────────── */
   const val = function(id){ const e = document.getElementById(id); return e ? e.value.trim() : ''; };
@@ -810,8 +841,13 @@ function track(evento, datos){
       const c = fallaGrupo('tamano',      !sel('tamano'));
       const d = fallaGrupo('volumen',     !sel('volumen'));
       const e = fallaGrupo('herramienta', !sel('herramienta'));
+      const caja = document.getElementById('confirmo');
+      const mal = !caja.checked;
+      caja.setAttribute('aria-invalid', mal ? 'true' : 'false');
+      const f = fallaGrupo('confirmo', mal);
       if (a && !b) document.getElementById('giroOtro').focus();
-      return a && b && c && d && e;
+      else if (a && b && c && d && e && !f) caja.focus();
+      return a && b && c && d && e && f;
     },
     function(){
       return fallaGrupo('plan', !sel('plan'));
@@ -819,33 +855,25 @@ function track(evento, datos){
     function(){
       const a = revisaFecha();
       const b = fallaGrupo('horario', !sel('horario'));
-      const caja = document.getElementById('confirmo');
-      const mal = !caja.checked;
-      caja.setAttribute('aria-invalid', mal ? 'true' : 'false');
-      const c = fallaGrupo('confirmo', mal);
       if (!a) document.getElementById('fecha').focus();
-      else if (c === false && b) caja.focus();
-      return a && b && c;
+      return a && b;
     }
   ];
 
   /**
    * Las mismas condiciones que REGLAS, pero sin pintar errores: sirve para
-   * saber hasta qué paso alcanzan los datos que ya hay. Sin esto se puede
-   * entrar directo a #paso-6 y ver un repaso en blanco.
+   * saber hasta qué paso alcanzan los datos que ya hay. Solo cubre la fase A:
+   * a la fase B no se llega por URL, se llega enviando la solicitud.
    */
   const COMPLETO = [
     function(){ return val('nombre').length >= 2 && !quejaTel(digitos())
                     && val('negocio').length >= 2 && val('ciudad').length >= 2; },
-    function(){ return !!sel('giro') && (sel('giro') !== 'Otro' || val('giroOtro').length >= 2)
-                    && !!sel('tamano') && !!sel('volumen') && !!sel('herramienta'); },
-    function(){ return !!sel('plan'); },
-    function(){ return true; }          // la instalación es el último paso
+    function(){ return true; }          // el paso 2 es el último de la solicitud
   ];
 
   const hastaDonde = function(){
     for (let i = 0; i < COMPLETO.length; i++) if (!COMPLETO[i]()) return i;
-    return COMPLETO.length - 1;
+    return FIN_A;
   };
 
   /* ── confirmación del número, en el último paso ───────────────────── */
@@ -885,22 +913,25 @@ function track(evento, datos){
   /* ── navegación ───────────────────────────────────────────────────── */
   const pinta = function(mueveFoco){
     pasos.forEach(function(f, i){ f.hidden = (i !== actual); });
-    barra.style.width = Math.round(((actual + 1) / pasos.length) * 100) + '%';
-    cuenta.textContent = 'Paso ' + (actual + 1) + ' de ' + pasos.length;
+    const local = actual - base() + 1;      // 1 o 2, dentro de la fase
+    barra.style.width = Math.round((local / 2) * 100) + '%';
+    cuenta.textContent = (fase === 1 ? 'Opcional · paso ' : 'Paso ') + local + ' de 2';
     rotulo.textContent = TITULOS[actual];
-    atras.hidden = actual === 0;
-    sigue.hidden = actual === pasos.length - 1;
-    manda.hidden = actual !== pasos.length - 1;
+    atras.hidden = actual === base();
+    sigue.hidden = actual === tope();
+    manda.hidden = actual !== tope();
+    manda.querySelector('.btn-txt').textContent =
+      fase === 0 ? 'Solicitar invitación' : 'Agendar instalación';
     document.body.dataset.paso = String(actual + 1);
 
-    if (actual === pasos.length - 1) pintaRepaso();
+    if (actual === FIN_A) pintaRepaso();
     if (actual === 2) pintaSugerencia();
 
     if (mueveFoco) {
       const primero = pasos[actual].querySelector('input:not([type=radio]):not([type=hidden]), input[type=radio]');
       if (primero) primero.focus({ preventScroll: true });
     }
-    if (actual > 0) marco.scrollIntoView({ block: 'start', behavior: 'auto' });
+    if (actual > base()) marco.scrollIntoView({ block: 'start', behavior: 'auto' });
   };
 
   const avanza = function(){
@@ -916,14 +947,14 @@ function track(evento, datos){
   atras.addEventListener('click', function(){ history.back(); });
 
   window.addEventListener('popstate', function(e){
-    const p = (e.state && typeof e.state.paso === 'number') ? e.state.paso : 0;
-    actual = Math.min(Math.max(p, 0), pasos.length - 1);
+    const p = (e.state && typeof e.state.paso === 'number') ? e.state.paso : base();
+    actual = Math.min(Math.max(p, base()), tope());
     pinta(false);
   });
 
   // Enter avanza en vez de enviar el formulario a medias
   form.addEventListener('keydown', function(e){
-    if (e.key === 'Enter' && actual < pasos.length - 1) { e.preventDefault(); avanza(); }
+    if (e.key === 'Enter' && actual < tope()) { e.preventDefault(); avanza(); }
   });
 
   /* ── revalida en vivo y guarda ────────────────────────────────────── */
@@ -957,6 +988,7 @@ function track(evento, datos){
   const CAMPOS_OPC = ['giro','tamano','volumen','herramienta','plan','horario'];
 
   const guarda = function(){
+    if (leadEnviado) return;   // tras enviar la solicitud, el borrador ya no aplica
     try {
       const d = { paso: actual };
       CAMPOS_TXT.forEach(function(c){ d[c] = val(c); });
@@ -975,7 +1007,7 @@ function track(evento, datos){
     CAMPOS_OPC.forEach(function(c){ if (d[c]) marcaOpcion(c, d[c]); });
     const hayAlgo = CAMPOS_TXT.concat(CAMPOS_OPC).some(function(c){ return d[c]; });
     // La casilla de confirmación no se retoma: hay que volver a marcarla
-    if (hayAlgo && typeof d.paso === 'number') actual = Math.min(d.paso, pasos.length - 1);
+    if (hayAlgo && typeof d.paso === 'number') actual = Math.min(d.paso, FIN_A);
     return hayAlgo;
   };
 
@@ -1004,6 +1036,45 @@ function track(evento, datos){
     }
   };
 
+  /**
+   * El mismo registro viaja dos veces: como 'lead' al terminar la solicitud
+   * (plan e instalación vacíos) y como 'instalacion' si la persona decide
+   * agendar. El Apps Script usa `etapa` para completar la fila en vez de
+   * duplicarla.
+   */
+  const arma = function(etapa){
+    const conPlan = etapa === 'instalacion';
+    return {
+      etapa:       etapa,
+      nombre:      val('nombre'),
+      whatsapp:    telE164(),
+      ciudad:      val('ciudad'),
+      giro:        giroFinal(),
+      negocio:     val('negocio'),
+      tamano:      sel('tamano'),
+      herramienta: sel('herramienta'),
+      volumen:     sel('volumen'),
+      plan:        conPlan ? sel('plan') : '',
+      fecha_instalacion: conPlan ? val('fecha') : '',
+      horario:     conPlan ? sel('horario') : '',
+      utm_source:   utm('utm_source'),
+      utm_medium:   utm('utm_medium'),
+      utm_campaign: utm('utm_campaign'),
+      utm_content:  utm('utm_content'),
+      utm_term:     utm('utm_term'),
+      referencia:   document.referrer || '',
+      pagina:       location.href,
+      dispositivo:  navigator.userAgent
+    };
+  };
+
+  const muestraListo = function(){
+    marco.hidden = true;
+    vista.hidden = true;
+    listo.classList.add('ver');
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     aviso.classList.remove('ver');
@@ -1014,45 +1085,34 @@ function track(evento, datos){
 
     manda.dataset.cargando = 'true';
 
-    const datos = {
-      nombre:      val('nombre'),
-      whatsapp:    telE164(),
-      ciudad:      val('ciudad'),
-      giro:        giroFinal(),
-      negocio:     val('negocio'),
-      tamano:      sel('tamano'),
-      herramienta: sel('herramienta'),
-      volumen:     sel('volumen'),
-      plan:        sel('plan'),
-      fecha_instalacion: val('fecha'),
-      horario:     sel('horario'),
-      utm_source:   utm('utm_source'),
-      utm_medium:   utm('utm_medium'),
-      utm_campaign: utm('utm_campaign'),
-      utm_content:  utm('utm_content'),
-      utm_term:     utm('utm_term'),
-      referencia:   document.referrer || '',
-      pagina:       location.href,
-      dispositivo:  navigator.userAgent
-    };
-
     try {
-      await envia(datos);
-      track('Lead', { content_name: 'Solicitud de instalación', content_category: datos.giro });
-      try { localStorage.removeItem(LLAVE); localStorage.setItem('citali_registrado', '1'); } catch(err){}
+      if (fase === 0) {
+        await envia(arma('lead'));
+        leadEnviado = true;
+        track('Lead', { content_name: 'Solicitud de invitación', content_category: giroFinal() });
+        try { localStorage.removeItem(LLAVE); localStorage.setItem('citali_registrado', '1'); } catch(err){}
 
-      marco.hidden = true;
-      document.getElementById('vista').hidden = true;
-      listo.classList.add('ver');
-      document.getElementById('listoTit').textContent =
-        'Instalación solicitada, ' + datos.nombre.split(' ')[0] + '.';
-      document.getElementById('listoTel').textContent = telBonito();
-      document.getElementById('listoFecha').textContent = fechaBonita(datos.fecha_instalacion);
-      document.getElementById('listoHorario').textContent =
-        datos.horario.replace(/\s*\(.*\)$/, '').toLowerCase();
-      document.getElementById('comparte').href =
-        'https://wa.me/?text=' + encodeURIComponent(CONFIG.SHARE_TEXT);
-      window.scrollTo({ top: 0, behavior: 'auto' });
+        document.getElementById('listoTit').textContent =
+          'Solicitud recibida, ' + val('nombre').split(' ')[0] + '.';
+        document.getElementById('listoTel').textContent = telBonito();
+        document.getElementById('comparte').href =
+          'https://wa.me/?text=' + encodeURIComponent(CONFIG.SHARE_TEXT);
+        muestraListo();
+
+      } else {
+        await envia(arma('instalacion'));
+        track('Schedule', { content_name: 'Instalación agendada', content_category: sel('plan') });
+
+        document.getElementById('listoTit').textContent =
+          'Instalación agendada, ' + val('nombre').split(' ')[0] + '.';
+        document.getElementById('listoFecha').textContent = fechaBonita(val('fecha'));
+        document.getElementById('listoHorario').textContent =
+          sel('horario').replace(/\s*\(.*\)$/, '').toLowerCase();
+        document.getElementById('listoDetalle').hidden = false;
+        document.getElementById('ofrece').hidden = true;
+        document.getElementById('cierre').hidden = false;
+        muestraListo();
+      }
 
     } catch (err) {
       console.error('[Citali] No se pudo guardar el registro:', err);
@@ -1064,6 +1124,22 @@ function track(evento, datos){
     } finally {
       manda.dataset.cargando = 'false';
     }
+  });
+
+  /* ── instalación opcional, tras la solicitud ──────────────────────── */
+  document.getElementById('agendaAhora').addEventListener('click', function(){
+    listo.classList.remove('ver');
+    marco.hidden = false;
+    vista.hidden = false;
+    fase = 1;
+    actual = base();
+    history.pushState({ paso: actual }, '', '#paso-' + (actual + 1));
+    pinta(true);
+  });
+
+  document.getElementById('asiEsta').addEventListener('click', function(){
+    document.getElementById('ofrece').hidden = true;
+    document.getElementById('cierre').hidden = false;
   });
 
   /* ── arranque ─────────────────────────────────────────────────────── */
@@ -1085,7 +1161,7 @@ function track(evento, datos){
   pintaSugerencia();
 
   const hash = (location.hash.match(/^#paso-(\d)$/) || [])[1];
-  if (hash) actual = Math.min(Math.max(parseInt(hash, 10) - 1, 0), pasos.length - 1);
+  if (hash) actual = Math.min(Math.max(parseInt(hash, 10) - 1, 0), FIN_A);
 
   actual = Math.min(actual, hastaDonde());
 
