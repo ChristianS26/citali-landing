@@ -536,8 +536,10 @@ dialog::backdrop{background:rgba(14,10,20,.62);backdrop-filter:blur(2px)}
         </fieldset>
 
         <div class="trampa" aria-hidden="true">
-          <label for="sitio">No llenes este campo</label>
-          <input type="text" id="sitio" name="sitio" tabindex="-1" autocomplete="off">
+          <!-- El nombre no puede parecerse a nada real: Chrome autollenaba
+               "sitio" como si fuera un campo de sitio web y bloqueaba el envío. -->
+          <label for="nverif">No llenes este campo</label>
+          <input type="text" id="nverif" name="nverif" tabindex="-1" autocomplete="off">
         </div>
 
         <div class="pie-form">
@@ -939,7 +941,11 @@ function track(evento, datos){
   };
 
   const avanza = function(){
-    if (!REGLAS[actual]()) return;
+    if (!REGLAS[actual]()) {
+      const mal = pasos[actual].querySelector('.err.ver, [aria-invalid="true"]');
+      if (mal) mal.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      return;
+    }
     track('OnboardStep', { step: actual + 1 });
     actual++;
     guarda();
@@ -1083,9 +1089,28 @@ function track(evento, datos){
     e.preventDefault();
     aviso.classList.remove('ver');
 
-    // Anti-spam: trampa llena, o enviado en menos de 3 segundos
-    if (document.getElementById('sitio').value || (Date.now() - abierto) < 3000) return;
-    if (!REGLAS[actual]()) return;
+    // Anti-spam. La trampa descarta bots; el aviso queda en consola porque
+    // descartar sin rastro ya nos costó un envío que "no hacía nada".
+    if (document.getElementById('nverif').value) {
+      console.warn('[Citali] Envío descartado: la trampa anti-bots tiene texto.');
+      return;
+    }
+    // Menos de 3 segundos abierta la página no es humano tecleando, pero sí
+    // puede ser un borrador restaurado listo para enviar: se espera y reintenta.
+    const transcurrido = Date.now() - abierto;
+    if (transcurrido < 3000) {
+      manda.dataset.cargando = 'true';
+      setTimeout(function(){
+        if (form.requestSubmit) form.requestSubmit();
+        else form.dispatchEvent(new Event('submit', { cancelable: true }));
+      }, 3050 - transcurrido);
+      return;
+    }
+    if (!REGLAS[actual]()) {
+      const mal = pasos[actual].querySelector('.err.ver, [aria-invalid=\"true\"]');
+      if (mal) mal.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      return;
+    }
 
     manda.dataset.cargando = 'true';
 
