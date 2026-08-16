@@ -638,7 +638,11 @@ const CONFIG = {
 })();
 
 function track(evento, datos){
-  try { if (window.fbq) fbq('track', evento, datos || {}); } catch(e){}
+  // Meta solo admite fbq('track') para sus eventos estándar; los propios
+  // (OnboardStep) van por trackCustom o la consola se llena de avisos.
+  const ESTANDAR = ['Lead', 'Schedule', 'Contact', 'CompleteRegistration'];
+  const via = ESTANDAR.indexOf(evento) !== -1 ? 'track' : 'trackCustom';
+  try { if (window.fbq) fbq(via, evento, datos || {}); } catch(e){}
   try { if (window.gtag) gtag('event', evento, datos || {}); } catch(e){}
 }
 
